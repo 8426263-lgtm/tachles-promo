@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>פיצ'רים — תכל'ס | נטו אמיתי, סימולטור מס, שעות, חשבוניות ועוזר AI</title>
-    <meta name="description" content="כל מה שתכל'ס נותנת לך: נטו אמיתי בזמן אמת, סימולטור מס, ניהול לקוחות ופרויקטים, מעקב שעות וחשבוניות, ארנק חכם ועוזר AI עסקי.">
+    <title>פיצ'רים — תכל'ס | נטו אמיתי, סימולטור מס, שעות, חשבוניות ושליחת מייל</title>
+    <meta name="description" content="כל מה שתכל'ס נותנת לך: נטו אמיתי בזמן אמת, סימולטור מס, ניהול לקוחות ופרויקטים, הצעות מחיר, מעקב שעות וחשבוניות, שליחת דוחות במייל ואנליטיקה עסקית.">
     <link rel="icon" type="image/x-icon" href="תכלס.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -52,7 +52,10 @@
             <button class="ftab-btn" data-tab="2" onclick="openFeatureTab(2)"><i data-lucide="users" class="w-4 h-4"></i> לקוחות ופרויקטים</button>
             <button class="ftab-btn" data-tab="3" onclick="openFeatureTab(3)"><i data-lucide="clock" class="w-4 h-4"></i> שעות וחשבוניות</button>
             <button class="ftab-btn" data-tab="4" onclick="openFeatureTab(4)"><i data-lucide="wallet" class="w-4 h-4"></i> ארנק ויומן</button>
-            <button class="ftab-btn" data-tab="5" onclick="openFeatureTab(5)"><i data-lucide="sparkles" class="w-4 h-4"></i> עוזר AI</button>
+            <button class="ftab-btn" data-tab="6" onclick="openFeatureTab(6)"><i data-lucide="send" class="w-4 h-4"></i> שליחת מייל</button>
+            <button class="ftab-btn" data-tab="7" onclick="openFeatureTab(7)"><i data-lucide="file-text" class="w-4 h-4"></i> הצעות מחיר ולידים</button>
+            <button class="ftab-btn" data-tab="8" onclick="openFeatureTab(8)"><i data-lucide="folder" class="w-4 h-4"></i> קבצים ומסמכים</button>
+            <button class="ftab-btn" data-tab="9" onclick="openFeatureTab(9)"><i data-lucide="bar-chart-3" class="w-4 h-4"></i> אנליטיקה ודוחות</button>
         </div>
 
         <!-- ===== PANEL 0 — נטו אמיתי ===== -->
@@ -143,8 +146,12 @@
                             <div><h4 class="font-black text-slate-900 mb-0.5">ארנק לקוח חכם</h4><p class="text-sm text-slate-500">לקוח שלח כסף בלי פרויקט פתוח? הסכום נשמר בארנק ומשויך אוטומטית לפרויקט הבא. <strong class="text-slate-700">שום שקל לא הולך לאיבוד.</strong></p></div>
                         </div>
                         <div class="flex items-start gap-4 bg-slate-50 rounded-2xl p-5 border border-slate-100">
-                            <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center shrink-0 text-blue-600"><i data-lucide="calendar" class="w-5 h-5"></i></div>
+                            <div class="w-10 h-10 rounded-xl bg-navy-100 flex items-center justify-center shrink-0 text-navy-700"><i data-lucide="calendar" class="w-5 h-5"></i></div>
                             <div><h4 class="font-black text-slate-900 mb-0.5">יומן תשלומים ומשימות</h4><p class="text-sm text-slate-500">כל תשלום עתידי ומשימה — נראים ביומן. <strong class="text-slate-700">לא תשכח לגבות, לא תפספס תשלום חשוב.</strong></p></div>
+                        </div>
+                        <div class="flex items-start gap-4 bg-slate-50 rounded-2xl p-5 border border-slate-100">
+                            <div class="w-10 h-10 rounded-xl bg-brand-100 flex items-center justify-center shrink-0 text-brand-600"><i data-lucide="list-checks" class="w-5 h-5"></i></div>
+                            <div><h4 class="font-black text-slate-900 mb-0.5">ניהול משימות חכם</h4><p class="text-sm text-slate-500">לוח משימות מקושר ללקוחות ולפרויקטים — עם עדיפויות והתראות על משימות שעבר זמנן. <strong class="text-slate-700">שום דבר לא נשמט.</strong></p></div>
                         </div>
                         <div class="flex items-start gap-4 bg-orange-50 rounded-2xl p-5 border border-orange-100">
                             <div class="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center shrink-0 text-orange-600"><i data-lucide="zap" class="w-5 h-5"></i></div>
@@ -160,7 +167,83 @@
             </div>
         </div>
 
-        <!-- ===== PANEL 5 — עוזר AI ===== -->
+        <!-- ===== PANEL 6 — שליחת מייל ישיר ===== -->
+        <div class="ftab-panel" data-panel="6">
+            <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <span class="text-xs font-black text-brand-600 uppercase tracking-widest mb-3 block">חדש</span>
+                    <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter mb-5 leading-tight">שולחים ללקוח —<br><span class="text-brand-600">בלי לצאת מהמערכת.</span></h2>
+                    <p class="text-lg text-slate-500 leading-relaxed mb-7">סיימת דוח, חשבונית או הצעת מחיר? לוחצים "שלח במייל" — והמסמך יוצא ללקוח ישירות מתוך תכל'ס. <strong class="text-slate-800">בלי להוריד קובץ, בלי לפתוח את תוכנת המייל, בלי להעתיק כתובות.</strong></p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="file-text" class="w-4 h-4"></i></span> שליחת דוח לקוח (PDF) ישירות במייל</li>
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="receipt" class="w-4 h-4"></i></span> שליחת חשבונית שהופקה — בלחיצה</li>
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="badge-check" class="w-4 h-4"></i></span> שליחת הצעת מחיר ללקוח לאישור</li>
+                    </ul>
+                </div>
+                <div class="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl border border-slate-200">
+                    <img src="35.jpg" alt="שליחת מייל ישירות מהמערכת" class="w-full object-cover zoomable" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PANEL 7 — הצעות מחיר ולידים ===== -->
+        <div class="ftab-panel" data-panel="7">
+            <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <span class="text-xs font-black text-brand-700 uppercase tracking-widest mb-3 block">פניות והצעות מחיר</span>
+                    <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter mb-5 leading-tight">מפנייה ראשונה —<br><span class="text-brand-600">לפרויקט פעיל בלחיצה.</span></h2>
+                    <p class="text-lg text-slate-500 leading-relaxed mb-7">מנהלים פניות ושיחות פולואו-אפ. בוחרים שירותים — והמערכת מחשבת אוטומטית הצעת מחיר כולל מע"מ והנחות. <strong class="text-slate-800">הלקוח אמר "כן"? בלחיצה אחת הפנייה הופכת לפרויקט פעיל.</strong></p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="phone-call" class="w-4 h-4"></i></span> ניהול לידים ושיחות פולואו-אפ</li>
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="calculator" class="w-4 h-4"></i></span> חישוב אוטומטי של הצעת מחיר כולל מע"מ והנחות</li>
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="arrow-right-circle" class="w-4 h-4"></i></span> המרת פנייה לפרויקט פעיל בלחיצה</li>
+                    </ul>
+                </div>
+                <div class="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl border border-slate-200">
+                    <img src="23.jpg" alt="הצעות מחיר ולידים" class="w-full object-cover zoomable" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PANEL 8 — קבצים ומסמכים ===== -->
+        <div class="ftab-panel" data-panel="8">
+            <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <span class="text-xs font-black text-navy-700 uppercase tracking-widest mb-3 block">קבצים ומסמכים</span>
+                    <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter mb-5 leading-tight">כל מסמך של הלקוח —<br><span class="text-brand-600">במקום אחד, לתמיד.</span></h2>
+                    <p class="text-lg text-slate-500 leading-relaxed mb-7">חוזים, הצעות מחיר, תוכניות או מיילים חשובים — הכל עולה ישירות לכרטיס הלקוח. <strong class="text-slate-800">בלי לחפש קבצים אבודים בין תיקיות.</strong> כל דוח שהפקת נשמר אוטומטית בתיקיית הלקוח.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="upload" class="w-4 h-4"></i></span> העלאת חוזים ומסמכים לכרטיס הלקוח</li>
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="folder-open" class="w-4 h-4"></i></span> דוחות שהופקו נשמרים אוטומטית בתיקייה</li>
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="search" class="w-4 h-4"></i></span> גישה מהירה לכל קובץ — בלי לחפש</li>
+                    </ul>
+                </div>
+                <div class="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl border border-slate-200">
+                    <img src="32.jpg" alt="קבצים ומסמכים בכרטיס הלקוח" class="w-full object-cover zoomable" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PANEL 9 — אנליטיקה ודוחות ===== -->
+        <div class="ftab-panel" data-panel="9">
+            <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <span class="text-xs font-black text-brand-600 uppercase tracking-widest mb-3 block">אנליטיקה ודוחות</span>
+                    <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter mb-5 leading-tight">תראה בשניות מה עובד —<br><span class="text-brand-600">ומי הלקוחות הרווחיים שלך.</span></h2>
+                    <p class="text-lg text-slate-500 leading-relaxed mb-7">לוח בקרה עם טבלאות וגרפים: הכנסות לפי שירות, חודש או לקוח. <strong class="text-slate-800">רואים בדיוק מה הכי משתלם ומי הלקוחות הכי טובים.</strong> מפיקים דוחות מסודרים ב-PDF ללקוחות ולרואה החשבון.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="pie-chart" class="w-4 h-4"></i></span> גרפים: הכנסות לפי שירות, חודש ולקוח</li>
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="trophy" class="w-4 h-4"></i></span> זיהוי הלקוחות והשירותים הרווחיים ביותר</li>
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="file-down" class="w-4 h-4"></i></span> הפקת דוחות PDF ללקוח ולרואה החשבון</li>
+                    </ul>
+                </div>
+                <div class="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl border border-slate-200">
+                    <img src="34.jpg" alt="אנליטיקה ודוחות" class="w-full object-cover zoomable" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PANEL 5 — עוזר AI (מוסתר — בפיתוח, להחזיר כשיהיה מוכן) =====
         <div class="ftab-panel" data-panel="5">
             <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
                 <div class="order-2 lg:order-1">
@@ -177,6 +260,7 @@
                 </div>
             </div>
         </div>
+        ===== סוף עוזר AI מוסתר ===== -->
 
         <!-- CTA -->
         <div class="text-center py-12 mt-10 border-t border-slate-100">

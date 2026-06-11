@@ -12,7 +12,7 @@ const SUPPORT_EMAIL = '8426263@gmail.com';
 /* ---------- קביעת העמוד הנוכחי לסימון אקטיבי בנאבר ---------- */
 function currentPage() {
     const p = location.pathname.split('/').pop().toLowerCase();
-    if (!p || p === 'index8.html' || p === 'index.html') return 'home';
+    if (!p || p === 'index.html' || p === 'index.html') return 'home';
     if (p.startsWith('features')) return 'features';
     if (p.startsWith('pricing'))  return 'pricing';
     if (p.startsWith('demo') || p.startsWith('contact')) return 'demo';
@@ -27,13 +27,13 @@ function navHTML() {
 
     return `
     <div class="container mx-auto px-4 h-16 flex justify-between items-center">
-        <a href="index8.html" class="flex items-center">
+        <a href="index.html" class="flex items-center">
             <img src="33.jpg" alt="תכל'ס" class="h-12 w-auto object-contain">
         </a>
 
         <!-- ניווט דסקטופ -->
         <nav class="hidden md:flex gap-1 font-medium items-center text-sm">
-            ${link('index8.html', "למה תכל'ס", 'home')}
+            ${link('index.html', "למה תכל'ס", 'home')}
 
             <!-- DROPDOWN פיצ'רים — mega menu -->
             <div class="nav-dropdown" tabindex="0">
@@ -41,35 +41,63 @@ function navHTML() {
                     פיצ'רים <i data-lucide="chevron-down" class="w-4 h-4"></i>
                 </button>
                 <div class="nav-mega">
-                    <div class="grid grid-cols-2 gap-1">
-                        <a href="features.html#tab-0" class="nav-dd-item">
-                            <span class="nav-dd-icon"><i data-lucide="trending-up" class="w-5 h-5"></i></span>
-                            <span><span class="block font-bold text-slate-900">נטו אמיתי בזמן אמת</span><span class="text-xs text-slate-500">מס, מע"מ, ב"ל — מחושב</span></span>
-                        </a>
-                        <a href="features.html#tab-1" class="nav-dd-item">
-                            <span class="nav-dd-icon"><i data-lucide="activity" class="w-5 h-5"></i></span>
-                            <span><span class="block font-bold text-slate-900">סימולטור מס</span><span class="text-xs text-slate-500">כמה יישאר לפני שחותמים</span></span>
-                        </a>
-                        <a href="features.html#tab-2" class="nav-dd-item">
-                            <span class="nav-dd-icon"><i data-lucide="users" class="w-5 h-5"></i></span>
-                            <span><span class="block font-bold text-slate-900">לקוחות ופרויקטים</span><span class="text-xs text-slate-500">כמה נכנס, כמה חייב</span></span>
-                        </a>
-                        <a href="features.html#tab-3" class="nav-dd-item">
-                            <span class="nav-dd-icon"><i data-lucide="clock" class="w-5 h-5"></i></span>
-                            <span><span class="block font-bold text-slate-900">שעות וחשבוניות</span><span class="text-xs text-slate-500">שעון נוכחות → חשבונית</span></span>
-                        </a>
-                        <a href="features.html#tab-4" class="nav-dd-item">
-                            <span class="nav-dd-icon"><i data-lucide="wallet" class="w-5 h-5"></i></span>
-                            <span><span class="block font-bold text-slate-900">ארנק ויומן</span><span class="text-xs text-slate-500">הכל מחובר במקום אחד</span></span>
-                        </a>
-                        <a href="features.html#tab-5" class="nav-dd-item">
-                            <span class="nav-dd-icon"><i data-lucide="sparkles" class="w-5 h-5"></i></span>
-                            <span><span class="block font-bold text-slate-900">עוזר AI עסקי</span><span class="text-xs text-slate-500">שואל בעברית, מקבל תשובה</span></span>
+                    <!-- עמודת רשימת פיצ'רים -->
+                    <div class="nav-mega-list">
+                        <div class="nm-eyebrow">היכולות של תכל'ס</div>
+                        <div class="nm-title">חלק ממה שתכל'ס עושה <span>בשבילך</span></div>
+                        <div class="grid grid-cols-2 gap-1">
+                            <a href="features.html#tab-0" class="nav-dd-item">
+                                <span class="nav-dd-icon dd-c-green"><i data-lucide="trending-up" class="w-5 h-5"></i></span>
+                                <span><span class="block font-bold text-slate-900 text-sm">נטו אמיתי</span><span class="text-xs text-slate-500">המספר שנשאר בכיס</span></span>
+                            </a>
+                            <a href="features.html#tab-1" class="nav-dd-item">
+                                <span class="nav-dd-icon dd-c-amber"><i data-lucide="calculator" class="w-5 h-5"></i></span>
+                                <span><span class="block font-bold text-slate-900 text-sm">סימולטור מס</span><span class="text-xs text-slate-500">כמה יישאר לפני שחותמים</span></span>
+                            </a>
+                            <a href="features.html#tab-2" class="nav-dd-item">
+                                <span class="nav-dd-icon dd-c-blue"><i data-lucide="users" class="w-5 h-5"></i></span>
+                                <span><span class="block font-bold text-slate-900 text-sm">לקוחות ופרויקטים</span><span class="text-xs text-slate-500">מי חייב לך וכמה</span></span>
+                            </a>
+                            <a href="features.html#tab-3" class="nav-dd-item">
+                                <span class="nav-dd-icon dd-c-cyan"><i data-lucide="clock" class="w-5 h-5"></i></span>
+                                <span><span class="block font-bold text-slate-900 text-sm">שעות וחשבוניות</span><span class="text-xs text-slate-500">שעון נוכחות → חשבונית</span></span>
+                            </a>
+                            <a href="features.html#tab-4" class="nav-dd-item">
+                                <span class="nav-dd-icon dd-c-purple"><i data-lucide="wallet" class="w-5 h-5"></i></span>
+                                <span><span class="block font-bold text-slate-900 text-sm">ארנק ויומן</span><span class="text-xs text-slate-500">שום שקל לא הולך לאיבוד</span></span>
+                            </a>
+                            <a href="features.html#tab-6" class="nav-dd-item">
+                                <span class="nav-dd-icon dd-c-emerald"><i data-lucide="send" class="w-5 h-5"></i></span>
+                                <span><span class="block font-bold text-slate-900 text-sm">שליחת מייל <span class="dd-new">חדש</span></span><span class="text-xs text-slate-500">דוח/חשבונית/הצעה ישיר</span></span>
+                            </a>
+                            <a href="features.html#tab-7" class="nav-dd-item">
+                                <span class="nav-dd-icon dd-c-indigo"><i data-lucide="badge-check" class="w-5 h-5"></i></span>
+                                <span><span class="block font-bold text-slate-900 text-sm">הצעות מחיר ולידים</span><span class="text-xs text-slate-500">פנייה → פרויקט בלחיצה</span></span>
+                            </a>
+                            <a href="features.html#tab-8" class="nav-dd-item">
+                                <span class="nav-dd-icon dd-c-rose"><i data-lucide="folder" class="w-5 h-5"></i></span>
+                                <span><span class="block font-bold text-slate-900 text-sm">קבצים ומסמכים</span><span class="text-xs text-slate-500">הכל בכרטיס הלקוח</span></span>
+                            </a>
+                            <a href="features.html#tab-9" class="nav-dd-item">
+                                <span class="nav-dd-icon dd-c-orange"><i data-lucide="bar-chart-3" class="w-5 h-5"></i></span>
+                                <span><span class="block font-bold text-slate-900 text-sm">אנליטיקה ודוחות</span><span class="text-xs text-slate-500">מי הלקוח הכי רווחי</span></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- עמודת תמונה + CTA -->
+                    <div class="nav-mega-promo">
+                        <div class="promo-txt">
+                            <div class="promo-h">תדע בדיוק <span>כמה נשאר לך</span> בכיס.</div>
+                            <div class="promo-p">לא בסוף השנה אצל רואה החשבון — עכשיו, בזמן אמת.</div>
+                        </div>
+                        <div class="promo-img">
+                            <img src="תמונות חדשות/extracted/image4.png" alt="מסך מיסוי ונטו אמיתי">
+                        </div>
+                        <a href="${DEMO_URL}" target="_blank" rel="noopener" class="promo-cta">
+                            <i data-lucide="play-circle" class="w-4 h-4"></i> נסה דמו חינמי ←
                         </a>
                     </div>
-                    <a href="features.html" class="block text-center mt-2 pt-3 border-t border-slate-100 text-brand-600 hover:text-brand-700 font-bold text-sm">
-                        לכל הפיצ'רים ←
-                    </a>
                 </div>
             </div>
 
@@ -97,7 +125,7 @@ function navHTML() {
 
     <!-- תפריט נייד -->
     <div id="mobile-menu" class="md:hidden hidden bg-slate-900 border-t border-slate-800 px-4 py-4 space-y-2">
-        <a href="index8.html" class="block text-slate-300 hover:text-white font-medium py-1">למה תכל'ס</a>
+        <a href="index.html" class="block text-slate-300 hover:text-white font-medium py-1">למה תכל'ס</a>
         <a href="features.html" class="block text-slate-300 hover:text-white font-medium py-1">פיצ'רים</a>
         <a href="pricing.html" class="block text-amber-300 font-bold py-1">מחירון</a>
         <a href="demo.html" class="block text-slate-300 hover:text-white font-medium py-1">מפגש זום חי</a>
@@ -127,8 +155,8 @@ function footerHTML() {
             <div>
                 <h4 class="font-black text-white mb-3">מידע</h4>
                 <ul class="space-y-2">
-                    <li><a href="index8.html#pain" class="hover:text-brand-400 transition">למה תכל'ס</a></li>
-                    <li><a href="index8.html#faq" class="hover:text-brand-400 transition">שאלות נפוצות</a></li>
+                    <li><a href="index.html#pain" class="hover:text-brand-400 transition">למה תכל'ס</a></li>
+                    <li><a href="index.html#faq" class="hover:text-brand-400 transition">שאלות נפוצות</a></li>
                     <li><a href="demo.html" class="hover:text-brand-400 transition">מפגש זום חי</a></li>
                 </ul>
             </div>
