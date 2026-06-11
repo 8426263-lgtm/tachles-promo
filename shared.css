@@ -10,8 +10,8 @@ h1, h2, h3, .font-display { font-family: 'Heebo', 'Assistant', sans-serif; font-
 h1.tracking-tighter, h2.tracking-tighter, h3.tracking-tighter,
 h1.tracking-tight, h2.tracking-tight, h3.tracking-tight { letter-spacing: normal !important; }
 
-.brand-gradient { background: linear-gradient(135deg, #0b1437 0%, #142151 100%); }
-.hero-bg { background: linear-gradient(160deg, #0b1437 0%, #0d1a44 55%, #142151 100%); }
+.brand-gradient { background: linear-gradient(135deg, #101721 0%, #202430 100%); }
+.hero-bg { background: linear-gradient(160deg, #101721 0%, #161c27 55%, #202430 100%); }
 .pain-bg { background: linear-gradient(135deg, #1e1b2e 0%, #2d1a1a 100%); }
 
 /* ===== רקע בהיר נקי + dot-grid (כמו SwiftCollect) ===== */
@@ -27,7 +27,7 @@ h1.tracking-tight, h2.tracking-tight, h3.tracking-tight { letter-spacing: normal
 }
 /* קלף כהה "צף" עם פינות ענק (כמו תמונה 3) */
 .dark-float {
-    background: linear-gradient(150deg, #0b1437 0%, #142151 100%);
+    background: linear-gradient(150deg, #101721 0%, #202430 100%);
     border-radius: 48px;
 }
 
@@ -43,7 +43,7 @@ h1.tracking-tight, h2.tracking-tight, h3.tracking-tight { letter-spacing: normal
 
 /* ===== NAVBAR ===== */
 #navbar { transition: all 0.3s ease; }
-#navbar.scrolled { background: rgba(11,20,55,0.98); box-shadow: 0 2px 20px rgba(0,0,0,0.4); }
+#navbar.scrolled { background: rgba(16,23,33,0.98); box-shadow: 0 2px 20px rgba(0,0,0,0.4); }
 .nav-link.nav-active { color: #fff; }
 .nav-link.nav-active::after,
 .nav-active::after {
