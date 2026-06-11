@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>תכל'ס — תוכנה לניהול עסק לעצמאיים בישראל | חישוב נטו אמיתי בזמן אמת</title>
+    <meta name="description" content="תוכנת ניהול עסק מקצועית לעצמאיים: ניהול לקוחות ופרויקטים, סימולטור מס חכם, מעקב שעות, חשבוניות שעות וארנק לקוחות. כל הנתונים אצלך — לא בענן.">
+    <meta property="og:title" content="תכל'ס — תוכנה לניהול עסק לעצמאיים בישראל">
+    <meta property="og:description" content="המערכת היחידה שמראה לך את הנטו האמיתי בזמן אמת. ניהול לקוחות, פרויקטים, מס ושעות במקום אחד.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="he_IL">
+    <meta property="og:image" content="1.jpg">
+    <link rel="icon" type="image/x-icon" href="תכלס.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- reCAPTCHA v3 — הגנה על טופס יצירת הקשר -->
+    <script src="https://www.google.com/recaptcha/api.js?render=6LcXzhMtAAAADSQZT7N-PaVJcNv4F6Okhtyyxve"></script>
+    <link rel="stylesheet" href="shared.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f7fee7', 100: '#ecfccb', 200: '#d9f99d',
+                            300: '#bef264', 400: '#a3e635', 500: '#84cc16',
+                            600: '#65a30d', 700: '#4d7c0f', 800: '#3f6212',
+                            900: '#365314', 950: '#1a2e05',
+                        },
+                        navy: {
+                            50: '#eef0f3', 100: '#dadde3', 300: '#8c93a3', 500: '#3f4654',
+                            700: '#2b303d', 800: '#202430', 900: '#161c27', 950: '#101721',
+                        }
+                    },
+                    animation: {
+                        'fade-up': 'fadeUp 0.7s ease-out forwards',
+                        'pulse-slow': 'pulse 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeUp: {
+                            '0%': { opacity: '0', transform: 'translateY(24px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Assistant', sans-serif; background-color: #fbfcfe; }
+        h1, h2, h3 { font-family: 'Heebo', 'Assistant', sans-serif; font-weight: 800; letter-spacing: normal; }
+        html { scroll-behavior: smooth; }
+
+        .brand-gradient { background: linear-gradient(135deg, #101721 0%, #202430 100%); }
+        .hero-bg { background: linear-gradient(160deg, #101721 0%, #161c27 55%, #202430 100%); }
+        .pain-bg { background: linear-gradient(135deg, #1e1b2e 0%, #2d1a1a 100%); }
+
+        .reveal { opacity: 0; transform: translateY(28px); transition: all 0.75s cubic-bezier(.22,1,.36,1); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        .glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.12); }
+        .glass-light { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(0,0,0,0.06); }
+
+        .glow-green { box-shadow: 0 0 40px -10px rgba(132,204,22,0.4); }
+        .glow-green-strong { box-shadow: 0 0 60px -10px rgba(132,204,22,0.6), 0 20px 40px -15px rgba(0,0,0,0.4); }
+
+        .pain-card { border-right: 4px solid #ef4444; }
+        .stat-number { font-variant-numeric: tabular-nums; }
+
+        /* sticky nav shrink */
+        #navbar { transition: all 0.3s ease; }
+        #navbar.scrolled { background: rgba(16,23,33,0.98); box-shadow: 0 2px 20px rgba(0,0,0,0.4); }
+
+        /* Progress bar */
+        #progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg,#22c55e,#4ade80); width: 0%; z-index: 9999; transition: width 0.1s; }
+
+        /* Testimonial card */
+        .testimonial-card { border-top: 3px solid #22c55e; }
+
+        /* CTA pulse */
+        @keyframes ctaPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(132,204,22,0.4); }
+            50% { box-shadow: 0 0 0 12px rgba(132,204,22,0); }
+        }
+        .cta-pulse { animation: ctaPulse 2.5s ease-in-out infinite; }
+
+        /* Lightbox */
+        #lightbox { display: none; position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.88); justify-content: center; align-items: center; backdrop-filter: blur(6px); }
+        #lightbox.open { display: flex; }
+        #lightbox img { max-width: 92%; max-height: 92%; border-radius: 10px; box-shadow: 0 0 60px rgba(0,0,0,0.6); }
+        #lightbox-close { position: absolute; top: 24px; right: 28px; color: white; font-size: 44px; cursor: pointer; line-height: 1; }
+
+        /* Terms modal */
+        #terms-modal { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.75); justify-content: center; align-items: center; padding: 16px; backdrop-filter: blur(8px); }
+        #terms-modal.open { display: flex; }
+
+        /* Scrollbar hide */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        #back-to-top { position: fixed; bottom: 28px; left: 28px; z-index: 99; opacity: 0; visibility: hidden;
+            transition: all 0.3s ease; transform: translateY(12px); }
+        #back-to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
+
+        .zoomable { cursor: zoom-in; transition: transform 0.3s ease; }
+        .zoomable:hover { transform: scale(1.02); }
+
+        /* Guarantee badge */
+        .badge-guarantee { background: linear-gradient(135deg, #fef3c7, #fde68a); border: 2px solid #f59e0b; }
+
+        /* ===== STAGGER FEATURES ===== */
+        .feature-card-stagger {
+            opacity: 0;
+            transform: translateY(80px) scale(0.95);
+            transition: opacity 0.7s cubic-bezier(.22,1,.36,1),
+                        transform 0.7s cubic-bezier(.22,1,.36,1);
+        }
+        .feature-card-stagger.pop {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .feat-connector {
+            width: 2px; height: 36px;
+            background: linear-gradient(to bottom, rgba(132,204,22,0.5), rgba(132,204,22,0.05));
+            margin: 0 auto;
+            opacity: 0;
+            transition: opacity 0.5s ease 0.25s;
+        }
+        .feat-connector.pop { opacity: 1; }
+        .feat-num {
+            font-size: 3.5rem; font-weight: 900; line-height: 1;
+            color: rgba(132,204,22,0.12);
+            user-select: none; position: absolute; top: 0; left: 0;
+        }
+
+        /* ===== NAV DROPDOWN (בסגנון SwiftCollect) ===== */
+        .nav-dropdown { position: relative; }
+        .nav-dropdown-menu {
+            position: absolute; top: 100%; right: 0; margin-top: 10px;
+            min-width: 280px; background: #fff; border-radius: 16px;
+            box-shadow: 0 20px 50px -12px rgba(0,0,0,0.4); border: 1px solid rgba(0,0,0,0.06);
+            padding: 8px; opacity: 0; visibility: hidden; transform: translateY(8px);
+            transition: all 0.22s cubic-bezier(.22,1,.36,1); z-index: 60;
+        }
+        .nav-dropdown:hover .nav-dropdown-menu,
+        .nav-dropdown:focus-within .nav-dropdown-menu {
+            opacity: 1; visibility: visible; transform: translateY(0);
+        }
+        .nav-dd-item {
+            display: flex; align-items: center; gap: 12px; padding: 11px 12px;
+            border-radius: 10px; transition: background 0.15s; cursor: pointer;
+        }
+        .nav-dd-item:hover { background: #f0fdf4; }
+        .nav-dd-icon {
+            width: 36px; height: 36px; border-radius: 9px; display: flex;
+            align-items: center; justify-content: center; flex-shrink: 0;
+            background: #dcfce7; color: #16a34a;
+        }
+
+        /* ===== FEATURE TABS ===== */
+        .ftab-btn {
+            display: flex; align-items: center; gap: 8px; padding: 12px 20px;
+            border-radius: 14px; font-weight: 700; font-size: 0.95rem;
+            color: #475569; background: transparent; border: 1px solid transparent;
+            transition: all 0.2s; white-space: nowrap; cursor: pointer;
+        }
+        .ftab-btn:hover { color: #16a34a; background: #f0fdf4; }
+        .ftab-btn.active {
+            color: #fff; background: linear-gradient(135deg,#16a34a,#22c55e);
+            box-shadow: 0 8px 20px -6px rgba(132,204,22,0.55); border-color: transparent;
+        }
+        .ftab-panel { display: none; }
+        .ftab-panel.active { display: block; animation: ftabFade 0.45s cubic-bezier(.22,1,.36,1); }
+        @keyframes ftabFade {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .ftab-nav.no-scrollbar { overflow-x: auto; }
+    </style>
+</head>
+<body class="text-slate-800">
+
+<div id="progress-bar"></div>
+
+<!-- (לייטבוקס ומודל תקנון מוזרקים מ-shared.js) -->
+
+<!-- ===== INTRO MODAL ===== -->
+<div id="intro-modal" class="fixed inset-0 z-[200] items-center justify-center bg-black/70 backdrop-blur-sm p-4" style="display:none">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-5xl w-full relative overflow-hidden flex flex-col md:flex-row min-h-[500px] border border-white/20 animate-bounce-in">
+        <button onclick="closeIntroModal()" class="absolute top-4 left-4 z-30 text-slate-400 hover:text-slate-600 bg-white/90 rounded-full p-2 transition shadow-md">
+            <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+        <div class="w-full md:w-1/2 p-8 md:p-12 bg-white flex flex-col justify-center">
+            <h2 class="text-3xl font-black text-slate-900 mb-2 leading-tight">שנייה לפני שנמשיך —</h2>
+            <h3 class="text-lg font-bold text-slate-700 mb-6 flex items-center gap-2">
+                <i data-lucide="compass" class="w-5 h-5 text-brand-600"></i>
+                תכל'ס לא מתאימה לכולם. תבדוק שאתה לא אחד מהמקרים האלה:
+            </h3>
+            <p class="text-slate-600 mb-5 text-sm leading-relaxed">3 סוגי עצמאיים שיפיקו יותר תועלת מפתרון אחר:</p>
+            <div class="space-y-4">
+                <div class="flex items-start gap-3">
+                    <div class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 shrink-0"><i data-lucide="smartphone" class="w-4 h-4"></i></div>
+                    <p class="text-slate-600 text-sm">אם אתה חי בעיקר מהנייד ולא יושב מול מחשב — <strong>תוכנת ענן עם אפליקציה תתאים לך יותר</strong></p>
+                </div>
+                <div class="flex items-start gap-3">
+                    <div class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 shrink-0"><i data-lucide="users" class="w-4 h-4"></i></div>
+                    <p class="text-slate-600 text-sm">אם יש לך מנהלת חשבונות במשרה מלאה — <strong>היא בטח כבר עובדת עם תוכנה שמתאימה לה</strong></p>
+                </div>
+                <div class="flex items-start gap-3">
+                    <div class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 shrink-0"><i data-lucide="trending-up" class="w-4 h-4"></i></div>
+                    <p class="text-slate-600 text-sm">אם העסק שלך גדול עם 5+ עובדים — <strong>אתה צריך פתרון ארגוני יותר</strong></p>
+                </div>
+            </div>
+            <div class="mt-6 pt-5 border-t border-slate-100">
+                <p class="text-slate-700 font-bold text-center bg-brand-50 py-3 rounded-lg border border-brand-200 text-sm">עצמאי שרוצה לדעת בדיוק כמה הוא מרוויח — בא לכאן 👈</p>
+            </div>
+        </div>
+        <div class="w-full md:w-1/2 bg-slate-900 p-8 md:p-12 text-white flex flex-col justify-center relative overflow-hidden border-r-4 border-brand-600">
+            <div class="absolute top-0 right-0 w-48 h-48 bg-brand-500/10 rounded-full -mr-12 -mt-12 blur-3xl"></div>
+            <div class="relative z-10">
+                <h3 class="text-2xl font-black mb-5 text-white">אם <span class="text-brand-400">זה</span> מדבר אליך:</h3>
+                <div class="space-y-4 mb-8">
+                    <div class="flex items-center gap-3"><div class="bg-brand-600/20 p-2 rounded-lg text-brand-400"><i data-lucide="check-circle-2" class="w-5 h-5"></i></div><span class="text-sm font-medium text-slate-100">רוצה לדעת כמה נשאר לך <strong>אחרי</strong> כל המיסים</span></div>
+                    <div class="flex items-center gap-3"><div class="bg-brand-600/20 p-2 rounded-lg text-brand-400"><i data-lucide="wallet" class="w-5 h-5"></i></div><span class="text-sm font-medium text-slate-100">עייפת לרדוף אחרי לקוחות שלא שילמו</span></div>
+                    <div class="flex items-center gap-3"><div class="bg-brand-600/20 p-2 rounded-lg text-brand-400"><i data-lucide="shield-check" class="w-5 h-5"></i></div><span class="text-sm font-medium text-slate-100">רוצה להגיע לנובמבר בלי הפתעות ממס הכנסה</span></div>
+                    <div class="flex items-center gap-3"><div class="bg-brand-600/20 p-2 rounded-lg text-brand-400"><i data-lucide="zap" class="w-5 h-5"></i></div><span class="text-sm font-medium text-slate-100">רוצה לנהל עסק — לא לנהל קבצי אקסל</span></div>
+                </div>
+                <button onclick="closeIntroModal()" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-black py-4 px-6 rounded-xl shadow-xl hover:scale-[1.02] transition flex items-center justify-center gap-2">
+                    <span>כן, זה בדיוק אני — תנו לי להיכנס</span>
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                </button>
+                <a href="https://tacles.vercel.app/?demo=1" target="_blank" rel="noopener" onclick="closeIntroModal()" class="block w-full mt-3 text-center text-brand-300 hover:text-white text-sm transition border border-brand-500/30 hover:border-brand-400 py-3 px-4 rounded-xl">
+                    <i data-lucide="play-circle" class="inline w-4 h-4 ml-1"></i>
+                    או נסה דמו חינמי קודם
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ===== STICKY NAV ===== -->
+<header id="navbar" class="fixed w-full top-0 z-50 bg-slate-900/95 backdrop-blur border-b border-slate-800/60"></header>
+
+<!-- ============================================================ -->
+<!-- SECTION 1 — HOOK (הפתיח שמעצר את הגלילה)                    -->
+<!-- ============================================================ -->
+<section class="hero-bg pt-24 pb-0 overflow-hidden relative min-h-screen flex flex-col justify-center">
+    <div class="absolute inset-0 opacity-5 pointer-events-none">
+        <div class="absolute top-20 right-20 w-96 h-96 bg-brand-400 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 left-20 w-96 h-96 bg-brand-600 rounded-full blur-3xl"></div>
+    </div>
+    <div class="container mx-auto px-4 relative z-10 py-16">
+
+        <!-- HERO דו-טורי: כותרת מצד אחד, הסבר מהצד -->
+        <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-12">
+
+            <!-- צד הכותרת -->
+            <div class="text-center lg:text-right">
+                <div class="inline-flex items-center gap-2 bg-navy-800/60 border border-brand-500/30 text-brand-300 px-4 py-1.5 rounded-full text-sm font-bold mb-8 reveal">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                    למה תכל'ס?
+                </div>
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight text-white tracking-tighter reveal">
+                    אתה יודע בדיוק<br>
+                    <span class="text-brand-400">כמה הכנסת</span> החודש.<br>
+                    <span class="text-slate-300 text-3xl md:text-5xl lg:text-6xl block mt-2">אבל — כמה באמת <span class="text-white underline decoration-brand-500 decoration-4">נשאר לך בכיס</span>?</span>
+                </h1>
+            </div>
+
+            <!-- צד ההסבר -->
+            <div class="text-center lg:text-right reveal">
+                <p class="text-xl md:text-2xl text-slate-300 max-w-xl mx-auto lg:mr-0 mb-8 leading-relaxed">
+                    רוב העצמאיים מגלים את התשובה רק בנובמבר, כשרואה החשבון מתקשר.<br class="hidden md:block">
+                    <strong class="text-white">תכל'ס מראה לך אותה כל יום — בזמן אמת.</strong>
+                </p>
+
+                <!-- DUAL CTA -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-6 reveal">
+                    <a href="https://tacles.vercel.app/?demo=1" target="_blank" rel="noopener"
+                       class="group bg-brand-500 hover:bg-brand-400 text-slate-900 px-8 py-4 rounded-2xl text-lg font-black shadow-2xl shadow-navy-950/60 transition flex items-center gap-3 hover:scale-105 glow-green">
+                        <i data-lucide="play-circle" class="w-6 h-6 group-hover:scale-110 transition"></i>
+                        נסה דמו חינמי — עכשיו
+                    </a>
+                    <button onclick="initiateBuyProcess()"
+                        class="bg-white/10 hover:bg-white/20 border border-white/25 text-white px-7 py-4 rounded-2xl text-base font-bold transition flex items-center gap-2 backdrop-blur-sm">
+                        <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                        רכישה — 930 ₪
+                    </button>
+                </div>
+                <p class="text-slate-500 text-sm reveal">
+                    דמו מלא עם נתוני דוגמה • ללא הרשמה • ללא כרטיס אשראי
+                </p>
+            </div>
+        </div>
+
+        <!-- HERO SCREENSHOT -->
+        <div class="relative mx-auto max-w-5xl reveal">
+            <div class="absolute -inset-1 bg-gradient-to-r from-brand-500/30 to-brand-300/20 rounded-3xl blur-xl"></div>
+            <div class="relative rounded-2xl overflow-hidden border border-slate-700/60 shadow-2xl glow-green">
+                <div class="bg-slate-800 px-4 py-2.5 flex gap-2 items-center border-b border-slate-700">
+                    <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                    <span class="text-xs text-slate-400 mr-3 font-medium">תכל'ס — דשבורד ראשי</span>
+                </div>
+                <img src="תמונות חדשות/extracted/image4.png"
+                     alt="מסך מיסוי חכי — גרפים שנתיים, נטו בזמן אמת"
+                     class="w-full h-auto object-cover zoomable" onclick="openLightbox(this.src)">
+            </div>
+        </div>
+    </div>
+
+    <!-- SCROLL INDICATOR -->
+    <div class="text-center pb-8 mt-6 animate-bounce text-slate-500">
+        <i data-lucide="chevrons-down" class="w-6 h-6 mx-auto"></i>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 2 — SOCIAL PROOF BAR (אמון ראשוני)                  -->
+<!-- ============================================================ -->
+<section class="bg-slate-900 border-y border-slate-800 py-5">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-wrap justify-center items-center gap-x-8 gap-y-3 text-slate-400 text-sm font-medium">
+            <span class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-brand-500"></i>רכישה חד-פעמית — ללא מנוי</span>
+            <span class="flex items-center gap-2"><i data-lucide="hard-drive" class="w-4 h-4 text-brand-500"></i>הנתונים על המחשב שלך בלבד</span>
+            <span class="flex items-center gap-2"><i data-lucide="wifi-off" class="w-4 h-4 text-brand-500"></i>עובד גם ללא אינטרנט</span>
+            <span class="flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-brand-500"></i>מותאם לחוקי המס בישראל 2026</span>
+            <span class="flex items-center gap-2"><i data-lucide="refresh-cw" class="w-4 h-4 text-brand-500"></i>עדכונים חינם לנצח</span>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- STATS STRIP — תוצאות במספרים (placeholder לעדויות אמיתיות)  -->
+<!-- ============================================================ -->
+<section class="py-16 bg-clean">
+    <div class="container mx-auto px-4 max-w-5xl">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div class="reveal">
+                <div class="text-4xl md:text-5xl font-extrabold text-brand-600 stat-number">930&#8362;</div>
+                <p class="text-slate-500 text-sm mt-2 font-light">חד-פעמי — 0&#8362; מנוי חודשי</p>
+            </div>
+            <div class="reveal" style="transition-delay:0.08s">
+                <div class="text-4xl md:text-5xl font-extrabold text-brand-600 stat-number">10 שנים</div>
+                <p class="text-slate-500 text-sm mt-2 font-light">היסטוריה פיננסית שמורה אצלך</p>
+            </div>
+            <div class="reveal" style="transition-delay:0.16s">
+                <div class="text-4xl md:text-5xl font-extrabold text-brand-600 stat-number">בזמן אמת</div>
+                <p class="text-slate-500 text-sm mt-2 font-light">נטו מעודכן על כל פעולה</p>
+            </div>
+            <div class="reveal" style="transition-delay:0.24s">
+                <div class="text-4xl md:text-5xl font-extrabold text-brand-600 stat-number">3</div>
+                <p class="text-slate-500 text-sm mt-2 font-light">תוכנות חשבוניות מחוברות</p>
+            </div>
+        </div>
+        <!-- TODO: כשיהיו עדויות אמיתיות — להחליף במספרי לקוחות (למשל "92% גובים בזמן") -->
+        <p class="text-center text-xs text-slate-400 mt-8 bg-amber-50 border border-amber-200 rounded-lg max-w-xl mx-auto px-4 py-2">
+            ⚠️ placeholder — כשיהיו לך נתוני לקוחות אמיתיים, החלף את המספרים האלה בתוצאות אמיתיות (כמו "92% גובים בזמן").
+        </p>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 3 — PAIN (הכאב שמזהה ומחבר)                        -->
+<!-- ============================================================ -->
+<section id="pain" class="py-24 bg-clean relative overflow-hidden">
+    <div class="container mx-auto px-4 max-w-5xl relative z-10">
+
+        <div class="text-center mb-16 reveal">
+            <span class="bg-slate-100 text-slate-600 border border-slate-200 px-4 py-1.5 rounded-full font-semibold text-sm inline-block mb-5">מכיר את זה?</span>
+            <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900">
+                3 הרגעים שכל עצמאי בישראל<br>
+                <span class="text-brand-600">פחד לחוות — וחווה בכל זאת</span>
+            </h2>
+            <p class="text-xl text-slate-500 max-w-2xl mx-auto font-light">אם אחד מהם מוכר לך, הגעת למקום הנכון.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 mb-14">
+            <div class="bg-white border border-slate-100 rounded-3xl p-8 shadow-sm hover:shadow-md transition reveal">
+                <div class="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 mb-5"><i data-lucide="phone-call" class="w-5 h-5"></i></div>
+                <h3 class="font-bold text-lg text-slate-900 mb-2.5">הטלפון המלחיץ בנובמבר</h3>
+                <p class="text-slate-500 leading-relaxed text-sm font-light">רואה החשבון מתקשר: <span class="text-slate-800 font-semibold">"אתה חייב עוד 22,000₪."</span> היית בטוח שהוא טועה. הוא לא טועה. הכסף שחשבת שהוא שלך — נעלם למיסים.</p>
+                <div class="mt-5 pt-4 border-t border-slate-100 text-xs text-slate-400 font-semibold">קורה ל-73% מהעצמאיים לפחות פעם אחת</div>
+            </div>
+            <div class="bg-white border border-slate-100 rounded-3xl p-8 shadow-sm hover:shadow-md transition reveal" style="transition-delay:0.08s">
+                <div class="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 mb-5"><i data-lucide="eye-off" class="w-5 h-5"></i></div>
+                <h3 class="font-bold text-lg text-slate-900 mb-2.5">שבועות של עיוורון פיננסי</h3>
+                <p class="text-slate-500 leading-relaxed text-sm font-light">פרויקט נסגר. הלקוח "ישלם ב-15". ה-15 עבר. פותח אקסל — ונזכר שלא עדכנת מינואר. <span class="text-slate-800 font-semibold">אתה לא יודע כמה צפוי החודש.</span></p>
+                <div class="mt-5 pt-4 border-t border-slate-100 text-xs text-slate-400 font-semibold">הסיבה מספר אחת לחרדה פיננסית אצל עצמאיים</div>
+            </div>
+            <div class="bg-white border border-slate-100 rounded-3xl p-8 shadow-sm hover:shadow-md transition reveal" style="transition-delay:0.16s">
+                <div class="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 mb-5"><i data-lucide="trending-down" class="w-5 h-5"></i></div>
+                <h3 class="font-bold text-lg text-slate-900 mb-2.5">עובד קשה — הרווח נעלם</h3>
+                <p class="text-slate-500 leading-relaxed text-sm font-light">הגיע פרויקט גדול. אתה יושב עם מחשבון לחשב מה יישאר אחרי מע"מ, מס, ב"ל ופנסיה. <span class="text-slate-800 font-semibold">מוותר. מתמחר לפי תחושת בטן.</span></p>
+                <div class="mt-5 pt-4 border-t border-slate-100 text-xs text-slate-400 font-semibold">תמחור רגשי = פרויקטים לא רווחיים</div>
+            </div>
+        </div>
+
+        <div class="bg-white border border-slate-100 rounded-3xl p-8 md:p-10 text-center reveal max-w-3xl mx-auto shadow-sm">
+            <p class="text-xl md:text-2xl font-extrabold text-slate-900 leading-relaxed mb-3">הפתרונות הקיימים <span class="text-brand-600">לא עובדים עבורך.</span></p>
+            <p class="text-slate-500 leading-relaxed font-light">אקסל דורש שעות עדכון ידני. תוכנות ענן עולות 49–149₪ לחודש לנצח — ולא מבינות מה זה עוסק פטור. רואה חשבון עונה פעם בשנה. <strong class="text-slate-800 font-semibold">אף אחד לא מראה לך את הנטו שלך היום, עכשיו.</strong></p>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 4 — FOUNDER STORY (אמון ואותנטיות)                  -->
+<!-- ============================================================ -->
+<section class="py-24 bg-white border-b border-slate-100">
+    <div class="container mx-auto px-4 max-w-4xl">
+        <div class="grid md:grid-cols-5 gap-12 items-center">
+            <div class="md:col-span-2 reveal">
+                <div class="relative">
+                    <div class="aspect-square rounded-3xl bg-gradient-to-br from-brand-500 to-brand-800 p-1 shadow-2xl">
+                        <div class="w-full h-full rounded-3xl bg-slate-900 flex items-center justify-center text-brand-300">
+                            <i data-lucide="user-circle-2" class="w-28 h-28"></i>
+                        </div>
+                    </div>
+                    <!-- Quote bubble -->
+                    <div class="absolute -bottom-6 -left-6 bg-brand-600 text-white rounded-2xl p-4 shadow-xl text-sm font-bold max-w-[180px]">
+                        "הכנסתי 170K — ולא ידעתי מה נשאר לי"
+                    </div>
+                </div>
+                <p class="text-center text-xs text-slate-400 mt-10 italic">TODO: תמונה של המפתח</p>
+            </div>
+            <div class="md:col-span-3 space-y-5 reveal">
+                <span class="bg-brand-100 text-brand-700 px-4 py-1 rounded-full font-bold text-sm inline-block">
+                    מי בנה את תכל'ס ולמה
+                </span>
+                <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter leading-tight">
+                    עצמאי שנמאס לו לנחש<br>
+                    <span class="text-brand-600">כמה הוא מרוויח.</span>
+                </h2>
+                <p class="text-slate-600 leading-relaxed text-lg">
+                    שנים ניהלתי עסק עם אקסל, פתקים ומיילים.
+                    ידעתי כמה <em>הכנסתי</em>. לא ידעתי כמה <strong class="text-slate-900">נשאר</strong>.
+                    כל פגישה עם רואה החשבון הייתה הפתעה — לרוב לא נעימה.
+                </p>
+                <p class="text-slate-600 leading-relaxed">
+                    חיפשתי תוכנה שתגיד לי:
+                    <strong class="text-slate-900 text-lg">"אחרי מס, ביטוח לאומי ומע"מ — נשאר לך X₪."</strong>
+                    לא מצאתי. התוכנות בישראל בנויות לחשבי שכר ולחברות — לא לעצמאי שיושב לבד מול לקוח.
+                </p>
+                <p class="text-slate-600 leading-relaxed">
+                    אז בניתי אותה בעצמי.
+                    כל פיצ'ר בתכל'ס — <strong class="text-brand-600">נולד מבעיה אמיתית בעסק אמיתי.</strong>
+                </p>
+                <div class="flex flex-wrap gap-2 pt-2">
+                    <span class="bg-slate-100 text-slate-600 text-xs font-bold px-3 py-1.5 rounded-full">אדריכלים ומהנדסים</span>
+                    <span class="bg-slate-100 text-slate-600 text-xs font-bold px-3 py-1.5 rounded-full">מעצבים</span>
+                    <span class="bg-slate-100 text-slate-600 text-xs font-bold px-3 py-1.5 rounded-full">יועצים ומאמנים</span>
+                    <span class="bg-slate-100 text-slate-600 text-xs font-bold px-3 py-1.5 rounded-full">מתכנתים</span>
+                    <span class="bg-slate-100 text-slate-600 text-xs font-bold px-3 py-1.5 rounded-full">פרילנסרים בכל תחום</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 5 — SOLUTION INTRO (הפתרון — "מה אם...")            -->
+<!-- ============================================================ -->
+<section id="solution" class="py-24 bg-navy-950 text-white relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-0 left-1/2 w-96 h-96 bg-brand-400 rounded-full blur-3xl -translate-x-1/2"></div>
+    </div>
+    <div class="container mx-auto px-4 max-w-4xl text-center relative z-10">
+        <div class="reveal">
+            <span class="bg-navy-800/60 text-brand-300 border border-brand-500/30 px-4 py-1.5 rounded-full font-bold text-sm inline-block mb-6">
+                הפתרון
+            </span>
+            <h2 class="text-3xl md:text-5xl font-black tracking-tighter mb-6">
+                מה אם כל בוקר היית פותח מחשב<br>
+                ורואה <span class="text-brand-400">בדיוק</span> כמה נשאר לך בכיס?
+            </h2>
+            <p class="text-xl text-brand-100 max-w-3xl mx-auto leading-relaxed mb-10">
+                לא ב"שאלת רואה חשבון". לא ב"הסתכלות על חשבון הבנק".
+                <strong class="text-white">אחרי מס הכנסה, ביטוח לאומי, מע"מ ופנסיה — המספר האמיתי שלך,
+                מחושב אוטומטית, מעודכן בזמן אמת.</strong>
+            </p>
+            <div class="inline-flex items-center gap-3 bg-brand-600/20 border border-brand-500/40 rounded-2xl px-6 py-4 text-brand-300 font-bold text-lg">
+                <i data-lucide="sparkles" class="w-6 h-6 text-brand-400"></i>
+                זה בדיוק מה שתכל'ס עושה
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- FEATURES TEASER -->
+<section class="py-20 bg-clean-tint">
+    <div class="container mx-auto px-4 max-w-5xl">
+        <div class="text-center mb-12 reveal">
+            <span class="bg-brand-100 text-brand-700 px-4 py-1.5 rounded-full font-bold text-sm inline-block mb-4">מה תכל״ס נותנת לך</span>
+            <h2 class="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter mb-3">כלי אחד שפותר <span class="text-brand-600">את כל הבלגן</span></h2>
+            <p class="text-lg text-slate-500">כל יכולת נולדה מכאב אמיתי של עצמאי — לא משיווק.</p>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+            <a href="features.html#tab-0" class="group bg-slate-50 hover:bg-brand-50 border border-slate-100 hover:border-brand-200 rounded-2xl p-6 transition reveal">
+                <div class="feat-icon-wrap bg-brand-100 text-brand-600 mb-4"><i data-lucide="trending-up" class="w-7 h-7"></i></div>
+                <h3 class="font-black text-slate-900 mb-1">נטו אמיתי בזמן אמת</h3>
+                <p class="text-sm text-slate-500">מס, מע״מ, ביטוח לאומי — מחושב כל יום.</p>
+            </a>
+            <a href="features.html#tab-1" class="group bg-slate-50 hover:bg-brand-50 border border-slate-100 hover:border-brand-200 rounded-2xl p-6 transition reveal">
+                <div class="feat-icon-wrap bg-yellow-100 text-yellow-600 mb-4"><i data-lucide="activity" class="w-7 h-7"></i></div>
+                <h3 class="font-black text-slate-900 mb-1">סימולטור מס</h3>
+                <p class="text-sm text-slate-500">כמה יישאר לך — לפני שחותמים על פרויקט.</p>
+            </a>
+            <a href="features.html#tab-2" class="group bg-slate-50 hover:bg-brand-50 border border-slate-100 hover:border-brand-200 rounded-2xl p-6 transition reveal">
+                <div class="feat-icon-wrap bg-brand-200 text-brand-700 mb-4"><i data-lucide="users" class="w-7 h-7"></i></div>
+                <h3 class="font-black text-slate-900 mb-1">לקוחות ופרויקטים</h3>
+                <p class="text-sm text-slate-500">כמה נכנס, כמה צפוי, כמה חייב — בכרטיס אחד.</p>
+            </a>
+            <a href="features.html#tab-3" class="group bg-slate-50 hover:bg-brand-50 border border-slate-100 hover:border-brand-200 rounded-2xl p-6 transition reveal">
+                <div class="feat-icon-wrap bg-blue-100 text-blue-600 mb-4"><i data-lucide="clock" class="w-7 h-7"></i></div>
+                <h3 class="font-black text-slate-900 mb-1">שעות וחשבוניות</h3>
+                <p class="text-sm text-slate-500">שעון נוכחות → חשבונית שעות אוטומטית.</p>
+            </a>
+            <a href="features.html#tab-4" class="group bg-slate-50 hover:bg-brand-50 border border-slate-100 hover:border-brand-200 rounded-2xl p-6 transition reveal">
+                <div class="feat-icon-wrap bg-purple-100 text-purple-600 mb-4"><i data-lucide="wallet" class="w-7 h-7"></i></div>
+                <h3 class="font-black text-slate-900 mb-1">ארנק ויומן</h3>
+                <p class="text-sm text-slate-500">כל הכלים הקטנים — מחוברים במקום אחד.</p>
+            </a>
+            <a href="features.html#tab-5" class="group bg-slate-50 hover:bg-brand-50 border border-slate-100 hover:border-brand-200 rounded-2xl p-6 transition reveal">
+                <div class="feat-icon-wrap bg-brand-100 text-brand-600 mb-4"><i data-lucide="sparkles" class="w-7 h-7"></i></div>
+                <h3 class="font-black text-slate-900 mb-1">עוזר AI עסקי</h3>
+                <p class="text-sm text-slate-500">שואל בעברית, מקבל תשובה על הנתונים שלך.</p>
+            </a>
+        </div>
+        <div class="text-center reveal">
+            <a href="features.html" class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-500 text-white px-8 py-4 rounded-xl font-black transition hover:scale-105 shadow-lg">
+                לכל הפיצ״רים בפירוט <i data-lucide="arrow-left" class="w-5 h-5"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- INTEGRATIONS — מתממשק עם מה שכבר עובד אצלך                  -->
+<!-- ============================================================ -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-4 max-w-5xl text-center">
+        <div class="reveal mb-12">
+            <span class="bg-slate-100 text-slate-600 border border-slate-200 px-4 py-1.5 rounded-full font-semibold text-sm inline-block mb-5">אינטגרציות</span>
+            <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-3">מתממשק עם מה<br><span class="text-brand-600">שכבר עובד אצלך</span></h2>
+            <p class="text-lg text-slate-500 max-w-xl mx-auto font-light">מפיקים חשבוניות ישירות לתוכנה שאתה כבר עובד איתה — בלי כפילות, בלי הקלדה כפולה.</p>
+        </div>
+        <div class="flex flex-wrap justify-center items-center gap-4 reveal">
+            <div class="bg-clean border border-slate-100 rounded-2xl px-8 py-5 shadow-sm hover:shadow-md transition flex items-center gap-3">
+                <i data-lucide="file-check" class="w-5 h-5 text-brand-600"></i><span class="font-bold text-slate-800 text-lg">ריווחית</span>
+            </div>
+            <div class="bg-clean border border-slate-100 rounded-2xl px-8 py-5 shadow-sm hover:shadow-md transition flex items-center gap-3">
+                <i data-lucide="file-check" class="w-5 h-5 text-brand-600"></i><span class="font-bold text-slate-800 text-lg">ירוקה</span>
+            </div>
+            <div class="bg-clean border border-slate-100 rounded-2xl px-8 py-5 shadow-sm hover:shadow-md transition flex items-center gap-3">
+                <i data-lucide="file-check" class="w-5 h-5 text-brand-600"></i><span class="font-bold text-slate-800 text-lg">סאמיט</span>
+            </div>
+        </div>
+        <p class="text-sm text-slate-400 mt-8 font-light">לוחצים "הפק חשבונית" בתכל'ס — היא נוצרת ונשלחת אוטומטית. PDF מוכן ללקוח.</p>
+    </div>
+</section>
+
+
+
+<!-- SECTION 10 — PRIVATE DATA (פרטיות — מפנה להתנגדות)          -->
+<!-- ============================================================ -->
+<section class="py-20 brand-gradient text-white">
+    <div class="container mx-auto px-4 max-w-5xl">
+        <div class="grid md:grid-cols-3 gap-6 reveal">
+            <div class="glass rounded-2xl p-6 text-center">
+                <i data-lucide="hard-drive" class="w-10 h-10 text-brand-400 mx-auto mb-4"></i>
+                <h3 class="font-black text-lg mb-2">הנתונים אצלך</h3>
+                <p class="text-brand-100 text-sm">קובץ SQLite על המחשב שלך. אין שרת, אין חברה שרואה את ההכנסות שלך.</p>
+            </div>
+            <div class="glass rounded-2xl p-6 text-center">
+                <i data-lucide="wifi-off" class="w-10 h-10 text-brand-400 mx-auto mb-4"></i>
+                <h3 class="font-black text-lg mb-2">עובד ללא אינטרנט</h3>
+                <p class="text-brand-100 text-sm">נפל האינטרנט? תכל'ס עובדת. החברה נסגרה? הנתונים שלך בטוחים.</p>
+            </div>
+            <div class="glass rounded-2xl p-6 text-center">
+                <i data-lucide="infinity" class="w-10 h-10 text-brand-400 mx-auto mb-4"></i>
+                <h3 class="font-black text-lg mb-2">משלמים פעם. לנצח.</h3>
+                <p class="text-brand-100 text-sm">930 ₪ היום — ו-0 ₪ לעולם אחר כך. בעשר שנים חסכת 6,000–18,000₪ לעומת ענן.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 11 — SOCIAL PROOF + TESTIMONIALS                     -->
+<!-- ============================================================ -->
+<section id="proof" class="py-24 bg-white border-b border-slate-100">
+    <div class="container mx-auto px-4 max-w-5xl">
+        <div class="text-center mb-14 reveal">
+            <span class="bg-yellow-100 text-yellow-800 px-4 py-1 rounded-full font-bold text-sm inline-block mb-5">
+                מה אומרים משתמשים
+            </span>
+            <h2 class="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter mb-3">
+                תוצאות אמיתיות.<br>
+                <span class="text-brand-600">מספרים אמיתיים.</span>
+            </h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="testimonial-card bg-slate-50 rounded-2xl p-7 shadow-sm border border-slate-200 reveal">
+                <div class="flex gap-1 text-yellow-400 mb-4">
+                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                </div>
+                <p class="text-slate-700 italic mb-5 leading-relaxed text-lg">
+                    "סוף סוף תוכנה שמראה לי מה אני באמת מרוויח. בחודש הראשון גיליתי שפרויקט אחד לא משתלם — שיניתי תמחור.
+                    <strong class="text-slate-900 not-italic">הרווחתי 12,000₪ בשנה רק מהבנת המספרים.</strong>"
+                </p>
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 bg-brand-200 rounded-full flex items-center justify-center text-brand-700 font-black text-sm">?</div>
+                    <div>
+                        <p class="font-black text-slate-900 text-sm">[שם הלקוח]</p>
+                        <p class="text-xs text-slate-500">[עיסוק, עיר]</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card bg-slate-50 rounded-2xl p-7 shadow-sm border border-slate-200 reveal" style="transition-delay:0.1s">
+                <div class="flex gap-1 text-yellow-400 mb-4">
+                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                </div>
+                <p class="text-slate-700 italic mb-5 leading-relaxed text-lg">
+                    "כל הוצאה, כל הכנסה, כל שעה — הכל במקום אחד. רואה החשבון שלי מקבל דוח מסודר.
+                    <strong class="text-slate-900 not-italic">גומרים בעשירית מהזמן. שווה כל שקל.</strong>"
+                </p>
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 bg-brand-200 rounded-full flex items-center justify-center text-brand-700 font-black text-sm">?</div>
+                    <div>
+                        <p class="font-black text-slate-900 text-sm">[שם הלקוח]</p>
+                        <p class="text-xs text-slate-500">[עיסוק, עיר]</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card bg-slate-50 rounded-2xl p-7 shadow-sm border border-slate-200 reveal" style="transition-delay:0.2s">
+                <div class="flex gap-1 text-yellow-400 mb-4">
+                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                </div>
+                <p class="text-slate-700 italic mb-5 leading-relaxed text-lg">
+                    "סימולטור המס שינה לי את החיים. בדקתי אם כדאי לעבור לעוסק מורשה —
+                    <strong class="text-slate-900 not-italic">וגיליתי שכדאי לחכות עוד שלושה חודשים. חסכתי 6,500₪ במס.</strong>"
+                </p>
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 bg-brand-200 rounded-full flex items-center justify-center text-brand-700 font-black text-sm">?</div>
+                    <div>
+                        <p class="font-black text-slate-900 text-sm">[שם הלקוח]</p>
+                        <p class="text-xs text-slate-500">[עיסוק, עיר]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 text-center p-4 bg-blue-50 border border-blue-200 rounded-xl max-w-xl mx-auto">
+            <p class="text-blue-800 text-sm font-medium">
+                הציטוטים הם הצעות מילוי — כשתאסוף עדויות אמיתיות, החלף את הטקסטים והסר הסימון.
+            </p>
+        </div>
+
+        <!-- MID-PAGE CTA -->
+        <div class="mt-16 dark-float p-10 md:p-14 text-center text-white reveal glow-green">
+            <h3 class="text-2xl md:text-3xl font-black tracking-tighter mb-3">
+                מוכן לראות מה <em class="not-italic text-brand-400">באמת</em> נשאר לך?
+            </h3>
+            <p class="text-slate-300 mb-8 text-lg max-w-lg mx-auto">
+                3 דקות בדמו — ותדע אם תכל'ס בשבילך. ללא הרשמה, ללא כרטיס אשראי.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="https://tacles.vercel.app/?demo=1" target="_blank" rel="noopener"
+                   class="bg-brand-500 hover:bg-brand-400 text-slate-900 px-10 py-4 rounded-xl text-lg font-black transition hover:scale-105 flex items-center justify-center gap-2 glow-green">
+                    <i data-lucide="play-circle" class="w-5 h-5"></i>
+                    פתח דמו חינמי — עכשיו
+                </a>
+                <button onclick="initiateBuyProcess()"
+                    class="bg-white/10 hover:bg-white/20 border border-white/20 text-white px-8 py-4 rounded-xl font-bold transition flex items-center justify-center gap-2">
+                    <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                    רכישה — 930 ₪ חד-פעמי
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 12 — COMPARISON TABLE                                -->
+<!-- ============================================================ -->
+<section class="py-24 bg-slate-50 border-b border-slate-200">
+    <div class="container mx-auto px-4 max-w-5xl">
+        <div class="text-center mb-12 reveal">
+            <h2 class="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter mb-3">
+                אקסל, ענן, רואה חשבון —<br>
+                <span class="text-brand-600">מה חסר בכל אחד?</span>
+            </h2>
+            <p class="text-xl text-slate-600">השוואה ישירה. בלי שיווק.</p>
+        </div>
+        <div class="overflow-x-auto rounded-2xl shadow-xl border border-slate-200 reveal">
+            <table class="w-full text-right bg-white min-w-[680px]">
+                <thead>
+                    <tr class="bg-slate-900 text-white">
+                        <th class="px-4 py-4 text-right font-bold text-sm">תכונה</th>
+                        <th class="px-4 py-4 text-center font-bold text-sm">אקסל</th>
+                        <th class="px-4 py-4 text-center font-bold text-sm">ענן (מנוי)</th>
+                        <th class="px-4 py-4 text-center font-bold text-sm">רו"ח בלבד</th>
+                        <th class="px-4 py-4 text-center font-black text-sm bg-brand-600">תכל'ס</th>
+                    </tr>
+                </thead>
+                <tbody class="text-slate-700 text-sm">
+                    <tr class="border-b border-slate-100"><td class="px-4 py-3 font-bold">חישוב נטו אמיתי בזמן אמת</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-yellow-500">חלקי</td><td class="px-4 py-3 text-center text-yellow-500">סוף שנה</td><td class="px-4 py-3 text-center bg-brand-50 text-brand-700 font-black">✓</td></tr>
+                    <tr class="border-b border-slate-100 bg-slate-50"><td class="px-4 py-3 font-bold">תשלום חד-פעמי (ללא מנוי)</td><td class="px-4 py-3 text-center text-green-600 font-bold">✓</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center bg-brand-50 text-brand-700 font-black">✓</td></tr>
+                    <tr class="border-b border-slate-100"><td class="px-4 py-3 font-bold">סימולטור מס "מה אם"</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center bg-brand-50 text-brand-700 font-black">✓</td></tr>
+                    <tr class="border-b border-slate-100 bg-slate-50"><td class="px-4 py-3 font-bold">בדיקת מענק עבודה</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-yellow-500">בתשלום</td><td class="px-4 py-3 text-center bg-brand-50 text-brand-700 font-black">✓</td></tr>
+                    <tr class="border-b border-slate-100"><td class="px-4 py-3 font-bold">הנתונים אצלי — לא בענן זר</td><td class="px-4 py-3 text-center text-green-600 font-bold">✓</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center bg-brand-50 text-brand-700 font-black">✓</td></tr>
+                    <tr class="border-b border-slate-100 bg-slate-50"><td class="px-4 py-3 font-bold">עובד ללא אינטרנט</td><td class="px-4 py-3 text-center text-green-600 font-bold">✓</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-green-600 font-bold">✓</td><td class="px-4 py-3 text-center bg-brand-50 text-brand-700 font-black">✓</td></tr>
+                    <tr class="border-b border-slate-100"><td class="px-4 py-3 font-bold">מעקב שעות + חשבוניות שעות</td><td class="px-4 py-3 text-center text-yellow-500">ידני</td><td class="px-4 py-3 text-center text-yellow-500">חלק</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center bg-brand-50 text-brand-700 font-black">✓</td></tr>
+                    <tr class="border-b border-slate-100 bg-slate-50"><td class="px-4 py-3 font-bold">ארנק לקוחות אוטומטי</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center bg-brand-50 text-brand-700 font-black">✓</td></tr>
+                    <tr><td class="px-4 py-3 font-bold">הפקת חשבוניות מס מובנית</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-yellow-500">נפרד</td><td class="px-4 py-3 text-center text-yellow-500">בתשלום</td><td class="px-4 py-3 text-center bg-brand-50 text-brand-700 font-black">✓</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CTA STRIP #2 — אחרי ההשוואה                                -->
+<!-- ============================================================ -->
+<section class="py-12 bg-brand-400">
+    <div class="container mx-auto px-4 max-w-3xl text-center reveal">
+        <p class="text-navy-950 font-extrabold text-xl md:text-2xl mb-4">
+            ראית את ההשוואה. עכשיו תנסה בעצמך.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="https://tacles.vercel.app/?demo=1" target="_blank" rel="noopener"
+               class="bg-slate-900 hover:bg-slate-800 text-white px-8 py-4 rounded-xl font-black transition flex items-center justify-center gap-2 text-lg">
+                <i data-lucide="play-circle" class="w-5 h-5"></i> דמו חינמי — עכשיו
+            </a>
+            <button onclick="initiateBuyProcess()"
+                class="bg-white hover:bg-slate-50 text-slate-900 px-8 py-4 rounded-xl font-black transition flex items-center justify-center gap-2 text-lg shadow-lg">
+                <i data-lucide="shopping-cart" class="w-5 h-5"></i> רכישה — 930 ₪ חד-פעמי
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 13 — FAQ (מלא — 17 שאלות, 4 קטגוריות)              -->
+<!-- ============================================================ -->
+<section id="faq" class="py-24 bg-gradient-to-br from-brand-50 to-brand-100">
+    <div class="container mx-auto px-4 max-w-4xl">
+        <div class="text-center mb-12 reveal">
+            <h2 class="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter mb-3">שאלות שכנראה יש לך</h2>
+            <p class="text-lg text-slate-600">תשובות ישירות — בלי שיווק</p>
+        </div>
+
+        <!-- קטגוריה 1 -->
+        <h3 class="text-xl font-black text-navy-900 mb-4 flex items-center gap-2 mt-8 reveal">
+            <i data-lucide="info" class="text-brand-600 w-5 h-5"></i> כללי והתאמה
+        </h3>
+        <div class="space-y-3 mb-10 reveal">
+            <div class="bg-white rounded-lg border border-brand-100 overflow-hidden shadow-sm"><button class="w-full px-6 py-4 text-right font-bold flex justify-between items-center focus:outline-none hover:bg-brand-50 transition text-sm" onclick="this.nextElementSibling.classList.toggle('hidden')">לאיזה סוג עסק המערכת מתאימה?<i data-lucide="chevron-down" class="text-brand-500 w-5 h-5 shrink-0"></i></button><div class="px-6 pb-5 text-slate-600 text-sm hidden border-t border-brand-100 pt-4 leading-relaxed">המערכת מתאימה לעצמאיים ונותני שירותים — עוסק פטור או מורשה. במיוחד מומלצת לאדריכלים, מהנדסים, יועצים, מטפלים, מאמנים, אנשי מקצוע פרילנסרים וכל מי שעובד מול לקוחות באופן ישיר.</div></div>
+            <div class="bg-white rounded-lg border border-brand-100 overflow-hidden shadow-sm"><button class="w-full px-6 py-4 text-right font-bold flex justify-between items-center focus:outline-none hover:bg-brand-50 transition text-sm" onclick="this.nextElementSibling.classList.toggle('hidden')">האם צריך ידע במחשבים כדי להשתמש?<i data-lucide="chevron-down" class="text-brand-500 w-5 h-5 shrink-0"></i></button><div class="px-6 pb-5 text-slate-600 text-sm hidden border-t border-brand-100 pt-4 leading-relaxed">לא. המערכת מעוצבת לאנשים שמכירים את הדרישות העסקיות — לא תיכותי. אם אתה יודע לפתוח אקסל, אתה יודע להשתמש בתכל'ס. יש מדריך משתמש מובנה והצ'אט העוזר עונה על שאלות בעברית פשוטה.</div></div>
+            <div class="bg-white rounded-lg border border-brand-100 overflow-hidden shadow-sm"><button class="w-full px-6 py-4 text-right font-bold flex justify-between items-center focus:outline-none hover:bg-brand-50 transition text-sm" onclick="this.nextElementSibling.classList.toggle('hidden')">האם תכל'ס מחליפה את רואה החשבון?<i data-lucide="chevron-down" class="text-brand-500 w-5 h-5 shrink-0"></i></button><div class="px-6 pb-5 text-slate-600 text-sm hidden border-t border-brand-100 pt-4 leading-relaxed">לא — היא הופכת אותו לזול יותר. רואה החשבון גובה לפי שעה. כשאתה מגיע אליו עם נתונים מסודרים במקום קופסת קבלות — הפגישה קצרה יותר, החשבון קטן יותר. תכל'ס נותנת לך שליטה יומיומית; רואה החשבון מגיש דוחות ועושה אופטימיזציית מס. כל אחד במה שהוא טוב בו.</div></div>
+            <div class="bg-white rounded-lg border border-brand-100 overflow-hidden shadow-sm"><button class="w-full px-6 py-4 text-right font-bold flex justify-between items-center focus:outline-none hover:bg-brand-50 transition text-sm" onclick="this.nextElementSibling.classList.toggle('hidden')">האם זה מתאים גם לאדריכלים ומהנדסים?<i data-lucide="chevron-down" class="text-brand-500 w-5 h-5 shrink-0"></i></button><div class="px-6 pb-5 text-slate-600 text-sm hidden border-t border-brand-100 pt-4 leading-relaxed">בהחלט. למעשה המערכת פותחה במקור מתוך הצרכים של אדריכל. יש בה תמיכה מובנית ב"פרויקטים תאומים" (קוביה משולבת חוזה + תוספות), מעקב שלבי תכנון, ולוחות תשלומים גמישים שמתאימים בדיוק לעולם התכנון.</div></div>
+        </div>
+
+        <!-- קטגוריה 2 -->
+        <h3 class="text-xl font-black text-navy-900 mb-4 flex items-center gap-2 mt-8 reveal">
+            <i data-lucide="settings" class="text-brand-600 w-5 h-5"></i> טכני, התקנה ופלטפורמה
+        </h3>
+        <div class="space-y-3 mb-10 reveal">
+            <div class="bg-white rounded-lg border border-brand-100 overflow-hidden shadow-sm"><button class="w-full px-6 py-4 text-right font-bold flex justify-between items-center focus:outline-none hover:bg-brand-50 transition text-sm" onclick="this.nextElementSibling.classList.toggle('hidden')">האם זו תוכנה בענן או מקומית?<i data-lucide="chevron-down" class="text-brand-500 w-5 h-5 shrink-0"></i></button><div class="px-6 pb-5 text-slate-600 text-sm hidden border-t border-brand-100 pt-4 leading-relaxed">תוכנה מקומית. מתקינים על המחשב, והנתונים נשמרים אצלך. עובדת גם ללא חיבור לאינטרנט, ואין סיכון שחברה זרה תיסגר ותיקח איתה את העסק שלך. יש גם גרסת Web למי שרוצה גישה מכל מקום.</div></div>
+            <div class="bg-white rounded-lg border border-brand-100 overflow-hidden shadow-sm"><button class="w-full px-6 py-4 text-right font-bold flex justify-between items-center focus:outline-none hover:bg-brand-50 transition text-sm" onclick="this.nextElementSibling.classList.toggle('hidden')">איך עובד הגיבוי?<i data-lucide="chevron-down" class="text-brand-500 w-5 h-5 shrink-0"></i></button><div class="px-6 pb-5 text-slate-600 text-sm hidden border-t border-brand-100 pt-4 leading-relaxed">אתה בוחר תיקייה — יכולה להיות Google Drive, Dropbox, OneDrive, או כונן חיצוני. המערכת שומרת אוטומטית גיבוי בכל פתיחה ובמרווחי זמן שאתה מגדיר. אפשר לייצא גם קובץ גיבוי מלא (JSON) בלחיצה.</div></div>
+            <div class="bg-white rounded-lg border border-brand-100 overflow-hidden shadow-sm"><button class="w-full px-6 py-4 text-right font-bold flex justify-between items-center focus:outline-none hover:bg-brand-50 transition text-sm" onclick="this.nextElementSibling.classList.toggle('hidden')">איך עוברים ממערכת קיימת לתכל'ס?<i data-lucide="chevron-down" class="text-brand-500 w-5 h-5 shrink-0"></i></button><div class="px-6 pb-5 text-slate-600 text-sm hidden border-t border-brand-100 pt-4 leading-relaxed">המערכת תומכת בייבוא רשימת לקוחות ופרויקטים מ-Excel/CSV. אפשר גם להוסיף ידנית — רוב המשתמשים מסיימים את ההזנה הראשונית בתוך שעה-שעתיים.</div></div>
+            <div class="bg-white rounded-lg border border-brand-100 overflow-hidden shadow-sm"><button class="w-full px-6 py-4 text-right font-bold flex justify-between items-center focus:outline-none hover:bg-brand-50 transition text-sm" onclick="this.nextElementSibling.classList.toggle('hidden')">האם אפשר לעבוד מכמה מחשבים?<i data-lucide="chevron-down" class="text-brand-500 w-5 h-5 shrink-0"></i></button><div class="px-6 pb-5 text-slate-600 text-sm hidden border-t border-brand-100 pt-4 leading-relaxed">הרישיון הוא למחשב אחד. אם אתה צריך לעבוד מכמה מקומות — אפשר לשמור את קובץ הנתונים בתיקיית ענן (Drive/Dropbox) ולפתוח אותו ממחשבים שונים. רק לא בו-זמנית. לחילופין — גרסת Web מתאימה בדיוק לזה.</div></div>
+            <div class="bg-white rounded-lg border border-brand-100 overflow-hidden shadow-sm"><button class="w-full px-6 py-4 text-right font-bold flex justify-between items-center focus:outline-none hover:bg-brand-50 transition text-sm" onclick="this.nextElementSibling.classList.toggle('hidden')">מה ההבדל בין Desktop ל-Web? איך בוחרים?<i data-lucide="chevron-down" class="text-brand-500 w-5 h-5 shrink-0"></i></button><div class="px-6 pb-5 text-slate-600 text-sm hidden border-t border-brand-100 pt-4 leading-relaxed"><strong class="text-brand-700">Desktop (930 ₪)</strong> — מתאים לרוב המשתמשים: מותקן על המחשב, עובד בלי אינטרנט, הנתונים אצלך. תשלום חד-פעמי לנצח.<br><br><strong class="text-brand-700">Web (1,130 ₪/שנה ראשונה, 170 ₪/שנה אח"כ)</strong> — מתאים למי שעובד ממספר מחשבים או שרוצה גישה מכל מקום. גיבוי אוטומטי בענן, עדכונים אוטומטיים.<br><br><strong>טיפ:</strong> לא יודע מה לבחור? תנסה קודם את הדמו — הוא מדמה את גרסת ה-Web. אם מרגיש נוח, תחליט.</div></div>
+        </div>
+
+        <!-- קטגוריה 3 -->
+        <h3 class="text-xl font-black text-navy-900 mb-4 flex items-center gap-2 mt-8 reveal">
+            <i data-lucide="calculator" class="text-brand-600 w-5 h-5"></i> מיסוי ופיננסים
+        </h3>
+        <div class="space-y-3 mb-10 reveal">
+            <div class="bg-white rounded-lg border border-brand-100 overflow-hidden shadow-sm"><button class="w-full px-6 py-4 text-right font-bold flex justify-between items-center focus:outline-none hover:bg-brand-50 transition text-sm" onclick="this.nextElementSibling.classList.toggle('hidden')">איך המערכת מחשבת את ה"נטו האמיתי"?<i data-lucide="chevron-down" class="text-brand-500 w-5 h-5 shrink-0"></i></button><div class="px-6 pb-5 text-slate-600 text-sm hidden border-t border-brand-100 pt-4 leading-relaxed">המערכת לוקחת את ההכנסות, מורידה את ההוצאות המוכרות, מחשבת מע"מ (אם רלוונטי), מס הכנסה לפי מדרגות, ביטוח לאומי ופנסיה — ומציגה לך את הסכום שנשאר בכיס בפועל. כל זה בזמן אמת, על כל פעולה.</div></div>
+            <div class="bg-white rounded-lg border border-brand-100 overflow-hidden shadow-sm"><button class="w-full px-6 py-4 text-right font-bold flex justify-between items-center focus:outline-none hover:bg-brand-50 transition text-sm" onclick="this.nextElementSibling.classList.toggle('hidden')">האם המערכת בודקת זכאות למענק עבודה?<i data-lucide="chevron-down" class="text-brand-500 w-5 h-5 shrink-0"></i></button><div class="px-6 pb-5 text-slate-600 text-sm hidden border-t border-brand-100 pt-4 leading-relaxed">כן. סימולטור המס בודק אוטומטית את הזכאות שלך למענק עבודה (מס הכנסה שלילי) לפי הנתונים העדכניים של רשות המסים. אם אתה זכאי — המערכת תציין את הסכום המשוער. ההגשה עצמה היא אחריות שלך מול רשות המסים.</div></div>
+            <div class="bg-white rounded-lg border border-brand-100 overflow-hidden shadow-sm"><button class="w-full px-6 py-4 text-right font-bold flex justify-between items-center focus:outline-none hover:bg-brand-50 transition text-sm" onclick="this.nextElementSibling.classList.toggle('hidden')">מה זה סימולציית "מה אם"?<i data-lucide="chevron-down" class="text-brand-500 w-5 h-5 shrink-0"></i></button><div class="px-6 pb-5 text-slate-600 text-sm hidden border-t border-brand-100 pt-4 leading-relaxed">לפני שמקבלים החלטה גדולה — קבלת פרויקט חדש, מעבר מעוסק פטור למורשה, הגדלת היקף — המערכת מאפשרת לבדוק בלי לשנות נתונים אמיתיים. אתה רואה איך זה ישפיע על המס, על המענק, ועל הנטו בסוף השנה.</div></div>
+            <div class="bg-white rounded-lg border border-brand-100 overflow-hidden shadow-sm"><button class="w-full px-6 py-4 text-right font-bold flex justify-between items-center focus:outline-none hover:bg-brand-50 transition text-sm" onclick="this.nextElementSibling.classList.toggle('hidden')">האם המערכת תומכת בעוסק פטור ובמורשה?<i data-lucide="chevron-down" class="text-brand-500 w-5 h-5 shrink-0"></i></button><div class="px-6 pb-5 text-slate-600 text-sm hidden border-t border-brand-100 pt-4 leading-relaxed">כן, בשניהם. בעוסק פטור המערכת עוקבת אחר התקרה ומתריעה כשמתקרבים אליה. בעוסק מורשה היא מטפלת אוטומטית במע"מ של עסקאות והוצאות.</div></div>
+            <div class="bg-white rounded-lg border border-brand-100 overflow-hidden shadow-sm"><button class="w-full px-6 py-4 text-right font-bold flex justify-between items-center focus:outline-none hover:bg-brand-50 transition text-sm" onclick="this.nextElementSibling.classList.toggle('hidden')">איך עובדות חשבוניות שעות?<i data-lucide="chevron-down" class="text-brand-500 w-5 h-5 shrink-0"></i></button><div class="px-6 pb-5 text-slate-600 text-sm hidden border-t border-brand-100 pt-4 leading-relaxed">אתה מפעיל את שעון הנוכחות בכל פעם שאתה עובד על משימה ללקוח. בסוף החודש, המערכת אוספת את כל השעות שצברת לאותו לקוח, מחשבת את הסכום לפי התעריף שהגדרת, ומפיקה חשבונית שעות מסודרת — מוכנה לשליחה.</div></div>
+        </div>
+
+        <!-- קטגוריה 4 -->
+        <h3 class="text-xl font-black text-navy-900 mb-4 flex items-center gap-2 mt-8 reveal">
+            <i data-lucide="shield" class="text-brand-600 w-5 h-5"></i> אבטחה, רכישה ותמיכה
+        </h3>
+        <div class="space-y-3 mb-6 reveal">
+            <div class="bg-white rounded-lg border border-brand-100 overflow-hidden shadow-sm"><button class="w-full px-6 py-4 text-right font-bold flex justify-between items-center focus:outline-none hover:bg-brand-50 transition text-sm" onclick="this.nextElementSibling.classList.toggle('hidden')">איך משלמים ומקבלים את התוכנה?<i data-lucide="chevron-down" class="text-brand-500 w-5 h-5 shrink-0"></i></button><div class="px-6 pb-5 text-slate-600 text-sm hidden border-t border-brand-100 pt-4 leading-relaxed">לוחצים על "רכישת התוכנה" באתר, מאשרים את תנאי השימוש, ומגיעים לתשלום מאובטח דרך uPay. מיד אחרי התשלום מקבלים קישור להורדה וקוד רישוי. ההתקנה לוקחת דקה.</div></div>
+            <div class="bg-white rounded-lg border border-brand-100 overflow-hidden shadow-sm"><button class="w-full px-6 py-4 text-right font-bold flex justify-between items-center focus:outline-none hover:bg-brand-50 transition text-sm" onclick="this.nextElementSibling.classList.toggle('hidden')">משלמים פעם אחת — ומה לגבי עדכונים?<i data-lucide="chevron-down" class="text-brand-500 w-5 h-5 shrink-0"></i></button><div class="px-6 pb-5 text-slate-600 text-sm hidden border-t border-brand-100 pt-4 leading-relaxed">כן, כולל. 930 ₪ מקנה גישה לכל העדכונים העתידיים ללא תשלום נוסף — פיצ'רים חדשים, עדכוני מדרגות מס לפי שינויי חקיקה, ותיקונים. מדרגות המס בישראל משתנות? תכל'ס מתעדכנת, אתה לא משלם.</div></div>
+            <div class="bg-white rounded-lg border border-brand-100 overflow-hidden shadow-sm"><button class="w-full px-6 py-4 text-right font-bold flex justify-between items-center focus:outline-none hover:bg-brand-50 transition text-sm" onclick="this.nextElementSibling.classList.toggle('hidden')">איך המערכת מוגנת בסיסמה?<i data-lucide="chevron-down" class="text-brand-500 w-5 h-5 shrink-0"></i></button><div class="px-6 pb-5 text-slate-600 text-sm hidden border-t border-brand-100 pt-4 leading-relaxed">אפשר להגדיר סיסמת כניסה למערכת. גם אם מישהו פותח את המחשב שלך, הוא לא יראה את הנתונים העסקיים בלי הסיסמה. בנוסף, אפשר לייצא גיבויים מוצפנים.</div></div>
+            <div class="bg-white rounded-lg border border-brand-100 overflow-hidden shadow-sm"><button class="w-full px-6 py-4 text-right font-bold flex justify-between items-center focus:outline-none hover:bg-brand-50 transition text-sm" onclick="this.nextElementSibling.classList.toggle('hidden')">איך מקבלים תמיכה אחרי הרכישה?<i data-lucide="chevron-down" class="text-brand-500 w-5 h-5 shrink-0"></i></button><div class="px-6 pb-5 text-slate-600 text-sm hidden border-t border-brand-100 pt-4 leading-relaxed">תמיכה ניתנת באמצעות דוא"ל ישירות מהמפתח. רוב הפניות מקבלות מענה תוך 24 שעות. אין מוקד טלפוני בחו"ל — אתה כותב, אני עונה.</div></div>
+        </div>
+
+        <div class="text-center mt-10 p-6 bg-white rounded-2xl shadow-lg border border-brand-200 reveal">
+            <p class="text-lg text-slate-700 mb-4">לא מצאת תשובה לשאלה שלך?</p>
+            <a href="#lead-form" class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-500 text-white px-6 py-3 rounded-xl font-bold transition">
+                <i data-lucide="message-square" class="w-5 h-5"></i>
+                שלח אליי שאלה ואחזור אליך
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- ============================================================ -->
+<!-- PRICING TEASER — מפנה לעמוד המחירון                         -->
+<!-- ============================================================ -->
+<section class="py-20 bg-slate-900 text-white relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5 pointer-events-none">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-brand-400 rounded-full blur-3xl"></div>
+    </div>
+    <div class="container mx-auto px-4 max-w-3xl text-center relative z-10 reveal">
+        <span class="bg-amber-400 text-slate-900 px-4 py-1.5 rounded-full font-black text-sm inline-block mb-5">⚡ מחיר השקה</span>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tighter mb-4">רכישה אחת. <span class="text-brand-400">שימוש לנצח.</span></h2>
+        <p class="text-slate-300 text-lg mb-8">בלי מנוי חודשי. בוחרים גרסה, משלמים פעם אחת, עובדים.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-stretch mb-8">
+            <div class="bg-gradient-to-br from-navy-900 to-navy-950 border-2 border-brand-500 rounded-2xl px-8 py-6 flex-1 max-w-xs mx-auto">
+                <p class="text-brand-300 font-bold mb-1">Desktop</p>
+                <p class="text-4xl font-black stat-number">930 ₪</p>
+                <p class="text-brand-400 text-sm mt-1">חד-פעמי לנצח</p>
+            </div>
+            <div class="bg-slate-800 border border-slate-600 rounded-2xl px-8 py-6 flex-1 max-w-xs mx-auto">
+                <p class="text-blue-300 font-bold mb-1">Web</p>
+                <p class="text-4xl font-black stat-number">1,130 ₪</p>
+                <p class="text-slate-400 text-sm mt-1">שנה ראשונה</p>
+            </div>
+        </div>
+        <a href="pricing.html" class="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-400 text-slate-900 px-8 py-4 rounded-xl font-black transition hover:scale-105 shadow-lg glow-green">
+            למחירון המלא ומה כלול <i data-lucide="arrow-left" class="w-5 h-5"></i>
+        </a>
+    </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 15 — FINAL CTA + FOOTER                              -->
+<!-- ============================================================ -->
+<footer id="contact" class="bg-gradient-to-br from-navy-950 to-navy-900 text-white">
+    <div class="container mx-auto px-4 py-20">
+
+        <!-- FINAL HERO CTA -->
+        <div class="text-center mb-16 reveal">
+            <h2 class="text-3xl md:text-5xl font-black tracking-tighter mb-4">
+                תוך 3 דקות תדע<br>
+                <span class="text-brand-400">אם תכל'ס בשבילך.</span>
+            </h2>
+            <p class="text-xl text-slate-300 max-w-xl mx-auto mb-10">
+                פותחים דמו, מזינים מספרים לדוגמה — ורואים את הנטו האמיתי.
+                בלי להוריד, בלי להירשם.
+            </p>
+
+            <div class="max-w-lg mx-auto mb-8">
+                <a href="https://tacles.vercel.app/?demo=1" target="_blank" rel="noopener"
+                   class="group block w-full bg-brand-500 hover:bg-brand-400 text-slate-900 rounded-2xl p-7 transition hover:scale-[1.02] shadow-2xl glow-green">
+                    <div class="flex flex-col items-center gap-2">
+                        <i data-lucide="play-circle" class="w-10 h-10 group-hover:scale-110 transition"></i>
+                        <span class="font-black text-2xl tracking-tighter">פתח את הדמו — עכשיו, חינם</span>
+                        <span class="text-sm font-bold text-slate-700">מלא, עם נתוני דוגמה, ללא הרשמה ובלי כרטיס אשראי</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                <button onclick="initiateBuyProcess()"
+                    class="bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-xl px-7 py-3 transition flex items-center gap-2 font-bold">
+                    <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                    ראיתי, אני קונה — 930 ₪ חד-פעמי
+                </button>
+                <a href="#lead-form" class="text-slate-400 hover:text-brand-400 transition text-sm hover:underline underline-offset-4">
+                    יש שאלות? השאר פרטים ואחזור אליך
+                </a>
+            </div>
+
+            <div class="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-slate-500 font-medium">
+                <span class="flex items-center gap-1.5"><i data-lucide="lock" class="w-4 h-4 text-brand-600"></i>תשלום מאובטח דרך uPay</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="user-check" class="w-4 h-4 text-brand-600"></i>מענה אישי מהמפתח</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="download" class="w-4 h-4 text-brand-600"></i>גישה מיידית אחרי תשלום</span>
+            </div>
+        </div>
+
+        <!-- LEAD FORM -->
+        <div id="lead-form" class="bg-white/5 border border-white/10 p-8 rounded-2xl max-w-xl mx-auto backdrop-blur-sm mb-16 reveal">
+            <div class="text-center mb-6">
+                <div class="inline-flex items-center gap-2 bg-brand-500/20 text-brand-300 px-3 py-1 rounded-full text-sm font-bold mb-3">
+                    <i data-lucide="phone" class="w-4 h-4"></i>
+                    אחזור אליך תוך 24 שעות
+                </div>
+                <h3 class="text-2xl font-black tracking-tight">יש שאלה? כתוב לי.</h3>
+                <p class="text-slate-400 text-sm mt-2">
+                    רוצה לשאול לפני שרוכש? מעוניין בגרסת Web? לא בטוח שתכל'ס מתאימה לעסק שלך? תכתוב — ואחזור אישית תוך 24 שעות.
+                </p>
+            </div>
+            <form id="contact-form" class="space-y-4">
+                <!-- honeypot — שדה נסתר נגד בוטים (אסור למלא) -->
+                <input type="text" name="company" id="hp-field" tabindex="-1" autocomplete="off"
+                    style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true">
+                <input type="text" name="name" required placeholder="שם מלא"
+                    class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-slate-400 focus:border-brand-500 outline-none transition focus:bg-white/15">
+                <input type="tel" name="phone" required placeholder="טלפון (לדוגמה: 050-1234567)"
+                    class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-slate-400 focus:border-brand-500 outline-none transition focus:bg-white/15" dir="ltr">
+                <input type="email" name="email" required placeholder="דוא״ל"
+                    class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-slate-400 focus:border-brand-500 outline-none transition focus:bg-white/15" dir="ltr">
+                <textarea name="message" rows="3" placeholder="ספר לי קצת על העסק שלך (אופציונלי)"
+                    class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-slate-400 focus:border-brand-500 outline-none transition focus:bg-white/15 resize-none"></textarea>
+                <button type="submit" id="submit-btn"
+                    class="w-full bg-brand-600 hover:bg-brand-500 text-white font-black py-4 rounded-lg transition flex items-center justify-center gap-2 text-lg">
+                    <i data-lucide="send" class="w-5 h-5"></i>
+                    שלח — ואחזור אליך
+                </button>
+                <p id="form-status" class="hidden text-brand-400 font-bold text-center mt-2">תודה! ההודעה נשלחה. אחזור אליך בהקדם.</p>
+                <p class="text-xs text-slate-500 text-center">הפרטים נשמרים אצלי בלבד. לא נשלחים לצד שלישי.</p>
+            </form>
+        </div>
+
+        <!-- FOOTER LINKS -->
+        <div class="pt-8 border-t border-slate-800 grid md:grid-cols-3 gap-6 text-center md:text-right text-sm text-slate-400">
+            <div>
+                <h4 class="font-black text-white mb-2">תכל'ס</h4>
+                <p>תוכנה לניהול עסק לעצמאיים בישראל.<br>רכישה חד-פעמית, בלי מנוי, הנתונים אצלך.</p>
+            </div>
+            <div>
+                <h4 class="font-black text-white mb-2">ניווט מהיר</h4>
+                <ul class="space-y-1">
+                    <li><a href="#pain" class="hover:text-brand-400 transition">הבעיה</a></li>
+                    <li><a href="#solution" class="hover:text-brand-400 transition">הפתרון</a></li>
+                    <li><a href="#proof" class="hover:text-brand-400 transition">הוכחות</a></li>
+                    <li><a href="features.html" class="hover:text-brand-400 transition">פיצ'רים</a></li>
+                    <li><a href="pricing.html" class="hover:text-amber-400 transition text-amber-400 font-bold">מחירון</a></li>
+                    <li><a href="#faq" class="hover:text-brand-400 transition">שאלות נפוצות</a></li>
+                    <li><a href="https://tacles.vercel.app/?demo=1" target="_blank" rel="noopener" class="hover:text-brand-400 transition">דמו חי</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-black text-white mb-2">תמיכה אישית</h4>
+                <p>מענה <strong class="text-white">ישירות ממפתח המערכת</strong> — לא מוקד בחו"ל. תוך 24 שעות בימי עבודה.</p>
+                <a href="mailto:8426263@gmail.com" class="text-brand-400 hover:text-brand-300 transition font-bold inline-block mt-2">8426263@gmail.com</a>
+            </div>
+        </div>
+        <div class="mt-8 text-slate-600 text-sm text-center">
+            <p>&copy; 2026 תכל'ס — כל הזכויות שמורות.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Back to top -->
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"
+    class="bg-brand-600 hover:bg-brand-500 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg transition">
+    <i data-lucide="arrow-up" class="w-5 h-5"></i>
+</button>
+
+<script src="shared.js"></script>
+<script>
+    // ===== INTRO MODAL (ייחודי לדף הבית) =====
+    window.addEventListener('load', () => {
+        if (!localStorage.getItem('introModalSeen')) {
+            setTimeout(() => { document.getElementById('intro-modal').style.display = 'flex'; }, 1500);
+        }
+    });
+    function closeIntroModal() {
+        document.getElementById('intro-modal').style.display = 'none';
+        localStorage.setItem('introModalSeen', 'true');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        // progress bar + back-to-top (נוסף על ה-scroll של shared.js)
+        window.addEventListener('scroll', () => {
+            const st = document.documentElement.scrollTop;
+            const dh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const pb = document.getElementById('progress-bar');
+            if (pb) pb.style.width = (st / dh * 100) + '%';
+            document.getElementById('back-to-top')?.classList.toggle('show', st > 400);
+        });
+
+        // טופס יצירת קשר
+        // שליחת ליד למערכת הלידים של דייטש (daitsh_leads, source=tachles-lp).
+        // האתר מתארח ב-Netlify (דומיין נפרד), אז URL מלא — ה-subscribe תומך ב-CORS.
+        const LEADS_API = 'https://office.daitsh.com/api/subscribe';
+        const RECAPTCHA_SITE_KEY = '6LcXzhMtAAAADSQZT7N-PaVJcNv4F6Okhtyyxve';
+        const form = document.getElementById('contact-form');
+        if (form) form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            const status = document.getElementById('form-status');
+            btn.textContent = 'שולח...'; btn.disabled = true;
+            try {
+                // reCAPTCHA v3 token
+                const token = await new Promise((res, rej) => {
+                    if (typeof grecaptcha === 'undefined') return res('dev-bypass');
+                    grecaptcha.ready(() => {
+                        grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'submit' }).then(res).catch(rej);
+                    });
+                });
+
+                const res = await fetch(LEADS_API, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        firstName:     form.name.value,
+                        phone:         form.phone.value,
+                        email:         form.email.value,
+                        customFields:  { message: form.message.value },
+                        source:        'tachles-lp',
+                        honeypot:      document.getElementById('hp-field').value,
+                        recaptchaToken: token,
+                        consentGiven:  true,
+                        consentText:   'יצירת קשר מדף הפרסום של תכל\'ס',
+                    }),
+                });
+                if (res.ok) {
+                    form.reset();
+                    status.classList.remove('hidden');
+                    btn.textContent = '✓ נשלח!';
+                } else {
+                    const d = await res.json().catch(() => ({}));
+                    btn.textContent = (d.error || 'שגיאה') + ' — נסה שוב';
+                    btn.disabled = false;
+                }
+            } catch { btn.textContent = 'שגיאה — נסה שוב'; btn.disabled = false; }
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+/* =====================================================================
+   shared.css — סגנונות משותפים לכל עמודי אתר תכל'ס
+   ===================================================================== */
+body { font-family: 'Assistant', sans-serif; background-color: #fbfcfe; color: #0f172a; }
+html { scroll-behavior: smooth; }
+
+/* כותרות — Heebo, משקל 800, מרווח רגיל (לא דחוס) */
+h1, h2, h3, .font-display { font-family: 'Heebo', 'Assistant', sans-serif; font-weight: 800 !important; letter-spacing: normal; }
+/* ביטול הדחיסה של tracking-tighter על כותרות */
+h1.tracking-tighter, h2.tracking-tighter, h3.tracking-tighter,
+h1.tracking-tight, h2.tracking-tight, h3.tracking-tight { letter-spacing: normal !important; }
+
+.brand-gradient { background: linear-gradient(135deg, #0b1437 0%, #142151 100%); }
+.hero-bg { background: linear-gradient(160deg, #0b1437 0%, #0d1a44 55%, #142151 100%); }
+.pain-bg { background: linear-gradient(135deg, #1e1b2e 0%, #2d1a1a 100%); }
+
+/* ===== רקע בהיר נקי + dot-grid (כמו SwiftCollect) ===== */
+.bg-clean {
+    background:
+        radial-gradient(circle at 1px 1px, rgba(15,23,42,0.06) 1px, transparent 0) 0 0 / 26px 26px,
+        linear-gradient(180deg, #ffffff 0%, #f4f8fd 100%);
+}
+.bg-clean-tint {
+    background:
+        radial-gradient(circle at 1px 1px, rgba(132,204,22,0.07) 1px, transparent 0) 0 0 / 26px 26px,
+        linear-gradient(180deg, #f7fdf0 0%, #eef5fc 100%);
+}
+/* קלף כהה "צף" עם פינות ענק (כמו תמונה 3) */
+.dark-float {
+    background: linear-gradient(150deg, #0b1437 0%, #142151 100%);
+    border-radius: 48px;
+}
+
+/* reveal on scroll */
+.reveal { opacity: 0; transform: translateY(28px); transition: all 0.75s cubic-bezier(.22,1,.36,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.12); }
+.glow-green { box-shadow: 0 0 40px -10px rgba(132,204,22,0.4); }
+.stat-number { font-variant-numeric: tabular-nums; }
+.zoomable { cursor: zoom-in; transition: transform 0.3s ease; }
+.zoomable:hover { transform: scale(1.02); }
+
+/* ===== NAVBAR ===== */
+#navbar { transition: all 0.3s ease; }
+#navbar.scrolled { background: rgba(11,20,55,0.98); box-shadow: 0 2px 20px rgba(0,0,0,0.4); }
+.nav-link.nav-active { color: #fff; }
+.nav-link.nav-active::after,
+.nav-active::after {
+    content: ''; display: block; height: 2px; margin-top: 2px;
+    background: #84cc16; border-radius: 2px;
+}
+
+/* ===== NAV DROPDOWN — MEGA MENU (בסגנון SwiftCollect) ===== */
+.nav-dropdown { position: relative; }
+.nav-mega {
+    position: absolute; top: 100%; right: 0; margin-top: 12px;
+    width: 540px; max-width: 90vw; background: #fff; border-radius: 18px;
+    box-shadow: 0 24px 60px -15px rgba(0,0,0,0.45); border: 1px solid rgba(0,0,0,0.05);
+    padding: 14px; opacity: 0; visibility: hidden; transform: translateY(10px);
+    transition: all 0.22s cubic-bezier(.22,1,.36,1); z-index: 60;
+}
+.nav-dropdown:hover .nav-mega,
+.nav-dropdown:focus-within .nav-mega { opacity: 1; visibility: visible; transform: translateY(0); }
+.nav-dd-item {
+    display: flex; align-items: center; gap: 12px; padding: 12px;
+    border-radius: 12px; transition: background 0.15s; cursor: pointer;
+}
+.nav-dd-item:hover { background: #f7fee7; }
+.nav-dd-icon {
+    width: 40px; height: 40px; border-radius: 11px; display: flex;
+    align-items: center; justify-content: center; flex-shrink: 0;
+    background: #ecfccb; color: #65a30d;
+}
+
+/* ===== FEATURE TABS ===== */
+.ftab-btn {
+    display: flex; align-items: center; gap: 8px; padding: 13px 22px;
+    border-radius: 14px; font-weight: 700; font-size: 0.95rem;
+    color: #475569; background: transparent; border: 1px solid transparent;
+    transition: all 0.2s; white-space: nowrap; cursor: pointer;
+}
+.ftab-btn:hover { color: #65a30d; background: #f7fee7; }
+.ftab-btn.active {
+    color: #fff; background: linear-gradient(135deg,#65a30d,#84cc16);
+    box-shadow: 0 8px 20px -6px rgba(132,204,22,0.55);
+}
+.ftab-panel { display: none; }
+.ftab-panel.active { display: block; animation: ftabFade 0.45s cubic-bezier(.22,1,.36,1); }
+@keyframes ftabFade { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.feat-num {
+    font-size: 3.5rem; font-weight: 900; line-height: 1;
+    color: rgba(132,204,22,0.12); user-select: none; position: absolute; top: 0; left: 0;
+}
+.feat-icon-wrap { width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+/* ===== MODALS ===== */
+.modal-overlay {
+    position: fixed; inset: 0; z-index: 2000; display: flex;
+    justify-content: center; align-items: center; padding: 16px;
+    background: rgba(0,0,0,0.75); backdrop-filter: blur(8px);
+}
+.modal-overlay.hidden { display: none; }
+
+/* ===== LIGHTBOX ===== */
+#lightbox {
+    display: none; position: fixed; inset: 0; z-index: 3000;
+    background: rgba(0,0,0,0.88); justify-content: center; align-items: center; backdrop-filter: blur(6px);
+}
+#lightbox.open { display: flex; }
+#lightbox img { max-width: 92%; max-height: 92%; border-radius: 10px; box-shadow: 0 0 60px rgba(0,0,0,0.6); }
+#lightbox-close { position: absolute; top: 24px; right: 28px; color: #fff; font-size: 44px; cursor: pointer; line-height: 1; }
+
+/* ===== BACK TO TOP ===== */
+#back-to-top {
+    position: fixed; bottom: 28px; left: 28px; z-index: 99; opacity: 0; visibility: hidden;
+    transition: all 0.3s ease; transform: translateY(12px);
+}
+#back-to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

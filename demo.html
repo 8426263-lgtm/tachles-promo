@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>הרשמה למפגש זום — תכל'ס | ראה את המערכת בשידור חי</title>
+    <meta name="description" content="הירשם למפגש זום חי וחינמי על תכל'ס — תוכנת ניהול העסק לעצמאיים. הדגמה חיה, שאלות ותשובות, בלי התחייבות.">
+    <link rel="icon" type="image/x-icon" href="תכלס.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- reCAPTCHA v3 של מערכת הלידים daitsh -->
+    <script src="https://www.google.com/recaptcha/api.js?render=6LcXzhMtAAAADSQZT7N-PaVJcNv4F6Okhtyyxve"></script>
+    <link rel="stylesheet" href="shared.css">
+    <script>
+        tailwind.config = { theme: { extend: { colors: { brand: {
+            50:'#f7fee7',100:'#ecfccb',200:'#d9f99d',300:'#bef264',400:'#a3e635',
+            500:'#84cc16',600:'#65a30d',700:'#4d7c0f',800:'#3f6212',900:'#365314',950:'#1a2e05' },
+                        navy: {
+            50:'#eef1fb',100:'#dce3f7',300:'#8da3e0',500:'#3b53a8',700:'#1e2f6b',
+            800:'#142151',900:'#0d1a44',950:'#0b1437' } } } } }
+    </script>
+</head>
+<body class="text-slate-800">
+
+<header id="navbar" class="fixed w-full top-0 z-50 bg-slate-900/95 backdrop-blur border-b border-slate-800/60"></header>
+
+<!-- HERO דו-טורי: הרשמה לזום + מסר -->
+<section class="hero-bg pt-28 pb-20 relative overflow-hidden min-h-screen flex items-center">
+    <div class="absolute inset-0 opacity-5 pointer-events-none">
+        <div class="absolute top-20 left-20 w-96 h-96 bg-brand-400 rounded-full blur-3xl"></div>
+    </div>
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+            <!-- צד הטופס -->
+            <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-10 order-2 lg:order-1 reveal">
+                <div class="flex items-center gap-2 text-brand-700 font-bold text-sm mb-2">
+                    <i data-lucide="video" class="w-5 h-5"></i> מפגש זום חי וחינמי
+                </div>
+                <h2 class="text-2xl font-extrabold text-slate-900 mb-1">הרשמה למפגש הקרוב</h2>
+                <p class="text-slate-500 text-sm mb-6">מציג את תכל'ס בשידור חי, עונה על שאלות — ואתה מחליט אם זה בשבילך.</p>
+                <form id="zoom-form" class="space-y-4">
+                    <!-- honeypot אנטי-בוט -->
+                    <input type="text" name="company_website" id="hp" class="hidden" tabindex="-1" autocomplete="off">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-1.5">שם מלא <span class="text-red-500">*</span></label>
+                        <input name="name" id="z-name" type="text" required placeholder="השם שלך"
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-1.5">אימייל <span class="text-red-500">*</span></label>
+                        <input name="email" id="z-email" type="email" required placeholder="email@example.com"
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-1.5">טלפון <span class="text-red-500">*</span></label>
+                        <input name="phone" id="z-phone" type="tel" required placeholder="050-0000000"
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none transition">
+                    </div>
+                    <label class="flex items-start gap-2 text-xs text-slate-500">
+                        <input type="checkbox" id="z-consent" checked class="mt-0.5 accent-brand-600">
+                        <span>אני מאשר/ת לקבל זימון למפגש ועדכונים על תכל'ס.</span>
+                    </label>
+                    <button type="submit" id="z-submit"
+                        class="w-full bg-brand-400 hover:bg-brand-300 text-navy-950 font-extrabold py-4 rounded-xl transition flex items-center justify-center gap-2 text-lg shadow-lg shadow-brand-500/30">
+                        <i data-lucide="calendar-plus" class="w-5 h-5"></i> שמרו לי מקום במפגש
+                    </button>
+                    <p id="z-status" class="hidden text-brand-700 font-bold text-center mt-2">🎉 נרשמת! נשלח אליך זימון לזום במייל.</p>
+                    <p id="z-error" class="hidden text-red-500 font-bold text-center mt-2 text-sm"></p>
+                </form>
+
+                <!-- מפריד + כפתור דמו -->
+                <div class="flex items-center gap-3 my-5">
+                    <div class="flex-1 h-px bg-slate-200"></div>
+                    <span class="text-slate-400 text-sm">או</span>
+                    <div class="flex-1 h-px bg-slate-200"></div>
+                </div>
+                <a href="https://tacles.vercel.app/?demo=1" target="_blank" rel="noopener"
+                   class="w-full bg-white border-2 border-slate-200 hover:border-brand-400 text-slate-800 font-bold py-3.5 rounded-xl transition flex items-center justify-center gap-2">
+                    <i data-lucide="play-circle" class="w-5 h-5 text-brand-600"></i> התנסה בדמו עכשיו — בלי הרשמה
+                </a>
+            </div>
+
+            <!-- צד המסר -->
+            <div class="text-center lg:text-right order-1 lg:order-2 reveal">
+                <span class="inline-flex items-center gap-2 bg-navy-800/60 border border-brand-500/30 text-brand-300 px-4 py-1.5 rounded-full text-sm font-bold mb-6">
+                    <i data-lucide="video" class="w-4 h-4"></i> מפגש זום חי
+                </span>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-6">
+                    תראה את תכל'ס<br><span class="text-brand-400">בפעולה — בשידור חי</span>
+                </h1>
+                <p class="text-lg text-slate-300 max-w-xl mx-auto lg:mr-0 mb-8 leading-relaxed">
+                    מפגש זום קצר וממוקד: מציג את המערכת על מסך, מראה איך מחשבים נטו אמיתי, ועונה על כל שאלה — <strong class="text-white">בלי התחייבות ובלי לחץ מכירתי.</strong>
+                </p>
+                <ul class="space-y-3 max-w-md mx-auto lg:mr-0 text-right">
+                    <li class="flex items-center gap-3 text-slate-200"><span class="bg-brand-500/15 text-brand-300 p-1.5 rounded-lg"><i data-lucide="monitor-play" class="w-4 h-4"></i></span> הדגמה חיה של המערכת על המסך</li>
+                    <li class="flex items-center gap-3 text-slate-200"><span class="bg-brand-500/15 text-brand-300 p-1.5 rounded-lg"><i data-lucide="messages-square" class="w-4 h-4"></i></span> שאלות ותשובות ישירות עם המפתח</li>
+                    <li class="flex items-center gap-3 text-slate-200"><span class="bg-brand-500/15 text-brand-300 p-1.5 rounded-lg"><i data-lucide="gift" class="w-4 h-4"></i></span> חינם לחלוטין — מהבית, מול המחשב</li>
+                </ul>
+                <p class="text-white font-extrabold text-lg mt-8">השאר פרטים — ונשלח לך זימון לזום הקרוב.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer id="site-footer" class="bg-slate-900 text-white border-t border-slate-800"></footer>
+
+<script src="shared.js"></script>
+<script>
+    // ===== הרשמה למפגש זום → מערכת הלידים של דייטש =====
+    const LEADS_API   = 'https://daitsh.com/api/subscribe';
+    const RECAPTCHA   = '6LcXzhMtAAAADSQZT7N-PaVJcNv4F6Okhtyyxve';
+    const LEAD_SOURCE = 'tachles-zoom'; // המקור — מקושר ל-tag "מתעניין בתכל'ס" במערכת
+
+    const form = document.getElementById('zoom-form');
+    form.addEventListener('submit', async e => {
+        e.preventDefault();
+        const btn = document.getElementById('z-submit');
+        const errEl = document.getElementById('z-error');
+        errEl.classList.add('hidden');
+
+        // honeypot
+        if (document.getElementById('hp').value) return;
+
+        btn.textContent = 'רושם...'; btn.disabled = true;
+
+        // reCAPTCHA token
+        const getToken = () => new Promise(res => {
+            if (typeof grecaptcha === 'undefined') return res('dev-bypass');
+            grecaptcha.ready(() => {
+                grecaptcha.execute(RECAPTCHA, { action: 'submit' }).then(res).catch(() => res('dev-bypass'));
+            });
+        });
+
+        try {
+            const token = await getToken();
+            const res = await fetch(LEADS_API, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email:        document.getElementById('z-email').value.trim(),
+                    firstName:    document.getElementById('z-name').value.trim(),
+                    phone:        document.getElementById('z-phone').value.trim(),
+                    recaptchaToken: token,
+                    source:       LEAD_SOURCE,
+                    consentGiven: document.getElementById('z-consent').checked,
+                    consentText:  'הסכמה לקבלת זימון למפגש זום ועדכונים על תכל\\'ס',
+                }),
+            });
+            if (res.ok) {
+                form.reset();
+                document.getElementById('z-status').classList.remove('hidden');
+                btn.textContent = '✓ נרשמת!';
+            } else {
+                const d = await res.json().catch(() => ({}));
+                errEl.textContent = d.error || 'משהו השתבש — נסה שוב.';
+                errEl.classList.remove('hidden');
+                btn.textContent = 'שמרו לי מקום במפגש'; btn.disabled = false;
+            }
+        } catch {
+            errEl.textContent = 'שגיאת חיבור — נסה שוב.';
+            errEl.classList.remove('hidden');
+            btn.textContent = 'שמרו לי מקום במפגש'; btn.disabled = false;
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תכל"ס CRM — להפוך את הבלגן לכסף מזומן</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap');
+
+/* ── TOKENS ── */
+:root {
+  --g1: #5cb82e;   /* ירוק מותג בהיר */
+  --g2: #3d8a18;   /* ירוק כהה */
+  --g3: #eaf6e1;   /* ירוק רקע */
+  --n1: #1a1e2e;   /* navy עמוק */
+  --n2: #252a3d;   /* navy בינוני */
+  --n3: #323856;   /* navy בהיר */
+  --p1: #7c5cbf;   /* סגול */
+  --p2: #f0ebfa;   /* סגול רקע */
+  --r1: #e63950;
+  --r2: #fff1f3;
+  --wh: #ffffff;
+  --bg: #f6f7fb;
+  --bd: #e3e7f0;
+  --t1: #181c2e;
+  --t2: #3f4460;
+  --t3: #7c8099;
+  --sh: 0 4px 24px rgba(26,30,46,.10);
+  --sh2: 0 8px 40px rgba(26,30,46,.14);
+  --sh3: 0 2px 12px rgba(26,30,46,.07);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: 'Heebo', 'Arial Hebrew', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--t1);
+  line-height: 1.7;
+  direction: rtl;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ══════════════════════════════════
+   HERO
+══════════════════════════════════ */
+.hero {
+  background: var(--n1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* decorative circles */
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(92,184,46,.18) 0%, transparent 70%);
+  top: -200px; left: -150px;
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124,92,191,.22) 0%, transparent 70%);
+  bottom: -100px; right: -80px;
+  pointer-events: none;
+}
+
+/* top bar */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 64px;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  position: relative;
+  z-index: 2;
+}
+.tachles-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.logo-icon {
+  width: 40px; height: 40px;
+  position: relative;
+  flex-shrink: 0;
+}
+.logo-icon::before,
+.logo-icon::after {
+  content: '';
+  position: absolute;
+  background: var(--g1);
+  border-radius: 3px;
+}
+.logo-icon::before { inset: 14px 0;     height: 12px; top: 14px; }
+.logo-icon::after  { inset: 0 14px;     width: 12px; left: 14px; }
+.logo-words { line-height: 1.1; }
+.logo-words .lw-name { font-size: 24px; font-weight: 900; color: #fff; letter-spacing: -.3px; }
+.logo-words .lw-tag  { font-size: 11px; color: rgba(255,255,255,.5); font-weight: 400; }
+
+.topbar-pill {
+  background: rgba(92,184,46,.15);
+  border: 1px solid rgba(92,184,46,.3);
+  color: var(--g1);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 18px;
+  border-radius: 50px;
+  letter-spacing: .4px;
+}
+
+/* hero body */
+.hero-body {
+  padding: 72px 64px 80px;
+  position: relative;
+  z-index: 2;
+  max-width: 820px;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  color: rgba(255,255,255,.75);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 16px 6px 20px;
+  border-radius: 50px;
+  margin-bottom: 28px;
+}
+.hero-eyebrow .pulse {
+  width: 8px; height: 8px;
+  background: var(--g1);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(92,184,46,.25);
+  flex-shrink: 0;
+}
+.hero-h1 {
+  font-size: 52px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.18;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+.hero-h1 em {
+  font-style: normal;
+  color: var(--g1);
+  position: relative;
+}
+.hero-h1 em::after {
+  content: '';
+  position: absolute;
+  bottom: 2px; right: 0; left: 0;
+  height: 3px;
+  background: var(--g1);
+  border-radius: 2px;
+  opacity: .4;
+}
+.hero-lead {
+  font-size: 19px;
+  color: rgba(255,255,255,.68);
+  max-width: 560px;
+  margin-bottom: 44px;
+  line-height: 1.65;
+  font-weight: 400;
+}
+
+/* hero metric strip */
+.hero-metrics {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.hm-card {
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 16px;
+  padding: 16px 24px;
+  min-width: 140px;
+}
+.hm-card .hm-val {
+  font-size: 28px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.1;
+}
+.hm-card .hm-val.green { color: var(--g1); }
+.hm-card .hm-lbl {
+  font-size: 12px;
+  color: rgba(255,255,255,.5);
+  margin-top: 3px;
+  font-weight: 400;
+}
+
+/* green stripe bottom */
+.hero-stripe {
+  height: 5px;
+  background: linear-gradient(90deg, var(--g1) 0%, var(--g2) 50%, transparent 100%);
+}
+
+/* ══════════════════════════════════
+   SHARED LAYOUT
+══════════════════════════════════ */
+.container {
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 0 56px;
+}
+
+.section { padding: 80px 0; }
+.section.alt { background: var(--wh); }
+.section.dark { background: var(--n1); }
+
+/* section label */
+.s-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--g2);
+  margin-bottom: 12px;
+}
+.s-label::before {
+  content: '';
+  width: 24px; height: 3px;
+  background: var(--g1);
+  border-radius: 2px;
+  display: block;
+}
+.s-h2 {
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--t1);
+  line-height: 1.22;
+  margin-bottom: 12px;
+  letter-spacing: -.5px;
+}
+.s-h2.white { color: #fff; }
+.s-sub {
+  font-size: 17px;
+  color: var(--t2);
+  max-width: 600px;
+  line-height: 1.65;
+}
+.s-sub.white { color: rgba(255,255,255,.65); }
+
+/* ══════════════════════════════════
+   PROBLEM — 2×2 GRID
+══════════════════════════════════ */
+.pain-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 40px;
+}
+.pain-card {
+  background: var(--wh);
+  border: 1.5px solid var(--bd);
+  border-radius: 18px;
+  padding: 28px 30px;
+  box-shadow: var(--sh3);
+  transition: box-shadow .2s, transform .2s;
+}
+.pain-card:hover {
+  box-shadow: var(--sh);
+  transform: translateY(-2px);
+}
+.pain-card .pc-icon {
+  font-size: 34px;
+  margin-bottom: 14px;
+  display: block;
+}
+.pain-card h4 {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--r1);
+  margin-bottom: 8px;
+}
+.pain-card p {
+  font-size: 15px;
+  color: var(--t2);
+  line-height: 1.65;
+}
+
+.callout {
+  margin-top: 24px;
+  background: var(--n1);
+  border-radius: 16px;
+  padding: 22px 28px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.callout .co-icon { font-size: 28px; flex-shrink: 0; }
+.callout .co-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255,255,255,.9);
+  line-height: 1.5;
+}
+.callout .co-text strong { color: var(--g1); }
+
+/* ══════════════════════════════════
+   SOLUTION BANNER
+══════════════════════════════════ */
+.solution-banner {
+  background: linear-gradient(135deg, var(--g2) 0%, var(--g1) 100%);
+  padding: 60px 56px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.solution-banner::before {
+  content: '+';
+  position: absolute;
+  left: 40px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 220px;
+  font-weight: 900;
+  color: rgba(255,255,255,.07);
+  line-height: 1;
+  pointer-events: none;
+  font-family: inherit;
+}
+.solution-banner::after {
+  content: '+';
+  position: absolute;
+  right: 40px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 220px;
+  font-weight: 900;
+  color: rgba(255,255,255,.07);
+  line-height: 1;
+  pointer-events: none;
+  font-family: inherit;
+}
+.solution-banner h2 {
+  font-size: 40px;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 14px;
+  position: relative;
+}
+.solution-banner p {
+  font-size: 18px;
+  color: rgba(255,255,255,.85);
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.65;
+  position: relative;
+}
+
+/* ══════════════════════════════════
+   FEATURES
+══════════════════════════════════ */
+.feat-list-wrap { margin-top: 48px; }
+
+.feat-row {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 28px;
+  align-items: start;
+  background: var(--wh);
+  border: 1.5px solid var(--bd);
+  border-radius: 20px;
+  padding: 36px 40px;
+  margin-bottom: 18px;
+  box-shadow: var(--sh3);
+  transition: box-shadow .2s;
+}
+.feat-row:hover { box-shadow: var(--sh); }
+
+.feat-num-box {
+  width: 56px; height: 56px;
+  background: linear-gradient(135deg, var(--n1), var(--n3));
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 900; color: #fff;
+  flex-shrink: 0;
+}
+.feat-content h3 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--t1);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.feat-content p {
+  font-size: 15.5px;
+  color: var(--t2);
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+
+/* tags */
+.tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+.tag {
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 4px 13px;
+  border-radius: 50px;
+  border: 1.5px solid;
+}
+.tag.g { background: var(--g3);  border-color: #a8dea0; color: var(--g2); }
+.tag.p { background: var(--p2);  border-color: #c5aae8; color: var(--p1); }
+.tag.n { background: #eef0f8;    border-color: #c8cce0; color: var(--n3); }
+.tag.r { background: var(--r2);  border-color: #f8b0ba; color: var(--r1); }
+
+/* dark inset box — simulator */
+.inset-dark {
+  background: var(--n1);
+  border-radius: 14px;
+  padding: 22px 26px;
+  margin-top: 14px;
+}
+.inset-dark .id-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+  margin-bottom: 14px;
+}
+.id-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  font-size: 15px;
+}
+.id-row:last-child { border: none; }
+.id-row .id-l { color: rgba(255,255,255,.6); }
+.id-row .id-v { font-weight: 700; color: #fff; }
+.id-row .id-v.g { color: var(--g1); }
+.id-row .id-v.big { font-size: 26px; color: var(--g1); }
+.id-row .id-v.r { color: #f07080; }
+
+/* timer mock */
+.timer-mock {
+  background: var(--n1);
+  border-radius: 14px;
+  padding: 22px 26px;
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.timer-display {
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--g1);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+.timer-meta { flex: 1; }
+.timer-meta .tm-project { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.timer-meta .tm-client  { font-size: 13px; color: rgba(255,255,255,.5); }
+.timer-btn {
+  background: var(--g1);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 20px;
+  cursor: default;
+}
+
+/* simulator "what if" */
+.whatif-box {
+  background: var(--n1);
+  border-radius: 14px;
+  padding: 22px 26px;
+  margin-top: 14px;
+}
+.whatif-box .wi-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.2px;
+  text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: 16px;
+}
+.wi-slider-row {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 14px;
+}
+.wi-slider-row label { font-size: 13px; color: rgba(255,255,255,.6); white-space: nowrap; }
+.wi-slider {
+  flex: 1; height: 4px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--g1) 60%, rgba(255,255,255,.15) 60%);
+}
+.wi-val { font-size: 15px; font-weight: 700; color: var(--g1); white-space: nowrap; }
+.wi-result {
+  background: rgba(92,184,46,.12); border: 1px solid rgba(92,184,46,.25);
+  border-radius: 10px; padding: 12px 16px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.wi-result .wr-l { font-size: 14px; color: rgba(255,255,255,.7); }
+.wi-result .wr-v { font-size: 20px; font-weight: 900; color: var(--g1); }
+
+/* quick-action row */
+.quick-row {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-top: 14px;
+}
+.quick-card {
+  background: var(--bg); border: 1.5px solid var(--bd);
+  border-radius: 12px; padding: 14px 16px; text-align: center;
+}
+.quick-card .qc-icon { font-size: 24px; margin-bottom: 6px; display: block; }
+.quick-card .qc-label { font-size: 13px; font-weight: 700; color: var(--t1); margin-bottom: 3px; }
+.quick-card .qc-desc  { font-size: 11.5px; color: var(--t3); line-height: 1.4; }
+
+/* pipeline mini cards */
+.pip-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 12px;
+  margin-top: 14px;
+}
+.pip-mini {
+  background: var(--bg);
+  border: 1.5px solid var(--bd);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.pip-mini .pm-n { font-size: 13px; font-weight: 700; margin-bottom: 5px; }
+.pip-mini .pm-a { font-size: 22px; font-weight: 900; color: var(--p1); }
+.pip-mini .pm-d { font-size: 11.5px; color: var(--t3); margin-top: 3px; }
+
+/* ══════════════════════════════════
+   INSIGHT STRIP
+══════════════════════════════════ */
+.insight-strip {
+  background: var(--n2);
+  color: #fff;
+  padding: 56px 56px;
+  text-align: center;
+}
+.insight-strip h3 {
+  font-size: 28px;
+  font-weight: 900;
+  margin-bottom: 14px;
+  line-height: 1.3;
+}
+.insight-strip p {
+  font-size: 17px;
+  color: rgba(255,255,255,.68);
+  max-width: 540px;
+  margin: 0 auto 24px;
+  line-height: 1.65;
+}
+.insight-pill {
+  display: inline-block;
+  background: var(--g1);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+  padding: 10px 32px;
+  border-radius: 50px;
+}
+
+/* ══════════════════════════════════
+   PRICING
+══════════════════════════════════ */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 48px;
+}
+.pc {
+  background: var(--wh);
+  border: 2px solid var(--bd);
+  border-radius: 24px;
+  padding: 40px 36px 36px;
+  position: relative;
+  box-shadow: var(--sh3);
+}
+.pc.featured {
+  border-color: var(--p1);
+  box-shadow: 0 8px 40px rgba(124,92,191,.16);
+}
+.pc .pc-tag {
+  position: absolute;
+  top: -15px; left: 50%; transform: translateX(-50%);
+  background: var(--p1);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 22px;
+  border-radius: 50px;
+  white-space: nowrap;
+}
+.pc .pc-type {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  color: var(--t3);
+  margin-bottom: 4px;
+}
+.pc .pc-name {
+  font-size: 30px;
+  font-weight: 900;
+  color: var(--t1);
+  margin-bottom: 6px;
+}
+.pc .pc-desc {
+  font-size: 15px;
+  color: var(--t2);
+  margin-bottom: 26px;
+  line-height: 1.5;
+}
+.pc .pc-price {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+.pc .pc-ils { font-size: 22px; font-weight: 700; color: var(--t3); line-height: 1.6; }
+.pc .pc-num { font-size: 64px; font-weight: 900; color: var(--n1); line-height: 1; }
+.pc .pc-yr  { font-size: 16px; color: var(--t3); margin-bottom: 6px; }
+.pc .pc-mo  {
+  display: inline-block;
+  background: var(--g3);
+  color: var(--g2);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 50px;
+  margin-bottom: 28px;
+}
+.pc ul { list-style: none; }
+.pc ul li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 15px;
+  color: var(--t2);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--bd);
+  line-height: 1.45;
+}
+.pc ul li:last-child { border: none; }
+.pc ul li::before {
+  content: '✓';
+  color: var(--g1);
+  font-weight: 900;
+  font-size: 13px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.pricing-footnote {
+  text-align: center;
+  margin-top: 28px;
+  font-size: 15px;
+  color: var(--t3);
+  line-height: 1.65;
+  padding: 20px;
+  background: var(--wh);
+  border-radius: 14px;
+  border: 1.5px solid var(--bd);
+}
+.pricing-footnote strong { color: var(--t1); }
+
+/* ══════════════════════════════════
+   ABOUT
+══════════════════════════════════ */
+.about-row {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+.about-icon-box {
+  flex-shrink: 0;
+  width: 88px; height: 88px;
+  background: var(--n1);
+  border-radius: 24px;
+  position: relative;
+  box-shadow: var(--sh);
+}
+.about-icon-box::before,
+.about-icon-box::after {
+  content: '';
+  position: absolute;
+  background: var(--g1);
+  border-radius: 3px;
+}
+.about-icon-box::before { width: 48px; height: 14px; top: 37px; left: 20px; }
+.about-icon-box::after  { width: 14px; height: 48px; top: 20px; left: 37px; }
+.about-text h3 {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--t1);
+  margin-bottom: 8px;
+}
+.about-text p {
+  font-size: 16px;
+  color: var(--t2);
+  line-height: 1.65;
+  margin-bottom: 16px;
+}
+.contacts {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.c-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg);
+  border: 1.5px solid var(--bd);
+  border-radius: 10px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--n2);
+}
+
+/* ══════════════════════════════════
+   CTA FINAL
+══════════════════════════════════ */
+.cta-final {
+  background: var(--n1);
+  position: relative;
+  overflow: hidden;
+  padding: 88px 56px;
+  text-align: center;
+}
+.cta-final::before {
+  content: '';
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(92,184,46,.14) 0%, transparent 68%);
+  top: -200px; right: -100px;
+  pointer-events: none;
+}
+.cta-final::after {
+  content: '';
+  position: absolute;
+  width: 360px; height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124,92,191,.18) 0%, transparent 68%);
+  bottom: -120px; left: -80px;
+  pointer-events: none;
+}
+.cta-final h2 {
+  font-size: 46px;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 18px;
+  position: relative;
+  letter-spacing: -.5px;
+  line-height: 1.2;
+}
+.cta-final h2 span { color: var(--g1); }
+.cta-final p {
+  font-size: 18px;
+  color: rgba(255,255,255,.65);
+  max-width: 500px;
+  margin: 0 auto 40px;
+  line-height: 1.65;
+  position: relative;
+}
+.cta-btn {
+  display: inline-block;
+  background: var(--g1);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+  padding: 17px 52px;
+  border-radius: 60px;
+  text-decoration: none;
+  box-shadow: 0 6px 32px rgba(92,184,46,.38);
+  position: relative;
+  margin-bottom: 32px;
+  transition: transform .15s, box-shadow .15s;
+}
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(92,184,46,.48);
+}
+.cta-links {
+  display: flex;
+  justify-content: center;
+  gap: 36px;
+  flex-wrap: wrap;
+  position: relative;
+}
+.cta-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255,255,255,.8);
+  text-decoration: none;
+}
+
+/* ══════════════════════════════════
+   FOOTER
+══════════════════════════════════ */
+footer {
+  background: #111422;
+  color: rgba(255,255,255,.35);
+  text-align: center;
+  padding: 22px;
+  font-size: 13px;
+}
+footer strong { color: var(--g1); }
+
+/* ══════════════════════════════════
+   PRINT
+══════════════════════════════════ */
+@media print {
+  html { font-size: 12px; }
+  .hero-body { padding: 40px 40px 50px; }
+  .hero-h1 { font-size: 36px; }
+  .container { padding: 0 28px; }
+  .section { padding: 48px 0; }
+  .feat-row { padding: 24px 28px; break-inside: avoid; }
+  .pain-card { break-inside: avoid; }
+  .pricing-grid { grid-template-columns: 1fr 1fr; }
+  .cta-btn { display: none; }
+  .hero::before, .hero::after,
+  .cta-final::before, .cta-final::after { display: none; }
+  @page { margin: 10mm 8mm; size: A4; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="topbar">
+    <div class="tachles-logo">
+      <div class="logo-icon"></div>
+      <div class="logo-words">
+        <div class="lw-name">תכל"ס</div>
+        <div class="lw-tag">להפוך את הבלגן לכסף מזומן</div>
+      </div>
+    </div>
+    <div class="topbar-pill">מערכת CRM ישראלית</div>
+  </div>
+
+  <div class="hero-body">
+    <div class="hero-eyebrow">
+      <span class="pulse"></span>
+      נבנה בשביל בעלי עסקים קטנים ובינוניים בישראל
+    </div>
+
+    <h1 class="hero-h1">
+      "כמה כסף יש לי עכשיו?<br>
+      מי חייב לי?<br>
+      <em>תכל"ס — תדע בלחיצת כפתור.</em>
+    </h1>
+
+    <p class="hero-lead">
+      מערכת ניהול עסק שלמה בעברית — פרויקטים, כספים, לידים, חשבוניות, מסים ושעון נוכחות.<br>
+      הכל במקום אחד. ללא בלבול. ללא הפתעות.
+    </p>
+
+    <div class="hero-metrics">
+      <div class="hm-card">
+        <div class="hm-val green">₪45,183</div>
+        <div class="hm-lbl">רווח נטו חודשי</div>
+      </div>
+      <div class="hm-card">
+        <div class="hm-val green">₪29,540</div>
+        <div class="hm-lbl">צפויים להיכנס</div>
+      </div>
+      <div class="hm-card">
+        <div class="hm-val green">+874%</div>
+        <div class="hm-lbl">גידול שנתי בהכנסות</div>
+      </div>
+      <div class="hm-card">
+        <div class="hm-val green">₪187k</div>
+        <div class="hm-lbl">סה"כ הכנסות 2025</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-stripe"></div>
+</div>
+
+<!-- ══ PROBLEM ══ -->
+<div class="section">
+  <div class="container">
+    <div class="s-label">הבעיה</div>
+    <div class="s-h2">אתה מנהל עסק מצליח — אבל בעיניים עצומות</div>
+    <p class="s-sub">בעל עסק ממוצע מבזבז עשרות שעות בשנה על ניהול באקסל, רדיפה אחרי חובות, ואי-ידיעת המצב הכספי האמיתי שלו.</p>
+
+    <div class="pain-grid">
+      <div class="pain-card">
+        <span class="pc-icon">💸</span>
+        <h4>לקוחות שחייבים ולא משלמים</h4>
+        <p>יש לך לקוח שחייב ₪1,853 כבר 11 יום — ואתה לא יודע. בסוף החודש מתגלה גירעון של ₪8,886 שבא בהפתעה מוחלטת.</p>
+      </div>
+      <div class="pain-card">
+        <span class="pc-icon">📋</span>
+        <h4>פרויקטים בלי מעקב אמיתי</h4>
+        <p>50% ו-50% — מתי הגיע הראשון? מתי השני? "נדמה לי שגיא שילם מקדמה, אבל..." — עסק לא מנהלים על ניחושים.</p>
+      </div>
+      <div class="pain-card">
+        <span class="pc-icon">🧾</span>
+        <h4>מע"מ שמפתיע בסוף הרבעון</h4>
+        <p>ה"כסף בחשבון" לא באמת שלך. חלק ממנו כבר שייך לרשות המסים — ואתה לא יודע בדיוק כמה.</p>
+      </div>
+      <div class="pain-card">
+        <span class="pc-icon">📊</span>
+        <h4>הוצאות שלא עוקבים אחריהן</h4>
+        <p>ארנונה, חשמל, תשלום לאלטשולר — ובפגישה עם רואה החשבון מתברר שהרווח שחשבת שיש לך פשוט נעלם.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="co-icon">⚡</span>
+      <span class="co-text">
+        ניהול כספים דרך WhatsApp ואקסל זה לא ניהול — זה הימור על העסק שלך.<br>
+        <strong>תכל"ס נותנת לך את התשובה המדויקת, בכל שאלה כספית, תמיד.</strong>
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SOLUTION BANNER ══ -->
+<div class="solution-banner">
+  <h2>הכר את תכל"ס — מערכת CRM ישראלית</h2>
+  <p>לא תוכנת ענק שנבנתה לחברות של 500 עובדים. לא אקסל. לא כלי שדורש הכשרה של שבוע. מערכת שלמה, בעברית, שמבינה בדיוק איך הישראלי הקטן עובד.</p>
+</div>
+
+<!-- ══ FEATURES ══ -->
+<div class="section alt">
+  <div class="container">
+    <div class="s-label">מה כלול</div>
+    <div class="s-h2">כל כלי שצריך — מהפרויקט הראשון עד הגבייה האחרונה</div>
+
+    <div class="feat-list-wrap">
+
+      <div class="feat-row">
+        <div class="feat-num-box">1</div>
+        <div class="feat-content">
+          <h3>דאשבורד ראשי — מצב עסקי מלא בבוקר</h3>
+          <p>כשפותחים את המערכת רואים ישר: רווח נטו החודש, כמה צפוי להיכנס, מי חייב לך ומה בוער לטפל בו — לפני שלגמת את הקפה. כולל תנועות אחרונות, משימות קרובות ולידים פעילים.</p>
+          <div class="tag-row">
+            <span class="tag g">₪45,183 רווח נטו</span>
+            <span class="tag g">₪29,540 צפויים להיכנס</span>
+            <span class="tag r">₪2,958 לגבייה</span>
+            <span class="tag p">+874% לעומת אשתקד</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="feat-row">
+        <div class="feat-num-box">2</div>
+        <div class="feat-content">
+          <h3>ניהול פרויקטים — שליטה מהרגע הראשון עד הגבייה האחרונה</h3>
+          <p>רשימה מלאה של כל הלקוחות: שם, טלפון, תאריך, סוג שירות, אחוז התקדמות תשלום ויתרה — הכל על מסך אחד. פרויקט חדש נפתח בשניות עם שלבי תשלום מותאמים אישית. <strong>כרטיס לקוח מרוכז</strong> — PDF עם כל ההיסטוריה של הלקוח, נשמר אוטומטית לתיקייתו. <strong>תשלום מהיר</strong> — רשום תשלום ישירות מהטבלה בלי לפתוח שום חלון. כל דו"ח שמורד נשמר אוטומטית בתיקיית הלקוח.</p>
+          <div class="tag-row">
+            <span class="tag n">יעוץ אישי</span>
+            <span class="tag n">ליווי פרויקט</span>
+            <span class="tag n">שירות חודשי</span>
+            <span class="tag n">הדרכה</span>
+            <span class="tag g">PDF מרוכז ללקוח</span>
+            <span class="tag g">תשלום מהיר</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="feat-row">
+        <div class="feat-num-box">3</div>
+        <div class="feat-content">
+          <h3>מנוע כלכלי — כספים, מסים וסימולטורים בזמן אמת</h3>
+          <p>לא רשימת תנועות — מנוע שחושב הכל. הכנסות, הוצאות, מגמות חודשיות ושנתיות. וסימולטורים שמחשבים בדיוק מה חייבים למע"מ ולמס הכנסה — ללא הפתעות בסוף הרבעון.</p>
+          <div class="inset-dark">
+            <div class="id-title">מחשבון מע"מ לרואה חשבון — בזמן אמת</div>
+            <div class="id-row"><span class="id-l">הכנסות ברוטו (כולל מע"מ)</span><span class="id-v">₪190,974</span></div>
+            <div class="id-row"><span class="id-l">מע"מ עסקאות שנגבה</span><span class="id-v">₪27,748</span></div>
+            <div class="id-row"><span class="id-l">מע"מ תשומות (הוצאות)</span><span class="id-v r">₪15,273−</span></div>
+            <div class="id-row"><span class="id-l">שולם בפועל (מקדמות)</span><span class="id-v r">₪2,596−</span></div>
+            <div class="id-row"><span class="id-l">נטו לתשלום מע"מ</span><span class="id-v big">₪25,152</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feat-row">
+        <div class="feat-num-box">4</div>
+        <div class="feat-content">
+          <h3>בצנרת עתידי — כמה צפוי להיכנס ומאיפה</h3>
+          <p>המערכת מחשבת אוטומטית את כל שלבי התשלום הפתוחים בכל הפרויקטים — ומציגה בדיוק מי ישלם כמה ומתי. אין יותר הפתעות בתזרים.</p>
+          <div class="pip-grid">
+            <div class="pip-mini">
+              <div class="pm-n">גיא רחן</div>
+              <div class="pm-a">₪3,500</div>
+              <div class="pm-d">מקדמה · 24.12</div>
+            </div>
+            <div class="pip-mini">
+              <div class="pm-n">שרה גולדברג</div>
+              <div class="pm-a">₪2,958</div>
+              <div class="pm-d">תשלום מקדמה</div>
+            </div>
+            <div class="pip-mini">
+              <div class="pm-n">יעקב שוורץ</div>
+              <div class="pm-a">₪23,082</div>
+              <div class="pm-d">גמר חשבון</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feat-row">
+        <div class="feat-num-box">5</div>
+        <div class="feat-content">
+          <h3>הוראות קבע — הוצאות שלא נשכחות לעולם</h3>
+          <p>הגדר פעם אחת: שכירות, ביטוח, תשלום לאלטשולר, גוגל — המערכת רושמת כל חודש אוטומטית. לא עוד הוצאות "שנשכחו" שמוחקות את הרווח בסוף השנה.</p>
+          <div class="tag-row">
+            <span class="tag n">שכירות</span><span class="tag n">ביטוח</span>
+            <span class="tag n">פרסום</span><span class="tag n">חשבונות</span>
+            <span class="tag g">רישום אוטומטי חודשי</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="feat-row">
+        <div class="feat-num-box">6</div>
+        <div class="feat-content">
+          <h3>ניתוח עומק ויזואלי — גרפים שמספרים את הסיפור</h3>
+          <p>גרפי עוגה אינטראקטיביים לפי שירות וקטגוריה. מגמות שנתיות: ₪4k ב-2023 → ₪31k ב-2024 → ₪187k ב-2025. ייצוא ל-Excel ו-PDF בלחיצה אחת — מוכן לרואה החשבון.</p>
+          <div class="tag-row">
+            <span class="tag g">₪187k ב-2025</span>
+            <span class="tag p">ייצוא Excel / PDF</span>
+            <span class="tag n">גרפים אינטראקטיביים</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="feat-row">
+        <div class="feat-num-box">7</div>
+        <div class="feat-content">
+          <h3>לידים, יומן ומשימות — שום דבר לא נשכח</h3>
+          <p>מסך לידים נפרד עם סטטוסים (חדש / בהליך / סגור). יומן חודשי עם תזכורות המחוברות ללקוחות. "גביה - רחל אברהם" קפצה ב-22 בדצמבר — לא שכחת. תמיד יודע מה הצעד הבא.</p>
+        </div>
+      </div>
+
+      <div class="feat-row">
+        <div class="feat-num-box">8</div>
+        <div class="feat-content">
+          <h3>חיבור להנהלת חשבונות — חשבונית בלחיצה</h3>
+          <p>לחץ "הוצא חשבונית" ישר בתוך מסך הלקוח. ללא כפילות נתונים, ללא העתקה ידנית. מתחבר ל-<strong>חשבונית ירוקה (Morning)</strong>, <strong>סאמיט</strong>, וכל מערכת חשבוניות דרך API. החשבונית נשמרת, ממוספרת ומוכנה לדו"ח מיד.</p>
+          <div class="tag-row">
+            <span class="tag g">חשבונית ירוקה / Morning</span>
+            <span class="tag g">סאמיט</span>
+            <span class="tag p">API פתוח</span>
+            <span class="tag n">מוכנה לרואה חשבון</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="feat-row">
+        <div class="feat-num-box">9</div>
+        <div class="feat-content">
+          <h3>אבטחה וגיבוי — הנתונים שלך, אצלך</h3>
+          <p>Local-First: הנתונים שמורים על המחשב שלך — לא בענן של מישהו אחר. גיבוי אוטומטי ל-Dropbox / Google Drive / דיסק חיצוני. <strong>סל מיחזור</strong> — שחזור נתונים שנמחקו בטעות. <strong>ייבוא מאקסל</strong> — העבר נתונים קיימים בקלות. ייצוא מלא של כל הנתונים לגיבוי אישי.</p>
+          <div class="tag-row">
+            <span class="tag g">Local-First</span>
+            <span class="tag n">Dropbox / Drive</span>
+            <span class="tag p">סל מיחזור ושחזור</span>
+            <span class="tag g">ייבוא מאקסל</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="feat-row">
+        <div class="feat-num-box">10</div>
+        <div class="feat-content">
+          <h3>שעון נוכחות — עקוב אחרי הזמן שלך</h3>
+          <p>הפעל טיימר ישיר מהממשק לכל פרויקט ולקוח. רואה בזמן אמת כמה שעות עבדת, על מה ועבור מי. בסוף החודש — טבלת שעות מסודרת שמוכנה לחישוב שכר או לחיוב לקוח. מושלם לפרילנסרים, מדריכים ומתכנני פרויקטים.</p>
+          <div class="timer-mock">
+            <div class="timer-display">01:24:37</div>
+            <div class="timer-meta">
+              <div class="tm-project">פרויקט הרצל 3 — שרה גולדברג</div>
+              <div class="tm-client">הדרכה · התחיל 14:00</div>
+            </div>
+            <div class="timer-btn">⏸ עצור</div>
+          </div>
+          <div class="tag-row" style="margin-top:14px">
+            <span class="tag g">טיימר בזמן אמת</span>
+            <span class="tag n">לפי פרויקט ולקוח</span>
+            <span class="tag p">טבלת שעות חודשית</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="feat-row">
+        <div class="feat-num-box">11</div>
+        <div class="feat-content">
+          <h3>סימולטור "מה יקרה אם" — תכנן את העתיד שלך</h3>
+          <p>הוסף הכנסה בדמה וראה מיד איך זה משנה את המס שלך — מע"מ, מס הכנסה, ביטוח לאומי ומענק עבודה. תכנן לפני שאתה מחליט: "אם אקח עוד פרויקט ב-₪8,000 — כמה ישאר לי נטו?" הסימולטור עונה בשנייה.</p>
+          <div class="whatif-box">
+            <div class="wi-title">סימולטור — הוסף הכנסה ורואים מה קורה</div>
+            <div class="wi-slider-row">
+              <label>הוסף הכנסה חודשית:</label>
+              <div class="wi-slider"></div>
+              <div class="wi-val">+₪8,000</div>
+            </div>
+            <div class="wi-result">
+              <span class="wr-l">מע"מ נוסף לתשלום</span>
+              <span class="wr-v">+₪1,360</span>
+            </div>
+          </div>
+          <div class="tag-row" style="margin-top:14px">
+            <span class="tag g">מע"מ בזמן אמת</span>
+            <span class="tag p">מס הכנסה + ביטוח לאומי</span>
+            <span class="tag n">תכנון לפני החלטה</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="feat-row">
+        <div class="feat-num-box">12</div>
+        <div class="feat-content">
+          <h3>פעולות מהירות ומדריך מובנה — הכל בהישג יד</h3>
+          <p>לחץ + אחד בראש המסך ופתח פרויקט חדש, רשום תנועה, הפעל טיימר, או חפש לקוח בשנייה. <strong>מדריך מובנה</strong> בתוך המערכת מסביר כל פיצ'ר עם דוגמאות. <strong>חיפוש מהיר</strong> — הקלד שם לקוח והגע לכל פרויקטיו בזריזות. <strong>השוואה שנתית</strong> — טבלה מול שנה שעברה ולפני שנתיים בלחיצה אחת.</p>
+          <div class="quick-row">
+            <div class="quick-card">
+              <span class="qc-icon">➕</span>
+              <div class="qc-label">פרויקט חדש</div>
+              <div class="qc-desc">פתח עבודה ורשום לקוח בשניות</div>
+            </div>
+            <div class="quick-card">
+              <span class="qc-icon">🔍</span>
+              <div class="qc-label">חיפוש מהיר</div>
+              <div class="qc-desc">הגע לכל לקוח ופרויקט בשנייה</div>
+            </div>
+            <div class="quick-card">
+              <span class="qc-icon">📖</span>
+              <div class="qc-label">מדריך מובנה</div>
+              <div class="qc-desc">הסברים ושאלות נפוצות בתוך המערכת</div>
+            </div>
+            <div class="quick-card">
+              <span class="qc-icon">📅</span>
+              <div class="qc-label">השוואה שנתית</div>
+              <div class="qc-desc">טבלה מול שנה שעברה ולפני שנתיים</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ INSIGHT ══ -->
+<div class="insight-strip">
+  <h3>מהו שווי שעת עבודה שלך?</h3>
+  <p>אם זה ₪300 לשעה — שעה אחת בחודש שחסכת ממרדף חובות וחישוב מע"מ כבר עשתה 30% מעלות המנוי השנתי כולו. ואנחנו מדברים על עשרות שעות בשנה.</p>
+  <div class="insight-pill">₪930 לשנה = פחות מ-₪78 לחודש</div>
+</div>
+
+<!-- ══ PRICING ══ -->
+<div class="section alt">
+  <div class="container">
+    <div class="s-label">מחירים</div>
+    <div class="s-h2">פשוטים, ישירים, ללא הפתעות</div>
+    <p class="s-sub">כל התכונות כלולות בשתי הגרסאות — ללא תוספות נסתרות, ללא מגבלות.</p>
+
+    <div class="pricing-grid">
+      <div class="pc">
+        <div class="pc-type">גרסה</div>
+        <div class="pc-name">Desktop</div>
+        <div class="pc-desc">עובד ממחשב קבוע. הנתונים שמורים אצלך מקומית — מהיר, פרטי, אמין.</div>
+        <div class="pc-price">
+          <span class="pc-ils">₪</span>
+          <span class="pc-num">930</span>
+          <span class="pc-yr">/שנה</span>
+        </div>
+        <div class="pc-mo">₪77.50 לחודש בלבד</div>
+        <ul>
+          <li>12 מודולים מלאים — פרויקטים, כספים, מסים, לידים ועוד</li>
+          <li>שעון נוכחות וטיימר לפי פרויקט</li>
+          <li>סימולטור מס + תכנון "מה אם"</li>
+          <li>חשבוניות: Morning, סאמיט, API</li>
+          <li>גיבוי ל-Dropbox / Drive / דיסק חיצוני + ייבוא מאקסל</li>
+          <li>עדכונים שוטפים</li>
+        </ul>
+      </div>
+      <div class="pc featured">
+        <div class="pc-tag">גישה מכל מקום</div>
+        <div class="pc-type">גרסה</div>
+        <div class="pc-name">Web</div>
+        <div class="pc-desc">גישה מכל מכשיר — מחשב, טאבלט וסמארטפון. סנכרון ענן אוטומטי בכל מקום.</div>
+        <div class="pc-price">
+          <span class="pc-ils">₪</span>
+          <span class="pc-num">1,130</span>
+          <span class="pc-yr">/שנה</span>
+        </div>
+        <div class="pc-mo">₪94 לחודש בלבד</div>
+        <ul>
+          <li>12 מודולים מלאים — פרויקטים, כספים, מסים, לידים ועוד</li>
+          <li>שעון נוכחות וטיימר לפי פרויקט</li>
+          <li>סימולטור מס + תכנון "מה אם"</li>
+          <li>חשבוניות: Morning, סאמיט, API</li>
+          <li>גישה מכל מכשיר + סנכרון ענן אוטומטי</li>
+          <li>עדכונים שוטפים</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pricing-footnote">
+      <strong>לשם השוואה:</strong> מנוי ספוטיפיי עולה ₪20 לחודש ומנגן לך מוזיקה.<br>
+      תכל"ס עולה ₪78 לחודש ומנהל לך את העסק.
+    </div>
+  </div>
+</div>
+
+<!-- ══ ABOUT ══ -->
+<div class="section">
+  <div class="container">
+    <div class="s-label">מי אנחנו</div>
+    <div class="about-row">
+      <div class="about-icon-box"></div>
+      <div class="about-text">
+        <h3>דייש — רישוי, תכנון ותכנות בבטחון</h3>
+        <p>תכל"ס נבנתה על ידי בעלי עסק, בשביל בעלי עסק — שידעו בדיוק איזה כאב היא צריכה לפתור. פיתוח ייטרי בניה, ניצול שטחים, עיצוב דירות ואדריכלות.</p>
+        <div class="contacts">
+          <div class="c-pill">📞 05484-262-63</div>
+          <div class="c-pill">📧 8426263@gmail.com</div>
+          <div class="c-pill">📞 0527-121-432</div>
+          <div class="c-pill">📧 dd121432@gmail.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CTA FINAL ══ -->
+<div class="cta-final">
+  <h2>סגור את הבלגן.<br><span>התחל לדעת.</span></h2>
+  <p>פחות ממנוי ספוטיפיי לחודש — ואתה יודע בדיוק מה הרווח שלך, מי חייב לך, ומה לגבות מחר בבוקר.</p>
+  <a class="cta-btn" href="mailto:8426263@gmail.com">צור קשר לגישה ניסיון חינם</a>
+  <div class="cta-links">
+    <a class="cta-link" href="tel:0548426263">📞 05484-262-63</a>
+    <a class="cta-link" href="mailto:8426263@gmail.com">📧 8426263@gmail.com</a>
+  </div>
+</div>
+
+<footer>
+  <strong>תכל"ס</strong> — להפוך את הבלגן לכסף מזומן &nbsp;·&nbsp;
+  Desktop ₪930/שנה &nbsp;·&nbsp; Web ₪1,130/שנה
+</footer>
+
+</body>
+</html>

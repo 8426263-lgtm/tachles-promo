@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מחירון — תכל'ס | רכישה אחת, שימוש לנצח</title>
+    <meta name="description" content="מחירון תכל'ס: Desktop 930₪ חד-פעמי לנצח, Web 1,130₪ שנה ראשונה. בלי מנוי חודשי, כולל כל העדכונים.">
+    <link rel="icon" type="image/x-icon" href="תכלס.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="shared.css">
+    <style>.glow-green-strong{box-shadow:0 0 60px -10px rgba(132,204,22,0.6),0 20px 40px -15px rgba(0,0,0,0.4);}</style>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { brand: {
+            50:'#f7fee7',100:'#ecfccb',200:'#d9f99d',300:'#bef264',400:'#a3e635',
+            500:'#84cc16',600:'#65a30d',700:'#4d7c0f',800:'#3f6212',900:'#365314',950:'#1a2e05' },
+                        navy: {
+            50:'#eef1fb',100:'#dce3f7',300:'#8da3e0',500:'#3b53a8',700:'#1e2f6b',
+            800:'#142151',900:'#0d1a44',950:'#0b1437' } } } } }
+    </script>
+</head>
+<body class="text-slate-800">
+
+<header id="navbar" class="fixed w-full top-0 z-50 bg-slate-900/95 backdrop-blur border-b border-slate-800/60"></header>
+
+<!-- HERO -->
+<section class="hero-bg pt-32 pb-16 text-center relative overflow-hidden">
+    <div class="container mx-auto px-4 relative z-10">
+        <span class="inline-flex items-center gap-2 bg-amber-400 text-slate-900 px-4 py-1.5 rounded-full font-black text-sm mb-6">⚡ מחיר השקה — לרוכשים הראשונים בלבד</span>
+        <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter mb-5">רכישה אחת.<br><span class="text-brand-400">שימוש לנצח.</span></h1>
+        <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto">אין חיוב חודשי, אין הפתעות. בוחרים גרסה, משלמים פעם אחת, עובדים.</p>
+    </div>
+</section>
+
+<!-- PRICING -->
+<section class="py-16 md:py-24 bg-clean relative overflow-hidden">
+    <div class="container mx-auto px-4 max-w-4xl relative z-10">
+        <p class="text-amber-700 text-sm font-semibold max-w-xl mx-auto bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-center mb-12 reveal">
+            המחירים הנוכחיים הם מחירי השקה מיוחדים. בסיום תקופת ההשקה המחירים יעלו — מי שרוכש עכשיו נועל את המחיר לנצח, כולל כל העדכונים העתידיים.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-8 items-stretch">
+            <!-- Desktop (מודגש) -->
+            <div class="relative bg-white rounded-3xl border-2 border-brand-400 shadow-2xl shadow-brand-500/10 p-8 flex flex-col reveal">
+                <div class="absolute -top-4 right-8"><span class="bg-brand-400 text-navy-950 px-4 py-1.5 rounded-full text-sm font-extrabold shadow-lg">הגרסה הפופולרית</span></div>
+                <div class="flex items-center gap-3 mb-6 mt-2">
+                    <div class="bg-brand-100 text-brand-700 w-12 h-12 rounded-xl flex items-center justify-center"><i data-lucide="monitor" class="w-6 h-6"></i></div>
+                    <div><h3 class="text-2xl font-extrabold text-slate-900">Desktop</h3><p class="text-sm text-slate-500">הנתונים אצלך — לא בענן</p></div>
+                </div>
+                <div class="mb-6">
+                    <div class="flex items-center gap-2 mb-1"><span class="text-slate-400 line-through text-lg">1,250 ₪</span><span class="bg-amber-100 text-amber-700 text-xs font-bold px-2 py-0.5 rounded-full">מחיר השקה</span></div>
+                    <div class="flex items-baseline gap-2"><span class="text-6xl font-extrabold text-slate-900 stat-number">930</span><span class="text-2xl font-bold text-slate-400">₪</span></div>
+                    <p class="text-brand-700 font-bold text-sm mt-1">חד-פעמי לנצח. 0 ₪ חיוב חודשי.</p>
+                </div>
+                <ul class="space-y-3 mb-8 flex-1">
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>רישיון לצמיתות + כל העדכונים</li>
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>הנתונים על המחשב שלך בלבד</li>
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>עובד ללא אינטרנט</li>
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>גיבוי לתיקייה שלך (Drive, Dropbox...)</li>
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>אינטגרציית חשבוניות (ריווחית/ירוקה/סאמיט)</li>
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>תמיכה אישית ממפתח המערכת</li>
+                </ul>
+                <button onclick="initiateBuyProcess()" class="w-full bg-brand-400 hover:bg-brand-300 text-navy-950 font-extrabold py-4 rounded-xl transition shadow-lg shadow-brand-500/30 hover:scale-[1.02] flex items-center justify-center gap-2 text-lg"><i data-lucide="shopping-cart" class="w-5 h-5"></i> רכישה מאובטחת ←</button>
+                <p class="text-center text-xs text-slate-400 mt-3">תשלום דרך uPay | גישה מיידית אחרי תשלום</p>
+            </div>
+
+            <!-- Web -->
+            <div class="relative bg-white rounded-3xl border border-slate-200 shadow-lg p-8 flex flex-col reveal" style="transition-delay:0.1s">
+                <div class="absolute -top-4 right-8"><span class="bg-navy-800 text-white px-4 py-1.5 rounded-full text-sm font-bold shadow-lg">חדש — גרסת Web</span></div>
+                <div class="flex items-center gap-3 mb-6 mt-2">
+                    <div class="bg-navy-50 text-navy-700 w-12 h-12 rounded-xl flex items-center justify-center"><i data-lucide="globe" class="w-6 h-6"></i></div>
+                    <div><h3 class="text-2xl font-extrabold text-slate-900">Web</h3><p class="text-sm text-slate-500">גישה מכל מקום, מכל דפדפן</p></div>
+                </div>
+                <div class="mb-6">
+                    <div class="flex items-center gap-2 mb-1"><span class="text-slate-400 line-through text-lg">1,450 ₪</span><span class="bg-amber-100 text-amber-700 text-xs font-bold px-2 py-0.5 rounded-full">מחיר השקה</span></div>
+                    <div class="flex items-baseline gap-2"><span class="text-6xl font-extrabold text-slate-900 stat-number">1,130</span><span class="text-2xl font-bold text-slate-400">₪</span></div>
+                    <p class="text-slate-500 font-bold text-sm mt-1">שנה ראשונה • <span class="text-slate-400">170 ₪/שנה מהשנה השנייה</span></p>
+                </div>
+                <ul class="space-y-3 mb-8 flex-1">
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-navy-500 shrink-0 mt-0.5"></i>גרסת Web מלאה — מכל דפדפן, בכל מחשב</li>
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-navy-500 shrink-0 mt-0.5"></i>גיבוי אוטומטי בענן</li>
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-navy-500 shrink-0 mt-0.5"></i>עדכונים אוטומטיים — תמיד הגרסה האחרונה</li>
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-navy-500 shrink-0 mt-0.5"></i>כל הפיצ'רים — זהה לגמרי ל-Desktop</li>
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-navy-500 shrink-0 mt-0.5"></i>תמיכה אישית ממפתח המערכת</li>
+                </ul>
+                <div class="flex flex-col gap-3">
+                    <a href="https://tacles.vercel.app/?demo=1" target="_blank" rel="noopener" class="w-full bg-navy-900 hover:bg-navy-800 text-white font-bold py-4 rounded-xl transition flex items-center justify-center gap-2 text-lg"><i data-lucide="play-circle" class="w-5 h-5"></i> נסה דמו חינם</a>
+                    <a href="demo.html" class="w-full border border-slate-200 hover:border-navy-400 text-slate-600 hover:text-slate-900 font-bold py-3 rounded-xl transition text-center text-sm">צור קשר לרכישת Web</a>
+                </div>
+            </div>
+        </div>
+
+        <p class="text-center text-slate-500 mt-12 reveal">
+            לא בטוח מה מתאים לך? <a href="demo.html" class="text-brand-700 hover:text-brand-600 font-bold">תאם הדגמה חינם →</a>
+        </p>
+    </div>
+</section>
+
+<footer id="site-footer" class="bg-slate-900 text-white border-t border-slate-800"></footer>
+
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="bg-brand-600 hover:bg-brand-500 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg"><i data-lucide="arrow-up" class="w-5 h-5"></i></button>
+
+<script src="shared.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('scroll', () => {
+            document.getElementById('back-to-top').classList.toggle('show', window.scrollY > 400);
+        });
+    });
+</script>
+</body>
+</html>

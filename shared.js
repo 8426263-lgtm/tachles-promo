@@ -1,0 +1,254 @@
+/* =====================================================================
+   shared.js — נאבר, פוטר ולוגיקה משותפת לכל עמודי אתר תכל'ס
+   כל עמוד טוען את הקובץ הזה. עריכת הנאבר/פוטר נעשית כאן — מקום אחד.
+   נכתב כמחרוזות מוזרקות (לא fetch) כדי לעבוד גם בפתיחת קובץ מקומי file://
+   ===================================================================== */
+
+// קישור רכישה (UPAY) — מקום אחד לעדכון
+const BUY_URL  = 'https://app.upay.co.il/API6/s.php?m=SEtydWxWR0JERnlvNk84QjZhdUlGdz09';
+const DEMO_URL = 'https://tacles.vercel.app/?demo=1';
+const SUPPORT_EMAIL = '8426263@gmail.com';
+
+/* ---------- קביעת העמוד הנוכחי לסימון אקטיבי בנאבר ---------- */
+function currentPage() {
+    const p = location.pathname.split('/').pop().toLowerCase();
+    if (!p || p === 'index8.html' || p === 'index.html') return 'home';
+    if (p.startsWith('features')) return 'features';
+    if (p.startsWith('pricing'))  return 'pricing';
+    if (p.startsWith('demo') || p.startsWith('contact')) return 'demo';
+    return 'home';
+}
+
+/* ---------- HTML של הנאבר ---------- */
+function navHTML() {
+    const page = currentPage();
+    const link = (href, label, key, extra = '') =>
+        `<a href="${href}" class="nav-link px-3 py-2 transition ${page === key ? 'nav-active' : 'text-slate-300 hover:text-white'} ${extra}">${label}</a>`;
+
+    return `
+    <div class="container mx-auto px-4 h-16 flex justify-between items-center">
+        <a href="index8.html" class="flex items-center">
+            <img src="33.jpg" alt="תכל'ס" class="h-12 w-auto object-contain">
+        </a>
+
+        <!-- ניווט דסקטופ -->
+        <nav class="hidden md:flex gap-1 font-medium items-center text-sm">
+            ${link('index8.html', "למה תכל'ס", 'home')}
+
+            <!-- DROPDOWN פיצ'רים — mega menu -->
+            <div class="nav-dropdown" tabindex="0">
+                <button class="px-3 py-2 transition flex items-center gap-1 ${page === 'features' ? 'nav-active' : 'text-slate-300 hover:text-white'}">
+                    פיצ'רים <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                </button>
+                <div class="nav-mega">
+                    <div class="grid grid-cols-2 gap-1">
+                        <a href="features.html#tab-0" class="nav-dd-item">
+                            <span class="nav-dd-icon"><i data-lucide="trending-up" class="w-5 h-5"></i></span>
+                            <span><span class="block font-bold text-slate-900">נטו אמיתי בזמן אמת</span><span class="text-xs text-slate-500">מס, מע"מ, ב"ל — מחושב</span></span>
+                        </a>
+                        <a href="features.html#tab-1" class="nav-dd-item">
+                            <span class="nav-dd-icon"><i data-lucide="activity" class="w-5 h-5"></i></span>
+                            <span><span class="block font-bold text-slate-900">סימולטור מס</span><span class="text-xs text-slate-500">כמה יישאר לפני שחותמים</span></span>
+                        </a>
+                        <a href="features.html#tab-2" class="nav-dd-item">
+                            <span class="nav-dd-icon"><i data-lucide="users" class="w-5 h-5"></i></span>
+                            <span><span class="block font-bold text-slate-900">לקוחות ופרויקטים</span><span class="text-xs text-slate-500">כמה נכנס, כמה חייב</span></span>
+                        </a>
+                        <a href="features.html#tab-3" class="nav-dd-item">
+                            <span class="nav-dd-icon"><i data-lucide="clock" class="w-5 h-5"></i></span>
+                            <span><span class="block font-bold text-slate-900">שעות וחשבוניות</span><span class="text-xs text-slate-500">שעון נוכחות → חשבונית</span></span>
+                        </a>
+                        <a href="features.html#tab-4" class="nav-dd-item">
+                            <span class="nav-dd-icon"><i data-lucide="wallet" class="w-5 h-5"></i></span>
+                            <span><span class="block font-bold text-slate-900">ארנק ויומן</span><span class="text-xs text-slate-500">הכל מחובר במקום אחד</span></span>
+                        </a>
+                        <a href="features.html#tab-5" class="nav-dd-item">
+                            <span class="nav-dd-icon"><i data-lucide="sparkles" class="w-5 h-5"></i></span>
+                            <span><span class="block font-bold text-slate-900">עוזר AI עסקי</span><span class="text-xs text-slate-500">שואל בעברית, מקבל תשובה</span></span>
+                        </a>
+                    </div>
+                    <a href="features.html" class="block text-center mt-2 pt-3 border-t border-slate-100 text-brand-600 hover:text-brand-700 font-bold text-sm">
+                        לכל הפיצ'רים ←
+                    </a>
+                </div>
+            </div>
+
+            ${link('pricing.html', 'מחירון', 'pricing', 'text-amber-300 font-bold hover:text-amber-200')}
+            <a href="${DEMO_URL}" target="_blank" rel="noopener"
+               class="flex items-center gap-1 px-3 py-2 text-brand-400 hover:text-brand-300 font-bold transition">
+                <i data-lucide="play-circle" class="w-4 h-4"></i> דמו חי
+            </a>
+        </nav>
+
+        <!-- CTA דסקטופ -->
+        <div class="hidden md:flex items-center gap-3">
+            <a href="demo.html" class="text-slate-300 hover:text-white font-medium text-sm transition">מפגש זום חי</a>
+            <button onclick="initiateBuyProcess()"
+                class="bg-brand-400 hover:bg-brand-300 text-navy-950 px-5 py-2 rounded-full font-extrabold transition text-sm shadow-lg shadow-brand-500/20">
+                התחילו עכשיו ←
+            </button>
+        </div>
+
+        <!-- כפתור נייד -->
+        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden text-white p-2" aria-label="תפריט">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+    </div>
+
+    <!-- תפריט נייד -->
+    <div id="mobile-menu" class="md:hidden hidden bg-slate-900 border-t border-slate-800 px-4 py-4 space-y-2">
+        <a href="index8.html" class="block text-slate-300 hover:text-white font-medium py-1">למה תכל'ס</a>
+        <a href="features.html" class="block text-slate-300 hover:text-white font-medium py-1">פיצ'רים</a>
+        <a href="pricing.html" class="block text-amber-300 font-bold py-1">מחירון</a>
+        <a href="demo.html" class="block text-slate-300 hover:text-white font-medium py-1">מפגש זום חי</a>
+        <a href="${DEMO_URL}" target="_blank" rel="noopener" class="block text-brand-400 font-bold py-1">▶ דמו חי</a>
+        <button onclick="initiateBuyProcess(); toggleMobileMenu();"
+            class="w-full bg-brand-400 hover:bg-brand-300 text-navy-950 px-4 py-3 rounded-lg font-extrabold mt-2">התחילו עכשיו ←</button>
+    </div>`;
+}
+
+/* ---------- HTML של הפוטר ---------- */
+function footerHTML() {
+    return `
+    <div class="container mx-auto px-4 py-12">
+        <div class="grid md:grid-cols-4 gap-8 text-slate-400 text-sm">
+            <div class="md:col-span-1">
+                <img src="33.jpg" alt="תכל'ס" class="h-12 w-auto object-contain mb-4">
+                <p class="leading-relaxed">תוכנה לניהול עסק לעצמאיים בישראל — נטו אמיתי, ניהול לקוחות וחשבוניות במקום אחד.</p>
+            </div>
+            <div>
+                <h4 class="font-black text-white mb-3">המוצר</h4>
+                <ul class="space-y-2">
+                    <li><a href="features.html" class="hover:text-brand-400 transition">פיצ'רים</a></li>
+                    <li><a href="pricing.html" class="hover:text-amber-400 transition">מחירון</a></li>
+                    <li><a href="${DEMO_URL}" target="_blank" rel="noopener" class="hover:text-brand-400 transition">דמו חי</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-black text-white mb-3">מידע</h4>
+                <ul class="space-y-2">
+                    <li><a href="index8.html#pain" class="hover:text-brand-400 transition">למה תכל'ס</a></li>
+                    <li><a href="index8.html#faq" class="hover:text-brand-400 transition">שאלות נפוצות</a></li>
+                    <li><a href="demo.html" class="hover:text-brand-400 transition">מפגש זום חי</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-black text-white mb-3">תמיכה אישית</h4>
+                <p class="leading-relaxed">מענה <strong class="text-white">ישירות ממפתח המערכת</strong> — לא מוקד בחו"ל. תוך 24 שעות בימי עבודה.</p>
+                <a href="mailto:${SUPPORT_EMAIL}" class="text-brand-400 hover:text-brand-300 transition font-bold inline-block mt-2">${SUPPORT_EMAIL}</a>
+            </div>
+        </div>
+        <div class="mt-10 pt-6 border-t border-slate-800 text-slate-600 text-sm text-center">
+            <p>&copy; 2026 תכל'ס — כל הזכויות שמורות.</p>
+        </div>
+    </div>`;
+}
+
+/* ---------- HTML של מודל התקנון ---------- */
+function termsModalHTML() {
+    return `
+    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[82vh] overflow-hidden flex flex-col shadow-2xl">
+        <div class="p-6 border-b flex justify-between items-center bg-slate-50">
+            <h3 class="text-xl font-black text-slate-900 flex items-center gap-2">
+                <i data-lucide="file-text" class="text-brand-600"></i> תקנון שימוש ואישור רכישה
+            </h3>
+            <button onclick="closeTerms()" class="text-slate-400 hover:text-slate-600 bg-slate-200 rounded-full p-1.5"><i data-lucide="x"></i></button>
+        </div>
+        <div class="p-8 overflow-y-auto text-right text-slate-700 leading-relaxed">
+            <p class="font-bold mb-4">אנא קרא/י בעיון לפני הרכישה:</p>
+            <h4 class="font-bold text-slate-900 mt-4">1. מהות המוצר</h4>
+            <p>תוכנת "תכלס" הינה כלי לניהול עסק המסופקת "כמות שהיא". הרכישה מקנה רישיון שימוש לכל החיים למחשב אחד, ללא דמי מנוי.</p>
+            <h4 class="font-bold text-slate-900 mt-4">2. מדיניות החזרים</h4>
+            <p>המוצר הינו מוצר דיגיטלי. בהתאם לחוק, <strong>לא יינתן החזר כספי</strong> לאחר קבלת קוד הרישוי.</p>
+            <h4 class="font-bold text-slate-900 mt-4">3. אחריות</h4>
+            <p>השימוש בתוכנה הוא באחריות המשתמש. יש לבצע גיבויים שוטפים.</p>
+            <h4 class="font-bold text-slate-900 mt-4">4. עדכונים ותמיכה</h4>
+            <p>הרכישה כוללת עדכונים עתידיים ותמיכה דרך דוא"ל.</p>
+            <div class="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg text-sm text-yellow-800">
+                <strong>שימו לב:</strong> בלחיצה על "אני מסכים" מצהיר/ה שקראת את התקנון ומסכים/ה לתנאיו.
+            </div>
+            <div class="flex gap-3 mt-6">
+                <button onclick="approveAndPay()" class="flex-1 bg-brand-600 hover:bg-brand-500 text-white font-black py-4 rounded-xl transition text-lg flex items-center justify-center gap-2">
+                    <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                    קראתי ואני מאשר — עבור לתשלום מאובטח
+                </button>
+                <button onclick="closeTerms()" class="px-6 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-xl transition">ביטול</button>
+            </div>
+        </div>
+    </div>`;
+}
+
+/* ===================== לוגיקה משותפת ===================== */
+function toggleMobileMenu() {
+    document.getElementById('mobile-menu')?.classList.toggle('hidden');
+}
+
+// רכישה / תקנון
+function initiateBuyProcess() {
+    const m = document.getElementById('terms-modal');
+    m.classList.remove('hidden'); m.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+function closeTerms() {
+    const m = document.getElementById('terms-modal');
+    m.classList.add('hidden'); m.classList.remove('open');
+    document.body.style.overflow = '';
+}
+function proceedToBuy() { closeTerms(); window.open(BUY_URL, '_blank'); }
+function approveAndPay() { proceedToBuy(); }
+
+// לייטבוקס
+function openLightbox(src) {
+    const lb = document.getElementById('lightbox');
+    document.getElementById('lightbox-img').src = src;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+    document.getElementById('lightbox')?.classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+/* ===================== אתחול ===================== */
+document.addEventListener('DOMContentLoaded', () => {
+    // הזרקת נאבר
+    const nav = document.getElementById('navbar');
+    if (nav) nav.innerHTML = navHTML();
+
+    // הזרקת פוטר
+    const ft = document.getElementById('site-footer');
+    if (ft) ft.innerHTML = footerHTML();
+
+    // הזרקת מודל תקנון + לייטבוקס (פעם אחת לכל עמוד)
+    const tm = document.createElement('div');
+    tm.id = 'terms-modal';
+    tm.className = 'modal-overlay hidden';
+    tm.innerHTML = termsModalHTML();
+    document.body.appendChild(tm);
+
+    const lb = document.createElement('div');
+    lb.id = 'lightbox';
+    lb.innerHTML = '<span id="lightbox-close" onclick="closeLightbox()">&times;</span><img id="lightbox-img" src="" alt="תצוגה מורחבת">';
+    document.body.appendChild(lb);
+    lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+
+    // אייקונים
+    if (window.lucide) lucide.createIcons();
+
+    // נאבר scrolled
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        navbar?.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // reveal on scroll
+    const obs = new IntersectionObserver(es => {
+        es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // ESC סוגר מודלים
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') { closeTerms(); closeLightbox(); }
+    });
+});

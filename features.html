@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>פיצ'רים — תכל'ס | נטו אמיתי, סימולטור מס, שעות, חשבוניות ועוזר AI</title>
+    <meta name="description" content="כל מה שתכל'ס נותנת לך: נטו אמיתי בזמן אמת, סימולטור מס, ניהול לקוחות ופרויקטים, מעקב שעות וחשבוניות, ארנק חכם ועוזר AI עסקי.">
+    <link rel="icon" type="image/x-icon" href="תכלס.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="shared.css">
+    <script>
+        tailwind.config = { theme: { extend: { colors: { brand: {
+            50:'#f7fee7',100:'#ecfccb',200:'#d9f99d',300:'#bef264',400:'#a3e635',
+            500:'#84cc16',600:'#65a30d',700:'#4d7c0f',800:'#3f6212',900:'#365314',950:'#1a2e05' },
+                        navy: {
+            50:'#eef1fb',100:'#dce3f7',300:'#8da3e0',500:'#3b53a8',700:'#1e2f6b',
+            800:'#142151',900:'#0d1a44',950:'#0b1437' } } } } }
+    </script>
+</head>
+<body class="text-slate-800">
+
+<header id="navbar" class="fixed w-full top-0 z-50 bg-slate-900/95 backdrop-blur border-b border-slate-800/60"></header>
+
+<!-- ===== HERO ===== -->
+<section class="hero-bg pt-32 pb-16 text-center relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5 pointer-events-none">
+        <div class="absolute top-10 right-20 w-80 h-80 bg-brand-400 rounded-full blur-3xl"></div>
+    </div>
+    <div class="container mx-auto px-4 relative z-10">
+        <span class="inline-flex items-center gap-2 bg-navy-800/60 border border-brand-500/30 text-brand-300 px-4 py-1.5 rounded-full text-sm font-bold mb-6">
+            <i data-lucide="layers" class="w-4 h-4"></i> הפיצ'רים של תכל'ס
+        </span>
+        <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter mb-5">
+            כלי אחד שפותר<br><span class="text-brand-400">את כל הבלגן הפיננסי</span>
+        </h1>
+        <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto">
+            כל יכולת נוצרה כי עצמאי אמיתי כאב ממנה — לא כי נשמע טוב בשיווק.
+        </p>
+    </div>
+</section>
+
+<!-- ===== TABS ===== -->
+<section class="py-14 md:py-20 bg-white">
+    <div class="container mx-auto px-4 max-w-6xl">
+
+        <!-- TAB NAV -->
+        <div class="ftab-nav no-scrollbar flex gap-2 justify-start lg:justify-center mb-12 overflow-x-auto pb-2">
+            <button class="ftab-btn active" data-tab="0" onclick="openFeatureTab(0)"><i data-lucide="trending-up" class="w-4 h-4"></i> נטו אמיתי</button>
+            <button class="ftab-btn" data-tab="1" onclick="openFeatureTab(1)"><i data-lucide="activity" class="w-4 h-4"></i> סימולטור מס</button>
+            <button class="ftab-btn" data-tab="2" onclick="openFeatureTab(2)"><i data-lucide="users" class="w-4 h-4"></i> לקוחות ופרויקטים</button>
+            <button class="ftab-btn" data-tab="3" onclick="openFeatureTab(3)"><i data-lucide="clock" class="w-4 h-4"></i> שעות וחשבוניות</button>
+            <button class="ftab-btn" data-tab="4" onclick="openFeatureTab(4)"><i data-lucide="wallet" class="w-4 h-4"></i> ארנק ויומן</button>
+            <button class="ftab-btn" data-tab="5" onclick="openFeatureTab(5)"><i data-lucide="sparkles" class="w-4 h-4"></i> עוזר AI</button>
+        </div>
+
+        <!-- ===== PANEL 0 — נטו אמיתי ===== -->
+        <div class="ftab-panel active" data-panel="0">
+            <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <span class="text-xs font-black text-brand-600 uppercase tracking-widest mb-3 block">הכוח המרכזי</span>
+                    <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter mb-5 leading-tight">הנטו האמיתי שלך —<br><span class="text-brand-600">לא ניחוש. מספר מדויק.</span></h2>
+                    <p class="text-lg text-slate-500 leading-relaxed mb-7">המערכת מורידה הוצאות מוכרות, מחשבת מע"מ, מס הכנסה לפי מדרגות, ביטוח לאומי ופנסיה — ומציגה לך <strong class="text-slate-800">את הנטו האמיתי שנשאר בכיס</strong>, מעודכן בכל יום.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="bar-chart-2" class="w-4 h-4"></i></span> גרפים שנתיים ורולינג של הכנסות מול נטו</li>
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="pie-chart" class="w-4 h-4"></i></span> פירוט מלא של הכנסות והוצאות</li>
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="bell" class="w-4 h-4"></i></span> התראות אוטומטיות על סף עוסק פטור</li>
+                    </ul>
+                </div>
+                <div class="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl border border-slate-200">
+                    <img src="תמונות חדשות/extracted/image4.png" alt="מסך מיסוי חכם — גרפים ונטו שנתי" class="w-full object-cover zoomable" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PANEL 1 — סימולטור מס ===== -->
+        <div class="ftab-panel" data-panel="1">
+            <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <span class="text-xs font-black text-yellow-600 uppercase tracking-widest mb-3 block">בלעדי במערכת</span>
+                    <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter mb-5 leading-tight">לפני שחותמים על פרויקט —<br><span class="text-brand-600">דע בדיוק כמה ישאר לך.</span></h2>
+                    <p class="text-lg text-slate-500 leading-relaxed mb-7">מזין סכום → רואה בשנייה: מע"מ, מס הכנסה, ביטוח לאומי — <strong class="text-slate-800">וכמה נשאר בכיס נטו.</strong> לא עוד תמחור לפי תחושת בטן.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="zap" class="w-4 h-4"></i></span> סימולציית "מה אם" — בלי לשנות נתונים אמיתיים</li>
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="gift" class="w-4 h-4"></i></span> בדיקת זכאות למענק עבודה — אוטומטית</li>
+                    </ul>
+                </div>
+                <div class="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl border border-slate-200 relative">
+                    <img src="תמונות חדשות/extracted/image5.png" alt="סימולטור מס — מה אם" class="w-full object-cover zoomable" onclick="openLightbox(this.src)">
+                    <div class="absolute bottom-4 left-4 bg-brand-500 text-slate-900 rounded-xl px-4 py-2 shadow-xl font-black text-sm">₪83,528 נטו — בשנייה אחת</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PANEL 2 — לקוחות ופרויקטים ===== -->
+        <div class="ftab-panel" data-panel="2">
+            <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <span class="text-xs font-black text-brand-700 uppercase tracking-widest mb-3 block">ניהול לקוחות ופרויקטים</span>
+                    <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter mb-5 leading-tight">כל פרויקט — כמה נכנס,<br><span class="text-brand-600">כמה עוד צפוי, כמה חייב.</span></h2>
+                    <p class="text-lg text-slate-500 leading-relaxed mb-7">רשימת פרויקטים עם סטטוס תשלום ונטו צפוי. פותחים לקוח — רואים את כל ההיסטוריה תוך 5 שניות. כולל <strong class="text-slate-800">דוח לקוח אקטיבי</strong> ותמיכה ב"פרויקטים תאומים" (חוזה + תוספות) לאדריכלים ומהנדסים.</p>
+                    <div class="flex gap-4">
+                        <div class="bg-brand-50 rounded-xl p-4 border border-brand-200 text-center flex-1"><div class="text-3xl font-black text-brand-600 stat-number">0 ₪</div><div class="text-xs text-slate-500 font-medium mt-1">חוב שנשכח</div></div>
+                        <div class="bg-brand-50 rounded-xl p-4 border border-brand-200 text-center flex-1"><div class="text-3xl font-black text-brand-600 stat-number">10 שנ'</div><div class="text-xs text-slate-500 font-medium mt-1">היסטוריה שמורה</div></div>
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2 grid grid-cols-2 gap-3">
+                    <img src="תמונות חדשות/extracted/image3.png" alt="רשימת פרויקטים" class="w-full object-cover rounded-2xl shadow-xl border border-slate-200 zoomable" onclick="openLightbox(this.src)">
+                    <img src="תמונות חדשות/extracted/image6.png" alt="כרטיס לקוח" class="w-full object-cover rounded-2xl shadow-xl border border-slate-200 zoomable" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PANEL 3 — שעות וחשבוניות ===== -->
+        <div class="ftab-panel" data-panel="3">
+            <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <span class="text-xs font-black text-blue-600 uppercase tracking-widest mb-3 block">מעקב שעות וחיוב</span>
+                    <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter mb-5 leading-tight">כל שעת עבודה נספרת —<br><span class="text-brand-600">וחוזרת אליך בחשבונית.</span></h2>
+                    <p class="text-lg text-slate-500 leading-relaxed mb-7">מפעילים שעון נוכחות לכל משימה. בסוף החודש המערכת אוספת את כל השעות לאותו לקוח, מחשבת לפי התעריף שהגדרת, <strong class="text-slate-800">ומפיקה חשבונית שעות מסודרת — מוכנה לשליחה.</strong></p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="timer" class="w-4 h-4"></i></span> שעון נוכחות פר-משימה ופר-לקוח</li>
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="receipt" class="w-4 h-4"></i></span> חשבונית שעות אוטומטית לפי תעריף</li>
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="file-check" class="w-4 h-4"></i></span> אינטגרציה לריווחית / ירוקה / סאמיט</li>
+                    </ul>
+                </div>
+                <div class="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl border border-slate-200">
+                    <img src="תמונות חדשות/extracted/image1.png" alt="חשבוניות שעות" class="w-full object-cover zoomable" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PANEL 4 — ארנק ויומן ===== -->
+        <div class="ftab-panel" data-panel="4">
+            <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <span class="text-xs font-black text-purple-600 uppercase tracking-widest mb-3 block">כלים שחוסכים שעות</span>
+                    <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter mb-5 leading-tight">ארנק לקוח, יומן<br><span class="text-brand-600">ופעולות מהירות — מחוברים.</span></h2>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4 bg-slate-50 rounded-2xl p-5 border border-slate-100">
+                            <div class="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center shrink-0 text-purple-600"><i data-lucide="wallet" class="w-5 h-5"></i></div>
+                            <div><h4 class="font-black text-slate-900 mb-0.5">ארנק לקוח חכם</h4><p class="text-sm text-slate-500">לקוח שלח כסף בלי פרויקט פתוח? הסכום נשמר בארנק ומשויך אוטומטית לפרויקט הבא. <strong class="text-slate-700">שום שקל לא הולך לאיבוד.</strong></p></div>
+                        </div>
+                        <div class="flex items-start gap-4 bg-slate-50 rounded-2xl p-5 border border-slate-100">
+                            <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center shrink-0 text-blue-600"><i data-lucide="calendar" class="w-5 h-5"></i></div>
+                            <div><h4 class="font-black text-slate-900 mb-0.5">יומן תשלומים ומשימות</h4><p class="text-sm text-slate-500">כל תשלום עתידי ומשימה — נראים ביומן. <strong class="text-slate-700">לא תשכח לגבות, לא תפספס תשלום חשוב.</strong></p></div>
+                        </div>
+                        <div class="flex items-start gap-4 bg-orange-50 rounded-2xl p-5 border border-orange-100">
+                            <div class="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center shrink-0 text-orange-600"><i data-lucide="zap" class="w-5 h-5"></i></div>
+                            <div><h4 class="font-black text-slate-900 mb-0.5">פעולות מהירות מהדשבורד</h4><p class="text-sm text-slate-500">הכנסה, לקוח, שעון נוכחות, פרויקט — הכל בלחיצה. <strong class="text-slate-700">30 שניות לתנועה = שעה חסוכה בחודש.</strong></p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2 grid grid-cols-2 gap-3">
+                    <img src="תמונות חדשות/extracted/image7.png" alt="ארנק לקוח" class="w-full object-cover rounded-2xl shadow-xl border border-slate-200 zoomable" onclick="openLightbox(this.src)">
+                    <img src="תמונות חדשות/extracted/image8.png" alt="פעולות מהירות" class="w-full object-cover rounded-2xl shadow-xl border border-slate-200 zoomable" onclick="openLightbox(this.src)">
+                    <img src="תמונות חדשות/extracted/image9.png" alt="יומן תשלומים" class="w-full object-cover rounded-2xl shadow-xl border border-slate-200 zoomable col-span-2" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PANEL 5 — עוזר AI ===== -->
+        <div class="ftab-panel" data-panel="5">
+            <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <span class="text-xs font-black text-brand-600 uppercase tracking-widest mb-3 block">חדש</span>
+                    <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter mb-5 leading-tight">עוזר AI עסקי —<br><span class="text-brand-600">שואל בעברית, מקבל תשובה.</span></h2>
+                    <p class="text-lg text-slate-500 leading-relaxed mb-7">צ'אט חכם שמכיר את הנתונים שלך. "כמה הרווחתי ברבעון?", "מי הלקוח הכי רווחי?", "כמה מס אשלם השנה?" — <strong class="text-slate-800">שואלים בשפה רגילה, מקבלים תשובה מדויקת.</strong></p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="message-circle" class="w-4 h-4"></i></span> שאלות בעברית פשוטה — בלי דוחות מסובכים</li>
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="lightbulb" class="w-4 h-4"></i></span> תובנות והמלצות על בסיס הנתונים שלך</li>
+                    </ul>
+                </div>
+                <div class="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl border border-slate-200">
+                    <img src="תמונות חדשות/extracted/image2.png" alt="עוזר AI עסקי" class="w-full object-cover zoomable" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center py-12 mt-10 border-t border-slate-100">
+            <p class="text-slate-500 mb-6">רוצה לראות את הכל בפעולה?</p>
+            <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                <a href="https://tacles.vercel.app/?demo=1" target="_blank" rel="noopener" class="bg-brand-500 hover:bg-brand-400 text-slate-900 px-8 py-4 rounded-xl font-black transition hover:scale-105 flex items-center gap-2 shadow-lg glow-green"><i data-lucide="play-circle" class="w-5 h-5"></i> ראה את זה חי — דמו חינמי</a>
+                <button onclick="initiateBuyProcess()" class="bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 px-7 py-4 rounded-xl font-bold transition flex items-center gap-2 shadow"><i data-lucide="shopping-cart" class="w-5 h-5"></i> רכישה — 930 ₪</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer id="site-footer" class="bg-slate-900 text-white border-t border-slate-800"></footer>
+
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="bg-brand-600 hover:bg-brand-500 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg"><i data-lucide="arrow-up" class="w-5 h-5"></i></button>
+
+<script src="shared.js"></script>
+<script>
+    function openFeatureTab(idx) {
+        document.querySelectorAll('.ftab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab == idx));
+        document.querySelectorAll('.ftab-panel').forEach(p => p.classList.toggle('active', p.dataset.panel == idx));
+        if (window.lucide) lucide.createIcons();
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+        const m = location.hash.match(/tab-(\d)/);
+        if (m) openFeatureTab(parseInt(m[1]));
+        window.addEventListener('scroll', () => {
+            document.getElementById('back-to-top').classList.toggle('show', window.scrollY > 400);
+        });
+    });
+</script>
+</body>
+</html>
