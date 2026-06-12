@@ -79,6 +79,37 @@
 
         /* Testimonial card */
         .testimonial-card { border-top: 3px solid #22c55e; }
+        .tcard {
+            display: flex; flex-direction: column; height: 100%;
+            background: #fff; border: 1px solid #e2e8f0; border-radius: 1rem;
+            border-top: 3px solid #22c55e; overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+            transition: box-shadow 0.25s, transform 0.25s;
+        }
+        .tcard:hover { box-shadow: 0 18px 40px -18px rgba(0,0,0,0.25); transform: translateY(-3px); }
+        .tcard-shot {
+            background: #f1f5f9; border-bottom: 1px solid #e2e8f0;
+            cursor: zoom-in; position: relative; overflow: hidden;
+            max-height: 188px; display: flex; align-items: flex-start; justify-content: center;
+        }
+        .tcard-shot img { width: 100%; height: auto; display: block; transition: transform 0.4s; }
+        .tcard-shot:hover img { transform: scale(1.03); }
+        .tcard-shot::after {
+            content: ""; position: absolute; inset: 0;
+            background: linear-gradient(to bottom, transparent 55%, rgba(241,245,249,0.95) 100%);
+            pointer-events: none;
+        }
+        .tcard-zoom {
+            position: absolute; bottom: 8px; left: 8px; z-index: 2;
+            background: rgba(15,23,42,0.78); color: #fff; font-size: 11px; font-weight: 700;
+            padding: 4px 9px; border-radius: 999px; display: flex; align-items: center; gap: 4px;
+            backdrop-filter: blur(4px);
+        }
+        .tcard-badge {
+            display: inline-flex; align-items: center; gap: 5px; align-self: flex-start;
+            background: #fef9c3; color: #854d0e; font-size: 11px; font-weight: 800;
+            padding: 3px 10px; border-radius: 999px; margin-bottom: 10px;
+        }
 
         /* CTA pulse */
         @keyframes ctaPulse {
@@ -607,76 +638,9 @@
             </h2>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="testimonial-card bg-slate-50 rounded-2xl p-7 shadow-sm border border-slate-200 reveal">
-                <div class="flex gap-1 text-yellow-400 mb-4">
-                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                </div>
-                <p class="text-slate-700 italic mb-5 leading-relaxed text-lg">
-                    "סוף סוף תוכנה שמראה לי מה אני באמת מרוויח. בחודש הראשון גיליתי שפרויקט אחד לא משתלם — שיניתי תמחור.
-                    <strong class="text-slate-900 not-italic">הרווחתי 12,000₪ בשנה רק מהבנת המספרים.</strong>"
-                </p>
-                <div class="flex items-center gap-3">
-                    <div class="w-11 h-11 bg-brand-200 rounded-full flex items-center justify-center text-brand-700 font-black text-sm">?</div>
-                    <div>
-                        <p class="font-black text-slate-900 text-sm">[שם הלקוח]</p>
-                        <p class="text-xs text-slate-500">[עיסוק, עיר]</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="testimonial-card bg-slate-50 rounded-2xl p-7 shadow-sm border border-slate-200 reveal" style="transition-delay:0.1s">
-                <div class="flex gap-1 text-yellow-400 mb-4">
-                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                </div>
-                <p class="text-slate-700 italic mb-5 leading-relaxed text-lg">
-                    "כל הוצאה, כל הכנסה, כל שעה — הכל במקום אחד. רואה החשבון שלי מקבל דוח מסודר.
-                    <strong class="text-slate-900 not-italic">גומרים בעשירית מהזמן. שווה כל שקל.</strong>"
-                </p>
-                <div class="flex items-center gap-3">
-                    <div class="w-11 h-11 bg-brand-200 rounded-full flex items-center justify-center text-brand-700 font-black text-sm">?</div>
-                    <div>
-                        <p class="font-black text-slate-900 text-sm">[שם הלקוח]</p>
-                        <p class="text-xs text-slate-500">[עיסוק, עיר]</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="testimonial-card bg-slate-50 rounded-2xl p-7 shadow-sm border border-slate-200 reveal" style="transition-delay:0.2s">
-                <div class="flex gap-1 text-yellow-400 mb-4">
-                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                </div>
-                <p class="text-slate-700 italic mb-5 leading-relaxed text-lg">
-                    "סימולטור המס שינה לי את החיים. בדקתי אם כדאי לעבור לעוסק מורשה —
-                    <strong class="text-slate-900 not-italic">וגיליתי שכדאי לחכות עוד שלושה חודשים. חסכתי 6,500₪ במס.</strong>"
-                </p>
-                <div class="flex items-center gap-3">
-                    <div class="w-11 h-11 bg-brand-200 rounded-full flex items-center justify-center text-brand-700 font-black text-sm">?</div>
-                    <div>
-                        <p class="font-black text-slate-900 text-sm">[שם הלקוח]</p>
-                        <p class="text-xs text-slate-500">[עיסוק, עיר]</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-6 text-center p-4 bg-blue-50 border border-blue-200 rounded-xl max-w-xl mx-auto">
-            <p class="text-blue-800 text-sm font-medium">
-                הציטוטים הם הצעות מילוי — כשתאסוף עדויות אמיתיות, החלף את הטקסטים והסר הסימון.
-            </p>
-        </div>
+        <!-- כרטיסי ההמלצות מרונדרים אוטומטית מהמערך testimonials שבסקריפט למטה.
+             להוספת המלצה: מוסיפים פריט למערך + תמונה לתיקיית testimonials/ — וזהו. -->
+        <div id="testimonials-grid" class="grid md:grid-cols-3 gap-6 items-stretch"></div>
 
         <!-- MID-PAGE CTA -->
         <div class="mt-16 dark-float p-10 md:p-14 text-center text-white reveal glow-green">
@@ -987,6 +951,103 @@
         document.getElementById('intro-modal').style.display = 'none';
         localStorage.setItem('introModalSeen', 'true');
     }
+
+    // ===== המלצות לקוחות (data-driven) =====
+    // להוספת המלצה חדשה: הוסף אובייקט למערך + שמור תמונה ב-testimonials/.
+    //   title    — כותרת חזקה (קצרה)
+    //   text      — הציטוט המלא
+    //   name      — שם להצגה (ראשי תיבות אם לא רוצים לחשוף)
+    //   role      — עיסוק/הקשר (אופציונלי)
+    //   img       — שם קובץ התמונה בתיקיית testimonials/
+    //   firstSeen — true = התרשמות ראשונה (טרם שימוש מלא) → תווית מתאימה
+    const testimonials = [
+        {
+            title: "שינוי ענק — בלי קורס אקסל",
+            text: "תמיד חיפשתי כלי שיעשה לי סדר בעסק מבלי שידרוש ממני ידע עמוק במחשבים או קורס אקסל. מאז שהתחלתי להשתמש בתכל'ס הרגשתי שינוי ענק! הממשק ממש נוח וקל לתפעול, הכל מסודר לי מול העיניים — בלי עשרות קבצים מפוזרים או דפים מקומטים בכיס. האפשרות להפיק חשבוניות, הצעות מחיר ודרישות תשלום — מקפיצה את רמת העסק בכמה דרגות. פשוט חובה לכל בעל עסק.",
+            name: "יהודה כץ",
+            role: "U.D Energy",
+            img: "t-yehuda.png",
+        },
+        {
+            title: "סוף חודש — רואה בדיוק איפה אני עומדת",
+            text: "עכשיו סוף חודש הכנסתי עוד כמה הוצאות הכנסות וזה פשוט כלי מדהים! אני רואה איפה אני עומדת, כמה צפוי להיכנס בתשלומים בחודשים הבאים, כמה לרדת — עושה סדר לא נורמלי בעסק.",
+            name: "בעלת עסק",
+            role: "",
+            img: "t-3.png",
+        },
+        {
+            title: "מקיפה את הכל — במקום מנהלת חשבונות",
+            text: "תודה על התוכנה!! פשוט יוצרת סדר בעסק, מגיעה לכל הפינות שקשורות לעסק, מכילה את כל האופציות שעסק צריך — פרויקטים לפי שעות, גלובלי, מיסוי. עוד לא ראיתי תוכנה שמקיפה את הכל ביחד, וכאן הכל מסתנכרן בלחיצת כפתור. ממליצה מאוד לכל מי שמחפשת לקחת מנהלת חשבונות לכל פעולה בעסק ורוצה לחסוך את זה!!",
+            name: "בעלת עסק",
+            role: "",
+            img: "t-4.png",
+        },
+        {
+            title: "תוכנה גאונית שמשנה את כל ההתעסקות",
+            text: "השתמשתי הרבה, נהניתי מאוד מאוד. לא קראתי את כל ההוראות ואני לומדת תוך כדי, נהניתי לגלות כל פעם אפשרויות נוספות. זו פשוט תוכנה גאונית שמשנה את כל ההתעסקות.",
+            name: "בעלת עסק",
+            role: "",
+            img: "t-2.png",
+        },
+        {
+            title: "במבט ראשון — כלי ברמה הכי גבוהה",
+            text: "מלמעלה קצת יותר מ-5 דקות נראה מיליון דולר, ממש ממש כלי מדהים, גם כלכלי וגם ניהול משימות לקוחות. במבט חיצוני זה נראה כלי ברמה הכי גבוהה שראיתי אי פעם, בלי סוף חשיבה ופרטים, מדהים ממש.",
+            name: "בעל עסק",
+            role: "",
+            img: "t-5.png",
+            firstSeen: true,
+        },
+    ];
+
+    function renderTestimonials() {
+        const grid = document.getElementById('testimonials-grid');
+        if (!grid) return;
+        const stars = '<i data-lucide="star" class="w-4 h-4 fill-current"></i>'.repeat(5);
+        grid.innerHTML = testimonials.map((t, i) => {
+            const initial = (t.name || '?').trim().charAt(0);
+            const badge = t.firstSeen
+                ? '<span class="tcard-badge"><i data-lucide="eye" class="w-3 h-3"></i>התרשמות ראשונה</span>'
+                : '';
+            const roleLine = t.role
+                ? `<p class="text-xs text-slate-500">${t.role}</p>`
+                : '';
+            const shot = t.img
+                ? `<div class="tcard-shot" onclick="openLightbox('testimonials/${t.img}')">
+                       <img src="testimonials/${t.img}" alt="צילום המלצה אמיתית מ-${t.name}" loading="lazy">
+                       <span class="tcard-zoom"><i data-lucide="zoom-in" class="w-3 h-3"></i>לחץ להגדלה</span>
+                   </div>`
+                : '';
+            return `
+            <div class="tcard reveal" style="transition-delay:${(i % 3) * 0.08}s">
+                ${shot}
+                <div class="p-6 flex flex-col flex-1">
+                    ${badge}
+                    <div class="flex gap-1 text-yellow-400 mb-3">${stars}</div>
+                    <h3 class="font-black text-slate-900 text-base mb-2 leading-snug">${t.title}</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-5 flex-1">“${t.text}”</p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-slate-100">
+                        <div class="w-10 h-10 bg-brand-200 rounded-full flex items-center justify-center text-brand-700 font-black text-sm shrink-0">${initial}</div>
+                        <div>
+                            <p class="font-black text-slate-900 text-sm">${t.name}</p>
+                            ${roleLine}
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+        }).join('');
+
+        // הכרטיסים נוצרו דינמית — לרענן אייקונים ולהפעיל את אנימציית ה-reveal עליהם
+        if (window.lucide) lucide.createIcons();
+        if ('IntersectionObserver' in window) {
+            const obs = new IntersectionObserver(es => {
+                es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+            }, { threshold: 0.1 });
+            grid.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+        } else {
+            grid.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+        }
+    }
+    renderTestimonials();
 
     window.addEventListener('DOMContentLoaded', () => {
         // progress bar + back-to-top (נוסף על ה-scroll של shared.js)
