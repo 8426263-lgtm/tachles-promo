@@ -50,6 +50,7 @@
     </script>
 
     <style>
+        html, body { overflow-x: hidden; }
         body { font-family: 'Assistant', sans-serif; background-color: #fbfcfe; }
         h1, h2, h3 { font-family: 'Heebo', 'Assistant', sans-serif; font-weight: 800; letter-spacing: normal; }
         html { scroll-behavior: smooth; }
@@ -890,7 +891,7 @@
             <form id="contact-form" class="space-y-4">
                 <!-- honeypot — שדה נסתר נגד בוטים (אסור למלא) -->
                 <input type="text" name="company" id="hp-field" tabindex="-1" autocomplete="off"
-                    style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true">
+                    style="position:absolute;top:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true">
                 <input type="text" name="name" required placeholder="שם מלא"
                     class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-slate-400 focus:border-brand-500 outline-none transition focus:bg-white/15">
                 <input type="tel" name="phone" required placeholder="טלפון (לדוגמה: 050-1234567)"
