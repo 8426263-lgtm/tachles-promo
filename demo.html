@@ -125,12 +125,21 @@
 
         btn.textContent = 'רושם...'; btn.disabled = true;
 
-        // reCAPTCHA token
+        // reCAPTCHA token — עמיד: כל כשל (מפתח לא תקין/דומיין לא מורשה/לא נטען) נופל ל-bypass
+        // במקום לתקוע את הטופס. השרת ממילא מאומת בנוסף ע"י honeypot + rate-limit.
         const getToken = () => new Promise(res => {
-            if (typeof grecaptcha === 'undefined') return res('dev-bypass');
-            grecaptcha.ready(() => {
-                grecaptcha.execute(RECAPTCHA, { action: 'submit' }).then(res).catch(() => res('dev-bypass'));
-            });
+            const done = (t) => res(t || 'dev-bypass');
+            const timer = setTimeout(() => done('dev-bypass'), 4000); // אם grecaptcha לא חוזר תוך 4ש'
+            const finish = (t) => { clearTimeout(timer); done(t); };
+            try {
+                if (typeof grecaptcha === 'undefined') return finish('dev-bypass');
+                grecaptcha.ready(() => {
+                    try {
+                        grecaptcha.execute(RECAPTCHA, { action: 'submit' })
+                            .then(finish).catch(() => finish('dev-bypass'));
+                    } catch { finish('dev-bypass'); }
+                });
+            } catch { finish('dev-bypass'); }
         });
 
         try {

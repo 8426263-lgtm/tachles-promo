@@ -1078,12 +1078,21 @@
             const status = document.getElementById('form-status');
             btn.textContent = 'שולח...'; btn.disabled = true;
             try {
-                // reCAPTCHA v3 token
-                const token = await new Promise((res, rej) => {
-                    if (typeof grecaptcha === 'undefined') return res('dev-bypass');
-                    grecaptcha.ready(() => {
-                        grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'submit' }).then(res).catch(rej);
-                    });
+                // reCAPTCHA v3 token — עמיד: כל כשל (מפתח/דומיין/לא נטען) נופל ל-bypass
+                // ולא תוקע את הטופס. השרת מאומת בנוסף ע"י honeypot + rate-limit.
+                const token = await new Promise((res) => {
+                    const done = (t) => res(t || 'dev-bypass');
+                    const timer = setTimeout(() => done('dev-bypass'), 4000);
+                    const finish = (t) => { clearTimeout(timer); done(t); };
+                    try {
+                        if (typeof grecaptcha === 'undefined') return finish('dev-bypass');
+                        grecaptcha.ready(() => {
+                            try {
+                                grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'submit' })
+                                    .then(finish).catch(() => finish('dev-bypass'));
+                            } catch { finish('dev-bypass'); }
+                        });
+                    } catch { finish('dev-bypass'); }
                 });
 
                 const res = await fetch(LEADS_API, {
