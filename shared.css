@@ -1,5 +1,5 @@
-/* =====================================================================
-   shared.css — סגנונות משותפים לכל עמודי אתר תכל'ס
+﻿/* =====================================================================
+   shared.css — סגנונות משותפים לכל עמודי אתר תכל&quot;ס
    ===================================================================== */
 body { font-family: 'Assistant', sans-serif; background-color: #fbfcfe; color: #0f172a; }
 html { scroll-behavior: smooth; }
@@ -91,8 +91,8 @@ h1.tracking-tight, h2.tracking-tight, h3.tracking-tight { letter-spacing: normal
 /* גווני אייקונים — כל פיצ'ר בצבע משלו */
 .dd-c-green  { background: #ecfccb; color: #4d7c0f; }
 .dd-c-emerald{ background: #d1fae5; color: #047857; }
-.dd-c-blue   { background: #dbeafe; color: #1d4ed8; }
-.dd-c-indigo { background: #e0e7ff; color: #4338ca; }
+.dd-c-blue   { background: #ccfbf1; color: #0f766e; }
+.dd-c-indigo { background: #ecfccb; color: #65a30d; }
 .dd-c-purple { background: #f3e8ff; color: #7e22ce; }
 .dd-c-amber  { background: #fef3c7; color: #b45309; }
 .dd-c-rose   { background: #ffe4e6; color: #be123c; }
