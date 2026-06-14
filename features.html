@@ -55,7 +55,8 @@
             <button class="ftab-btn active" data-tab="0" onclick="openFeatureTab(0)"><i data-lucide="trending-up" class="w-4 h-4"></i> נטו אמיתי</button>
             <button class="ftab-btn" data-tab="1" onclick="openFeatureTab(1)"><i data-lucide="activity" class="w-4 h-4"></i> סימולטור מס</button>
             <button class="ftab-btn" data-tab="2" onclick="openFeatureTab(2)"><i data-lucide="users" class="w-4 h-4"></i> לקוחות ופרויקטים</button>
-            <button class="ftab-btn" data-tab="3" onclick="openFeatureTab(3)"><i data-lucide="clock" class="w-4 h-4"></i> שעות וחשבוניות</button>
+            <button class="ftab-btn" data-tab="3" onclick="openFeatureTab(3)"><i data-lucide="clock" class="w-4 h-4"></i> מעקב שעות</button>
+            <button class="ftab-btn" data-tab="10" onclick="openFeatureTab(10)"><i data-lucide="receipt" class="w-4 h-4"></i> חשבוניות</button>
             <button class="ftab-btn" data-tab="4" onclick="openFeatureTab(4)"><i data-lucide="wallet" class="w-4 h-4"></i> ארנק ויומן</button>
             <button class="ftab-btn" data-tab="6" onclick="openFeatureTab(6)"><i data-lucide="send" class="w-4 h-4"></i> שליחת מייל</button>
             <button class="ftab-btn" data-tab="7" onclick="openFeatureTab(7)"><i data-lucide="file-text" class="w-4 h-4"></i> הצעות מחיר ולידים</button>
@@ -125,12 +126,12 @@
             <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
                 <div class="order-2 lg:order-1">
                     <span class="text-xs font-black text-teal-600 uppercase tracking-widest mb-3 block">מעקב שעות וחיוב</span>
-                    <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter mb-5 leading-tight">כל שעת עבודה נספרת —<br><span class="text-brand-600">וחוזרת אליך בחשבונית.</span></h2>
-                    <p class="text-lg text-slate-500 leading-relaxed mb-7">מפעילים שעון נוכחות לכל משימה. בסוף החודש המערכת אוספת את כל השעות לאותו לקוח, מחשבת לפי התעריף שהגדרת, <strong class="text-slate-800">ומפיקה חשבונית שעות מסודרת — מוכנה לשליחה.</strong></p>
+                    <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter mb-5 leading-tight">כל שעת עבודה נספרת —<br><span class="text-brand-600">ומתורגמת לכסף.</span></h2>
+                    <p class="text-lg text-slate-500 leading-relaxed mb-7">מפעילים שעון נוכחות לכל משימה. בסוף החודש המערכת אוספת את כל השעות לאותו לקוח, מחשבת לפי התעריף שהגדרת, <strong class="text-slate-800">ומרכזת הכל לדוח שעות מסודר — בדיוק כמה הלקוח חייב.</strong></p>
                     <ul class="space-y-3">
                         <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="timer" class="w-4 h-4"></i></span> שעון נוכחות פר-משימה ופר-לקוח</li>
-                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="receipt" class="w-4 h-4"></i></span> חשבונית שעות אוטומטית לפי תעריף</li>
-                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="file-check" class="w-4 h-4"></i></span> אינטגרציה לריווחית / ירוקה / סאמיט</li>
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="calculator" class="w-4 h-4"></i></span> חישוב אוטומטי של החיוב לפי התעריף</li>
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="file-text" class="w-4 h-4"></i></span> דוח שעות מרוכז ללקוח — מוכן לשליחה</li>
                     </ul>
                 </div>
                 <div class="order-1 lg:order-2 space-y-4">
@@ -139,9 +140,28 @@
                         <div class="absolute top-3 right-3 bg-brand-500 text-slate-900 rounded-lg px-3 py-1 shadow font-black text-xs">מפעילים שעון לכל משימה</div>
                     </div>
                     <div class="rounded-3xl overflow-hidden shadow-2xl border border-slate-200 relative">
-                        <img src="shot-hours-invoice.jpg" alt="חשבוניות שעות — דוח מצב חשבון" class="w-full object-cover zoomable" onclick="openLightbox(this.src)">
-                        <div class="absolute top-3 right-3 bg-brand-500 text-slate-900 rounded-lg px-3 py-1 shadow font-black text-xs">והשעות חוזרות בחשבונית</div>
+                        <img src="shot-hours-invoice.jpg" alt="דוח שעות מרוכז ללקוח" class="w-full object-cover zoomable" onclick="openLightbox(this.src)">
+                        <div class="absolute top-3 right-3 bg-brand-500 text-slate-900 rounded-lg px-3 py-1 shadow font-black text-xs">דוח שעות מרוכז — כמה הלקוח חייב</div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PANEL 10 — חשבוניות (אינטגרציה חשבונאית) ===== -->
+        <div class="ftab-panel" data-panel="10">
+            <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <span class="text-xs font-black text-teal-600 uppercase tracking-widest mb-3 block">חשבוניות מס וקבלות</span>
+                    <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter mb-5 leading-tight">חשבונית מס רשמית —<br><span class="text-brand-600">בלי לצאת מתכל'ס.</span></h2>
+                    <p class="text-lg text-slate-500 leading-relaxed mb-7">תכל'ס מחוברת לתוכנת הנהלת החשבונות שלך. מפיקים חשבונית מס, קבלה או חשבונית-מס-קבלה <strong class="text-slate-800">ישירות מהמערכת — והמסמך הרשמי נוצר בריווחית / ירוקה / סאמיט אוטומטית.</strong> בלי כפל הקלדה, בלי לעבור בין מערכות.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="file-check" class="w-4 h-4"></i></span> אינטגרציה לריווחית / ירוקה / סאמיט</li>
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="receipt" class="w-4 h-4"></i></span> חשבונית מס, קבלה וזיכוי — מתוך המערכת</li>
+                        <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="list-checks" class="w-4 h-4"></i></span> מעקב חיובים פתוחים, ממתינים ושולמו</li>
+                    </ul>
+                </div>
+                <div class="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl border border-slate-200">
+                    <img src="shot-invoices.jpg" alt="מסך ניהול חשבוניות" class="w-full object-cover zoomable" onclick="openLightbox(this.src)">
                 </div>
             </div>
         </div>
@@ -217,8 +237,15 @@
                         <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="arrow-right-circle" class="w-4 h-4"></i></span> המרת פנייה לפרויקט פעיל בלחיצה</li>
                     </ul>
                 </div>
-                <div class="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl border border-slate-200">
-                    <img src="shot-leads-table.jpg" alt="ניהול פניות והצעות מחיר" class="w-full object-cover zoomable" onclick="openLightbox(this.src)">
+                <div class="order-1 lg:order-2 space-y-4">
+                    <div class="rounded-3xl overflow-hidden shadow-2xl border border-slate-200 relative">
+                        <img src="shot-leads-table.jpg" alt="ניהול פניות ולידים" class="w-full object-cover zoomable" onclick="openLightbox(this.src)">
+                        <div class="absolute top-3 right-3 bg-brand-500 text-slate-900 rounded-lg px-3 py-1 shadow font-black text-xs">ניהול הפניות</div>
+                    </div>
+                    <div class="rounded-3xl overflow-hidden shadow-2xl border border-slate-200 relative">
+                        <img src="shot-quote-dialog.jpg" alt="הפקת הצעת מחיר — חישוב מע״מ והנחות אוטומטי" class="w-full object-cover zoomable" onclick="openLightbox(this.src)">
+                        <div class="absolute top-3 right-3 bg-brand-500 text-slate-900 rounded-lg px-3 py-1 shadow font-black text-xs">הצעת מחיר אוטומטית</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -303,7 +330,7 @@
         if (window.lucide) lucide.createIcons();
     }
     window.addEventListener('DOMContentLoaded', () => {
-        const m = location.hash.match(/tab-(\d)/);
+        const m = location.hash.match(/tab-(\d+)/);
         if (m) openFeatureTab(parseInt(m[1]));
         window.addEventListener('scroll', () => {
             document.getElementById('back-to-top').classList.toggle('show', window.scrollY > 400);
