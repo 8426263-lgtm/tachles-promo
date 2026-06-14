@@ -11,11 +11,16 @@
     <meta property="og:locale" content="he_IL">
     <meta property="og:image" content="1.jpg">
     <link rel="icon" type="image/x-icon" href="תכלס.ico">
+    <!-- preconnect — מקצר את זמן ה-handshake ל-CDNs -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- reCAPTCHA v3 — הגנה על טופס יצירת הקשר -->
-    <script src="https://www.google.com/recaptcha/api.js?render=6LcXzhMtAAAADSQZT7N-PaVJcNv4F6Okhtyyxve"></script>
+    <!-- lucide — גרסה נעולה (cache יציב) + defer (לא חוסם רינדור) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+    <!-- reCAPTCHA v3 — נטען רק כשנגללים לטופס (ראה אתחול בתחתית) — חוסך ~120KB בטעינה הראשונית -->
+    <script>window.__recaptchaSiteKey='6LcXzhMtAAAADSQZT7N-PaVJcNv4F6Okhtyyxve';</script>
     <link rel="stylesheet" href="shared.css">
 
     <!-- Cloudflare Web Analytics — ספירת כניסות לאתר הפרסום -->
@@ -76,9 +81,25 @@
             opacity: 0.08;
             color: #84cc16;
         }
-        /* מובייל — פלוס מותאם */
+        /* עיגול אפור-פחם דקורטיבי ענק — יוצא מגבולות הדף בפינה הימנית-עליונה.
+           הגודל ביחס לרוחב המסך (vw) כדי שיתכווץ אוטומטית במסכים קטנים. */
+        .hero-circle {
+            position: absolute; z-index: 0; pointer-events: none;
+            /* מרכז העיגול מעוגן בפינה הימנית-עליונה — מתכווץ סביב אותה נקודה */
+            top: 0; right: 0;
+            transform: translate(35%, -25%);
+            /* fluid: קטן ~620px במסך צר, גדל בהדרגה עד 1700px במסך רחב */
+            width: clamp(620px, 88vw - 80px, 1700px);
+            aspect-ratio: 1 / 1;
+            border-radius: 9999px;
+            background: #101721;   /* navy-950 — צבע הפס העליון/navbar */
+            /* צל ירוק ליים זוהר מתחת */
+            box-shadow: 0 40px 90px -20px rgba(132,204,22,0.55);
+        }
+        /* מובייל — הפלוס דהוי, העיגול נשאר מלא ומתכווץ עם המסך */
         @media (max-width: 1024px) {
             .hero-plus { opacity: 0.05; right: -6%; }
+            .hero-circle { transform: translate(38%, -22%); width: clamp(440px, 95vw, 760px); box-shadow: 0 24px 60px -16px rgba(132,204,22,0.5); }
         }
         /* רקע סקשן הבשורה — חי, עם הילות ירוקות ורשת עדינה */
         .features-bg {
@@ -343,6 +364,9 @@
 <!-- SECTION 1 — HOOK (הפתיח שמעצר את הגלילה)                    -->
 <!-- ============================================================ -->
 <section class="hero-bg pt-28 pb-0 overflow-hidden relative min-h-screen flex flex-col justify-center">
+    <!-- עיגול פחם דקורטיבי מאחורי הכותרת -->
+    <div class="hero-circle" aria-hidden="true"></div>
+
     <!-- סמל הפלוס מהמותג מאחורי הכותרת -->
     <svg class="hero-plus" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true">
         <path d="M40 8 h20 v32 h32 v20 h-32 v32 h-20 v-32 h-32 v-20 h32 z"/>
@@ -359,10 +383,10 @@
                     <i data-lucide="sparkles" class="w-4 h-4"></i>
                     למה תכל&quot;ס?
                 </div>
-                <h1 class="text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-[1.15] text-slate-900 reveal">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-[1.15] text-white reveal">
                     סוף-סוף<br>
-                    <span class="text-brand-600">סדר בעסק</span>.<br>
-                    <span class="text-slate-400 text-3xl md:text-5xl lg:text-6xl block mt-3 font-extrabold">עד <span class="text-slate-900 underline decoration-brand-400 decoration-4 underline-offset-4">השקל האחרון</span>.</span>
+                    <span class="text-brand-400">סדר בעסק</span>.<br>
+                    <span class="text-slate-300 text-3xl md:text-5xl lg:text-6xl block mt-3 font-extrabold">עד <span class="text-white underline decoration-brand-400 decoration-4 underline-offset-4">השקל האחרון</span>.</span>
                 </h1>
             </div>
 
@@ -403,6 +427,7 @@
             </div>
             <img src="תמונות חדשות/extracted/image4.png"
                  alt="מסך מיסוי חכם — גרפים שנתיים, נטו בזמן אמת"
+                 loading="lazy" decoding="async"
                  class="w-full h-auto object-cover zoomable block" onclick="openLightbox(this.src)">
         </div>
     </div>
@@ -1117,6 +1142,30 @@
         }
     }
     renderTestimonials();
+
+    // lucide נטען עם defer — מרנדר אייקונים ברגע שהוא מוכן (כולל אלה שנוצרו דינמית כמו ההמלצות)
+    window.addEventListener('load', () => { if (window.lucide) lucide.createIcons(); });
+
+    // reCAPTCHA נטען עצלן — רק כשהמשתמש מתקרב לטופס (חוסך ~120KB בטעינה הראשונית, שומר על ההגנה)
+    (function lazyRecaptcha() {
+        let loaded = false;
+        const load = () => {
+            if (loaded) return; loaded = true;
+            const s = document.createElement('script');
+            s.src = 'https://www.google.com/recaptcha/api.js?render=' + window.__recaptchaSiteKey;
+            document.head.appendChild(s);
+        };
+        const form = document.getElementById('contact-form');
+        if (form && 'IntersectionObserver' in window) {
+            const io = new IntersectionObserver((es) => {
+                if (es.some(e => e.isIntersecting)) { load(); io.disconnect(); }
+            }, { rootMargin: '600px' });
+            io.observe(form);
+        } else {
+            // fallback: טען בעצלתיים אחרי שהדף נרגע
+            window.addEventListener('load', () => setTimeout(load, 2500));
+        }
+    })();
 
     window.addEventListener('DOMContentLoaded', () => {
         // progress bar + back-to-top (נוסף על ה-scroll של shared.js)
