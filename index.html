@@ -56,7 +56,63 @@
         html { scroll-behavior: smooth; }
 
         .brand-gradient { background: linear-gradient(135deg, #101721 0%, #202430 100%); }
-        .hero-bg { background: linear-gradient(160deg, #101721 0%, #161c27 55%, #202430 100%); }
+        /* ===== HERO בהיר (Light Mode) — נקי, רגוע, on-brand ===== */
+        .hero-bg {
+            background:
+                radial-gradient(circle at 1px 1px, rgba(15,23,42,0.035) 1px, transparent 0) 0 0 / 30px 30px,
+                /* הילת ירוק כמעט בלתי-נראית מאחורי הכותרת (ימין, RTL) */
+                radial-gradient(ellipse 55% 50% at 82% 30%, rgba(132,204,22,0.07) 0%, transparent 62%),
+                /* גרדיאנט סופר-חלש: לבן למעלה → אפרפר בהיר מאוד למטה */
+                linear-gradient(180deg, #ffffff 0%, #fbfcfd 45%, #f1f5f9 100%);
+        }
+        /* סמל הפלוס מהלוגו, מאחורי הכותרת — שובר את הריק */
+        .hero-plus {
+            position: absolute; z-index: 0; pointer-events: none;
+            top: 6%; right: 3%; width: 400px; height: 400px; max-width: 44vw;
+            opacity: 0.08;
+            color: #84cc16;
+        }
+        /* מובייל — פלוס מותאם */
+        @media (max-width: 1024px) {
+            .hero-plus { opacity: 0.05; right: -6%; }
+        }
+        /* רקע סקשן הבשורה — חי, עם הילות ירוקות ורשת עדינה */
+        .features-bg {
+            position: relative;
+            background:
+                radial-gradient(circle at 1px 1px, rgba(101,163,13,0.08) 1px, transparent 0) 0 0 / 26px 26px,
+                radial-gradient(ellipse 55% 50% at 10% 5%,  rgba(132,204,22,0.28) 0%, transparent 58%),
+                radial-gradient(ellipse 60% 55% at 90% 95%, rgba(132,204,22,0.24) 0%, transparent 58%),
+                radial-gradient(ellipse 45% 40% at 50% 50%, rgba(163,230,53,0.10) 0%, transparent 65%),
+                linear-gradient(160deg, #f0fdd4 0%, #eef8e0 45%, #e6f0fa 100%);
+        }
+        /* מעבר רך מ-Hero הבהיר לסקשן הכהה שמתחתיו */
+        .hero-fade-bottom {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 120px; z-index: 1;
+            pointer-events: none;
+            background: linear-gradient(180deg, transparent 0%, rgba(15,23,42,0.04) 100%);
+        }
+        /* חלון דפדפן בהיר מינימלי לצילום הדשבורד */
+        .browser-light {
+            background: #fff; border: 1px solid #e2e8f0; border-radius: 16px;
+            overflow: hidden;
+            /* צל רך ורחב מאוד — מקפיץ את התוכנה החוצה ויוצר תלת-מימד */
+            box-shadow:
+                0 50px 100px -20px rgba(15,23,42,0.18),
+                0 30px 60px -30px rgba(15,23,42,0.12),
+                0 8px 20px rgba(15,23,42,0.04);
+            transition: box-shadow 0.4s ease, transform 0.4s ease;
+        }
+        .browser-light:hover {
+            box-shadow:
+                0 60px 120px -20px rgba(15,23,42,0.22),
+                0 36px 70px -30px rgba(15,23,42,0.14);
+            transform: translateY(-4px);
+        }
+        .browser-light-bar {
+            background: #f1f5f9; border-bottom: 1px solid #e2e8f0;
+            padding: 10px 16px; display: flex; align-items: center; gap: 8px;
+        }
         .pain-bg { background: linear-gradient(135deg, #1e1b2e 0%, #2d1a1a 100%); }
 
         .reveal { opacity: 0; transform: translateY(28px); transition: all 0.75s cubic-bezier(.22,1,.36,1); }
@@ -282,46 +338,47 @@
 <!-- ============================================================ -->
 <!-- SECTION 1 — HOOK (הפתיח שמעצר את הגלילה)                    -->
 <!-- ============================================================ -->
-<section class="hero-bg pt-24 pb-0 overflow-hidden relative min-h-screen flex flex-col justify-center">
-    <div class="absolute inset-0 opacity-5 pointer-events-none">
-        <div class="absolute top-20 right-20 w-96 h-96 bg-brand-400 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-20 left-20 w-96 h-96 bg-brand-600 rounded-full blur-3xl"></div>
-    </div>
-    <div class="container mx-auto px-4 relative z-10 py-16">
+<section class="hero-bg pt-28 pb-0 overflow-hidden relative min-h-screen flex flex-col justify-center">
+    <!-- סמל הפלוס מהמותג מאחורי הכותרת -->
+    <svg class="hero-plus" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true">
+        <path d="M40 8 h20 v32 h32 v20 h-32 v32 h-20 v-32 h-32 v-20 h32 z"/>
+    </svg>
+
+    <div class="container mx-auto px-4 relative z-10 py-20">
 
         <!-- HERO דו-טורי: כותרת מצד אחד, הסבר מהצד -->
-        <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-12">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-20">
 
             <!-- צד הכותרת -->
             <div class="text-center lg:text-right">
-                <div class="inline-flex items-center gap-2 bg-navy-800/60 border border-brand-500/30 text-brand-300 px-4 py-1.5 rounded-full text-sm font-bold mb-8 reveal">
+                <div class="inline-flex items-center gap-2 bg-brand-50 border border-brand-200 text-brand-700 px-4 py-1.5 rounded-full text-sm font-bold mb-10 reveal">
                     <i data-lucide="sparkles" class="w-4 h-4"></i>
                     למה תכל&quot;ס?
                 </div>
-                <h1 class="text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight text-white tracking-tighter reveal">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-[1.15] text-slate-900 reveal">
                     סוף-סוף<br>
-                    <span class="text-brand-400">סדר בעסק</span>.<br>
-                    <span class="text-slate-300 text-3xl md:text-5xl lg:text-6xl block mt-2">עד <span class="text-white underline decoration-brand-500 decoration-4">השקל האחרון</span>.</span>
+                    <span class="text-brand-600">סדר בעסק</span>.<br>
+                    <span class="text-slate-400 text-3xl md:text-5xl lg:text-6xl block mt-3 font-extrabold">עד <span class="text-slate-900 underline decoration-brand-400 decoration-4 underline-offset-4">השקל האחרון</span>.</span>
                 </h1>
             </div>
 
             <!-- צד ההסבר -->
             <div class="text-center lg:text-right reveal">
-                <p class="text-xl md:text-2xl text-slate-300 max-w-xl mx-auto lg:mr-0 mb-8 leading-relaxed">
+                <p class="text-xl md:text-2xl text-slate-600 max-w-xl mx-auto lg:mr-0 mb-10 leading-relaxed font-medium">
                     כל לקוח, כל פרויקט, כל תשלום — מסודר מול העיניים.
                     רואים מיד מי חייב לך, שולחים דרישת תשלום בקליק —
-                    <strong class="text-white">ויודעים כל יום כמה באמת נשאר לך בכיס, אחרי מס, ביטוח לאומי ומע"מ.</strong>
+                    <strong class="text-slate-900 font-bold">ויודעים כל יום כמה באמת נשאר לך בכיס, אחרי מס, ביטוח לאומי ומע"מ.</strong>
                 </p>
 
-                <!-- DUAL CTA -->
+                <!-- DUAL CTA — שטוח, רגוע, on-brand -->
                 <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-6 reveal">
                     <a href="https://tacles.vercel.app/?demo=1" target="_blank" rel="noopener"
-                       class="group bg-brand-500 hover:bg-brand-400 text-slate-900 px-8 py-4 rounded-2xl text-lg font-black shadow-2xl shadow-navy-950/60 transition flex items-center gap-3 hover:scale-105 glow-green">
-                        <i data-lucide="play-circle" class="w-6 h-6 group-hover:scale-110 transition"></i>
+                       class="group bg-brand-500 hover:bg-brand-600 text-slate-900 px-8 py-4 rounded-xl text-lg font-black transition-all duration-200 flex items-center gap-3 shadow-sm hover:shadow-md hover:-translate-y-0.5">
+                        <i data-lucide="play-circle" class="w-6 h-6"></i>
                         נסה דמו חינמי — עכשיו
                     </a>
                     <button onclick="initiateBuyProcess()"
-                        class="bg-white/10 hover:bg-white/20 border border-white/25 text-white px-7 py-4 rounded-2xl text-base font-bold transition flex items-center gap-2 backdrop-blur-sm">
+                        class="bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 px-7 py-4 rounded-xl text-base font-bold transition-all duration-200 flex items-center gap-2 shadow-sm hover:shadow-md hover:-translate-y-0.5">
                         <i data-lucide="shopping-cart" class="w-5 h-5"></i>
                         רכישה — 930 ₪
                     </button>
@@ -332,25 +389,25 @@
             </div>
         </div>
 
-        <!-- HERO SCREENSHOT -->
-        <div class="relative mx-auto max-w-5xl reveal">
-            <div class="absolute -inset-1 bg-gradient-to-r from-brand-500/30 to-brand-300/20 rounded-3xl blur-xl"></div>
-            <div class="relative rounded-2xl overflow-hidden border border-slate-700/60 shadow-2xl glow-green">
-                <div class="bg-slate-800 px-4 py-2.5 flex gap-2 items-center border-b border-slate-700">
-                    <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
-                    <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                    <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
-                    <span class="text-xs text-slate-400 mr-3 font-medium">תכל&quot;ס — דשבורד ראשי</span>
-                </div>
-                <img src="תמונות חדשות/extracted/image4.png"
-                     alt="מסך מיסוי חכי — גרפים שנתיים, נטו בזמן אמת"
-                     class="w-full h-auto object-cover zoomable" onclick="openLightbox(this.src)">
+        <!-- HERO SCREENSHOT — חלון דפדפן בהיר מינימלי -->
+        <div class="browser-light mx-auto max-w-5xl reveal">
+            <div class="browser-light-bar">
+                <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                <span class="text-xs text-slate-500 mr-3 font-medium">תכל&quot;ס — דשבורד ראשי</span>
             </div>
+            <img src="תמונות חדשות/extracted/image4.png"
+                 alt="מסך מיסוי חכם — גרפים שנתיים, נטו בזמן אמת"
+                 class="w-full h-auto object-cover zoomable block" onclick="openLightbox(this.src)">
         </div>
     </div>
 
+    <!-- מעבר רך לסקשן הכהה -->
+    <div class="hero-fade-bottom"></div>
+
     <!-- SCROLL INDICATOR -->
-    <div class="text-center pb-8 mt-6 animate-bounce text-slate-500">
+    <div class="text-center pb-8 mt-10 animate-bounce text-slate-400 relative z-10">
         <i data-lucide="chevrons-down" class="w-6 h-6 mx-auto"></i>
     </div>
 </section>
@@ -418,23 +475,23 @@
         </div>
 
         <div class="grid md:grid-cols-3 gap-6 mb-14">
-            <div class="bg-white border border-slate-100 rounded-3xl p-8 shadow-sm hover:shadow-md transition reveal">
-                <div class="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 mb-5"><i data-lucide="hourglass" class="w-5 h-5"></i></div>
-                <h3 class="font-bold text-lg text-slate-900 mb-2.5">כסף שלך תקוע אצל לקוחות</h3>
-                <p class="text-slate-500 leading-relaxed text-sm font-light">סיימת עבודה. הלקוח "ישלם ב-15". ה-15 עבר. לא נעים להזכיר, ובלי מעקב — שוכחים. <span class="text-slate-800 font-semibold">שכחת = ויתרת על הכסף.</span></p>
-                <div class="mt-5 pt-4 border-t border-slate-100 text-xs text-slate-400 font-semibold">כסף שלא גובים בזמן — חלקו לא נגבה לעולם</div>
+            <div class="bg-navy-800 border border-brand-500/30 rounded-3xl p-8 shadow-lg hover:shadow-xl hover:border-brand-500/60 transition reveal">
+                <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-brand-400 mb-5"><i data-lucide="hourglass" class="w-5 h-5"></i></div>
+                <h3 class="font-bold text-lg text-white mb-2.5">כסף שלך תקוע אצל לקוחות</h3>
+                <p class="text-slate-300 leading-relaxed text-sm font-light">סיימת עבודה. הלקוח "ישלם ב-15". ה-15 עבר. לא נעים להזכיר, ובלי מעקב — שוכחים. <span class="text-white font-semibold">שכחת = ויתרת על הכסף.</span></p>
+                <div class="mt-5 pt-4 border-t border-brand-500/20 text-xs text-brand-400 font-semibold">כסף שלא גובים בזמן — חלקו לא נגבה לעולם</div>
             </div>
-            <div class="bg-white border border-slate-100 rounded-3xl p-8 shadow-sm hover:shadow-md transition reveal" style="transition-delay:0.08s">
-                <div class="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 mb-5"><i data-lucide="layers" class="w-5 h-5"></i></div>
-                <h3 class="font-bold text-lg text-slate-900 mb-2.5">העסק מפוזר על 4 כלים</h3>
-                <p class="text-slate-500 leading-relaxed text-sm font-light">אקסל להכנסות, פתקים למשימות, מיילים להצעות, ותוכנה נפרדת לחשבוניות. אתה המסנכרן — <span class="text-slate-800 font-semibold">וכל פעם משהו נופל בין הכיסאות.</span></p>
-                <div class="mt-5 pt-4 border-t border-slate-100 text-xs text-slate-400 font-semibold">כל עדכון ידני = עוד מקום לטעות ולשכוח</div>
+            <div class="bg-navy-800 border border-brand-500/30 rounded-3xl p-8 shadow-lg hover:shadow-xl hover:border-brand-500/60 transition reveal" style="transition-delay:0.08s">
+                <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-brand-400 mb-5"><i data-lucide="layers" class="w-5 h-5"></i></div>
+                <h3 class="font-bold text-lg text-white mb-2.5">העסק מפוזר על 4 כלים</h3>
+                <p class="text-slate-300 leading-relaxed text-sm font-light">אקסל להכנסות, פתקים למשימות, מיילים להצעות, ותוכנה נפרדת לחשבוניות. אתה המסנכרן — <span class="text-white font-semibold">וכל פעם משהו נופל בין הכיסאות.</span></p>
+                <div class="mt-5 pt-4 border-t border-brand-500/20 text-xs text-brand-400 font-semibold">כל עדכון ידני = עוד מקום לטעות ולשכוח</div>
             </div>
-            <div class="bg-white border border-slate-100 rounded-3xl p-8 shadow-sm hover:shadow-md transition reveal" style="transition-delay:0.16s">
-                <div class="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 mb-5"><i data-lucide="phone-call" class="w-5 h-5"></i></div>
-                <h3 class="font-bold text-lg text-slate-900 mb-2.5">הטלפון המלחיץ בנובמבר</h3>
-                <p class="text-slate-500 leading-relaxed text-sm font-light">רואה החשבון מתקשר: <span class="text-slate-800 font-semibold">"אתה חייב עוד 22,000₪."</span> היית בטוח שהוא טועה. הוא לא טועה. הכסף שחשבת שהוא שלך — נעלם למיסים.</p>
-                <div class="mt-5 pt-4 border-t border-slate-100 text-xs text-slate-400 font-semibold">קורה ל-73% מהעצמאיים לפחות פעם אחת</div>
+            <div class="bg-navy-800 border border-brand-500/30 rounded-3xl p-8 shadow-lg hover:shadow-xl hover:border-brand-500/60 transition reveal" style="transition-delay:0.16s">
+                <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-brand-400 mb-5"><i data-lucide="phone-call" class="w-5 h-5"></i></div>
+                <h3 class="font-bold text-lg text-white mb-2.5">הטלפון המלחיץ בנובמבר</h3>
+                <p class="text-slate-300 leading-relaxed text-sm font-light">רואה החשבון מתקשר: <span class="text-white font-semibold">"אתה חייב עוד 22,000₪."</span> היית בטוח שהוא טועה. הוא לא טועה. הכסף שחשבת שהוא שלך — נעלם למיסים.</p>
+                <div class="mt-5 pt-4 border-t border-brand-500/20 text-xs text-brand-400 font-semibold">קורה ל-73% מהעצמאיים לפחות פעם אחת</div>
             </div>
         </div>
 
@@ -573,41 +630,41 @@
 
 <!-- ============================================================ -->
 <!-- FEATURES TEASER -->
-<section class="py-20 bg-clean-tint">
-    <div class="container mx-auto px-4 max-w-5xl">
+<section class="py-20 features-bg overflow-hidden">
+    <div class="container mx-auto px-4 max-w-5xl relative z-10">
         <div class="text-center mb-12 reveal">
             <span class="bg-brand-100 text-brand-700 px-4 py-1.5 rounded-full font-bold text-sm inline-block mb-4">מה תכל״ס נותנת לך</span>
             <h2 class="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter mb-3">כלי אחד שפותר <span class="text-brand-600">את כל הבלאגן</span></h2>
             <p class="text-lg text-slate-500">כל יכולת נולדה מכאב אמיתי של עצמאי.</p>
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
-            <a href="features.html#tab-2" class="group bg-slate-50 hover:bg-brand-50 border border-slate-100 hover:border-brand-200 rounded-2xl p-6 transition reveal">
-                <div class="feat-icon-wrap bg-brand-200 text-brand-700 mb-4"><i data-lucide="users" class="w-7 h-7"></i></div>
+            <a href="features.html#tab-2" class="group bg-white border-2 border-brand-200 hover:border-brand-500 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 reveal">
+                <div class="feat-icon-wrap bg-brand-500 text-white group-hover:bg-brand-600 shadow-md shadow-brand-500/30 mb-4 transition"><i data-lucide="users" class="w-7 h-7"></i></div>
                 <h3 class="font-black text-slate-900 mb-1">לקוחות ופרויקטים</h3>
                 <p class="text-sm text-slate-500">כמה נכנס, כמה צפוי, כמה חייב — בכרטיס אחד.</p>
             </a>
-            <a href="features.html#tab-3" class="group bg-slate-50 hover:bg-brand-50 border border-slate-100 hover:border-brand-200 rounded-2xl p-6 transition reveal">
-                <div class="feat-icon-wrap bg-blue-100 text-blue-600 mb-4"><i data-lucide="clock" class="w-7 h-7"></i></div>
+            <a href="features.html#tab-3" class="group bg-white border-2 border-brand-200 hover:border-brand-500 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 reveal">
+                <div class="feat-icon-wrap bg-brand-500 text-white group-hover:bg-brand-600 shadow-md shadow-brand-500/30 mb-4 transition"><i data-lucide="clock" class="w-7 h-7"></i></div>
                 <h3 class="font-black text-slate-900 mb-1">שעות וחשבוניות</h3>
                 <p class="text-sm text-slate-500">שעון נוכחות → חשבונית שעות אוטומטית.</p>
             </a>
-            <a href="features.html#tab-6" class="group bg-slate-50 hover:bg-brand-50 border border-slate-100 hover:border-brand-200 rounded-2xl p-6 transition reveal">
-                <div class="feat-icon-wrap bg-brand-100 text-brand-600 mb-4"><i data-lucide="send" class="w-7 h-7"></i></div>
+            <a href="features.html#tab-6" class="group bg-white border-2 border-brand-200 hover:border-brand-500 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 reveal">
+                <div class="feat-icon-wrap bg-brand-500 text-white group-hover:bg-brand-600 shadow-md shadow-brand-500/30 mb-4 transition"><i data-lucide="send" class="w-7 h-7"></i></div>
                 <h3 class="font-black text-slate-900 mb-1">דרישת תשלום בקליק</h3>
                 <p class="text-sm text-slate-500">דרישת תשלום, חשבונית, דוח או הצעת מחיר — ללקוח ישירות מהמערכת.</p>
             </a>
-            <a href="features.html#tab-4" class="group bg-slate-50 hover:bg-brand-50 border border-slate-100 hover:border-brand-200 rounded-2xl p-6 transition reveal">
-                <div class="feat-icon-wrap bg-purple-100 text-purple-600 mb-4"><i data-lucide="wallet" class="w-7 h-7"></i></div>
+            <a href="features.html#tab-4" class="group bg-white border-2 border-brand-200 hover:border-brand-500 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 reveal">
+                <div class="feat-icon-wrap bg-brand-500 text-white group-hover:bg-brand-600 shadow-md shadow-brand-500/30 mb-4 transition"><i data-lucide="wallet" class="w-7 h-7"></i></div>
                 <h3 class="font-black text-slate-900 mb-1">ארנק ויומן</h3>
                 <p class="text-sm text-slate-500">כל הכלים הקטנים — מחוברים במקום אחד.</p>
             </a>
-            <a href="features.html#tab-0" class="group bg-slate-50 hover:bg-brand-50 border border-slate-100 hover:border-brand-200 rounded-2xl p-6 transition reveal">
-                <div class="feat-icon-wrap bg-brand-100 text-brand-600 mb-4"><i data-lucide="trending-up" class="w-7 h-7"></i></div>
+            <a href="features.html#tab-0" class="group bg-white border-2 border-brand-200 hover:border-brand-500 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 reveal">
+                <div class="feat-icon-wrap bg-brand-500 text-white group-hover:bg-brand-600 shadow-md shadow-brand-500/30 mb-4 transition"><i data-lucide="trending-up" class="w-7 h-7"></i></div>
                 <h3 class="font-black text-slate-900 mb-1">נטו אמיתי בזמן אמת</h3>
                 <p class="text-sm text-slate-500">מס, מע״מ, ביטוח לאומי — מחושב כל יום.</p>
             </a>
-            <a href="features.html#tab-1" class="group bg-slate-50 hover:bg-brand-50 border border-slate-100 hover:border-brand-200 rounded-2xl p-6 transition reveal">
-                <div class="feat-icon-wrap bg-yellow-100 text-yellow-600 mb-4"><i data-lucide="activity" class="w-7 h-7"></i></div>
+            <a href="features.html#tab-1" class="group bg-white border-2 border-brand-200 hover:border-brand-500 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 reveal">
+                <div class="feat-icon-wrap bg-brand-500 text-white group-hover:bg-brand-600 shadow-md shadow-brand-500/30 mb-4 transition"><i data-lucide="activity" class="w-7 h-7"></i></div>
                 <h3 class="font-black text-slate-900 mb-1">סימולטור מס</h3>
                 <p class="text-sm text-slate-500">כמה יישאר לך — לפני שחותמים על פרויקט.</p>
             </a>
@@ -803,9 +860,10 @@
 <!-- ============================================================ -->
 <!-- PRICING TEASER — מפנה לעמוד המחירון                         -->
 <!-- ============================================================ -->
-<section class="py-20 bg-slate-900 text-white relative overflow-hidden">
-    <div class="absolute inset-0 opacity-5 pointer-events-none">
+<section class="py-20 bg-navy-950 text-white relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10 pointer-events-none">
         <div class="absolute top-0 right-0 w-96 h-96 bg-brand-400 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-80 h-80 bg-brand-700 rounded-full blur-3xl"></div>
     </div>
     <div class="container mx-auto px-4 max-w-3xl text-center relative z-10 reveal">
         <span class="bg-amber-400 text-slate-900 px-4 py-1.5 rounded-full font-black text-sm inline-block mb-5">⚡ מחיר השקה</span>
@@ -817,8 +875,8 @@
                 <p class="text-4xl font-black stat-number">930 ₪</p>
                 <p class="text-brand-400 text-sm mt-1">חד-פעמי לנצח</p>
             </div>
-            <div class="bg-slate-800 border border-slate-600 rounded-2xl px-8 py-6 flex-1 max-w-xs mx-auto">
-                <p class="text-blue-300 font-bold mb-1">Web</p>
+            <div class="bg-navy-800 border border-navy-700 rounded-2xl px-8 py-6 flex-1 max-w-xs mx-auto">
+                <p class="text-brand-300 font-bold mb-1">Web</p>
                 <p class="text-4xl font-black stat-number">1,130 ₪</p>
                 <p class="text-slate-400 text-sm mt-1">שנה ראשונה</p>
             </div>
@@ -1125,3 +1183,7 @@
 </script>
 </body>
 </html>
+
+<!-- Injection By NetFree -->
+<script src="//netfree.link/injection-script/go-payment.js" type="text/javascript" async ></script>
+<script src="//netfree.link/injection-script/popup-card-init.js" type="text/javascript" async ></script>

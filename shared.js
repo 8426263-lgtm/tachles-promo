@@ -1,5 +1,5 @@
 ﻿/* =====================================================================
-   shared.js — נאבר, פוטר ולוגיקה משותפת לכל עמודי אתר תכל&quot;ס
+   shared.js — נאבר, פוטר ולוגיקה משותפת לכל עמודי אתר תכל'ס
    כל עמוד טוען את הקובץ הזה. עריכת הנאבר/פוטר נעשית כאן — מקום אחד.
    נכתב כמחרוזות מוזרקות (לא fetch) כדי לעבוד גם בפתיחת קובץ מקומי file://
    ===================================================================== */
@@ -28,12 +28,12 @@ function navHTML() {
     return `
     <div class="container mx-auto px-4 h-16 flex justify-between items-center">
         <a href="index.html" class="flex items-center">
-            <img src="33.jpg" alt="תכל&quot;ס" class="h-12 w-auto object-contain">
+            <img src="33.jpg" alt="תכל'ס" class="h-12 w-auto object-contain">
         </a>
 
         <!-- ניווט דסקטופ -->
         <nav class="hidden md:flex gap-1 font-medium items-center text-sm">
-            ${link('index.html', "למה תכל&quot;ס", 'home')}
+            ${link('index.html', "למה תכל'ס", 'home')}
 
             <!-- DROPDOWN פיצ'רים — mega menu -->
             <div class="nav-dropdown" tabindex="0">
@@ -43,8 +43,8 @@ function navHTML() {
                 <div class="nav-mega">
                     <!-- עמודת רשימת פיצ'רים -->
                     <div class="nav-mega-list">
-                        <div class="nm-eyebrow">היכולות של תכל&quot;ס</div>
-                        <div class="nm-title">חלק ממה שתכל&quot;ס עושה <span>בשבילך</span></div>
+                        <div class="nm-eyebrow">היכולות של תכל'ס</div>
+                        <div class="nm-title">חלק ממה שתכל'ס עושה <span>בשבילך</span></div>
                         <div class="grid grid-cols-2 gap-1">
                             <a href="features.html#tab-0" class="nav-dd-item">
                                 <span class="nav-dd-icon dd-c-green"><i data-lucide="trending-up" class="w-5 h-5"></i></span>
@@ -125,7 +125,7 @@ function navHTML() {
 
     <!-- תפריט נייד -->
     <div id="mobile-menu" class="md:hidden hidden bg-slate-900 border-t border-slate-800 px-4 py-4 space-y-2">
-        <a href="index.html" class="block text-slate-300 hover:text-white font-medium py-1">למה תכל&quot;ס</a>
+        <a href="index.html" class="block text-slate-300 hover:text-white font-medium py-1">למה תכל'ס</a>
         <a href="features.html" class="block text-slate-300 hover:text-white font-medium py-1">פיצ'רים</a>
         <a href="pricing.html" class="block text-amber-300 font-bold py-1">מחירון</a>
         <a href="demo.html" class="block text-slate-300 hover:text-white font-medium py-1">מפגש זום חי</a>
@@ -141,7 +141,7 @@ function footerHTML() {
     <div class="container mx-auto px-4 py-12">
         <div class="grid md:grid-cols-4 gap-8 text-slate-400 text-sm">
             <div class="md:col-span-1">
-                <img src="33.jpg" alt="תכל&quot;ס" class="h-12 w-auto object-contain mb-4">
+                <img src="33.jpg" alt="תכל'ס" class="h-12 w-auto object-contain mb-4">
                 <p class="leading-relaxed">תוכנה לניהול עסק לעצמאיים בישראל — נטו אמיתי, ניהול לקוחות וחשבוניות במקום אחד.</p>
             </div>
             <div>
@@ -155,7 +155,7 @@ function footerHTML() {
             <div>
                 <h4 class="font-black text-white mb-3">מידע</h4>
                 <ul class="space-y-2">
-                    <li><a href="index.html#pain" class="hover:text-brand-400 transition">למה תכל&quot;ס</a></li>
+                    <li><a href="index.html#pain" class="hover:text-brand-400 transition">למה תכל'ס</a></li>
                     <li><a href="index.html#faq" class="hover:text-brand-400 transition">שאלות נפוצות</a></li>
                     <li><a href="demo.html" class="hover:text-brand-400 transition">מפגש זום חי</a></li>
                 </ul>
@@ -167,7 +167,7 @@ function footerHTML() {
             </div>
         </div>
         <div class="mt-10 pt-6 border-t border-slate-800 text-slate-600 text-sm text-center">
-            <p>&copy; 2026 תכל&quot;ס — כל הזכויות שמורות.</p>
+            <p>&copy; 2026 תכל'ס — כל הזכויות שמורות.</p>
         </div>
     </div>`;
 }
