@@ -77,30 +77,59 @@
         /* סמל הפלוס מהלוגו, מאחורי הכותרת — שובר את הריק */
         .hero-plus {
             position: absolute; z-index: 0; pointer-events: none;
-            top: 6%; right: 3%; width: 400px; height: 400px; max-width: 44vw;
+            top: 17%; right: 3%; width: 400px; height: 400px; max-width: 44vw;
             opacity: 0.08;
             color: #84cc16;
         }
-        /* עיגול אפור-פחם דקורטיבי ענק — יוצא מגבולות הדף בפינה הימנית-עליונה.
-           הגודל ביחס לרוחב המסך (vw) כדי שיתכווץ אוטומטית במסכים קטנים. */
-        .hero-circle {
-            position: absolute; z-index: 0; pointer-events: none;
-            /* מרכז העיגול מעוגן בפינה הימנית-עליונה — מתכווץ סביב אותה נקודה */
-            top: 0; right: 0;
-            transform: translate(35%, -25%);
-            /* fluid: קטן ~620px במסך צר, גדל בהדרגה עד 1700px במסך רחב */
-            width: clamp(620px, 88vw - 80px, 1700px);
-            aspect-ratio: 1 / 1;
-            border-radius: 9999px;
-            background: #101721;   /* navy-950 — צבע הפס העליון/navbar */
-            /* צל ירוק ליים זוהר מתחת */
-            box-shadow: 0 40px 90px -20px rgba(132,204,22,0.55);
-        }
-        /* מובייל — הפלוס דהוי, העיגול נשאר מלא ומתכווץ עם המסך */
-        @media (max-width: 1024px) {
-            .hero-plus { opacity: 0.05; right: -6%; }
-            .hero-circle { transform: translate(38%, -22%); width: clamp(440px, 95vw, 760px); box-shadow: 0 24px 60px -16px rgba(132,204,22,0.5); }
-        }
+        /* פאנל פחם בצד הימני של ה-Hero.
+           - תופס מלמעלה (top:0) עד תחתית ה-Hero (bottom:0) → תחתית + ראש ישרים תמיד
+           - הקצה השמאלי (הפנימי) הוא קשת אליפטית ענקית → נראה כמו דופן של עיגול נקי
+           - צמוד לקצוות ה-Hero → מתאים אוטומטית בכל גודל מסך, בלי JS ובלי clip-path */
+       /* ==========================================================
+   פאנל ה-Hero המעודכן - מיושר בדיוק בין הטורים 
+   ונגמר בדיוק בתחתית התמונה בכל גודל מסך
+   ========================================================== */
+.hero-circle {
+    position: absolute; 
+    z-index: 0; 
+    pointer-events: none;
+    top: 0; 
+    right: 0;
+    
+    /* 1. הסוד לחיתוך התחתון המושלם:
+       התמונה יושבת בקונטיינר עם py-20 (שזה 80 פיקסלים ריווח תחתון).
+       לכן, התמונה נגמרת בדיוק 80px מעל תחתית הסקשן. */
+    bottom: 104px;
+    
+    /* 2. הסוד לחיתוך בין הטורים:
+       50vw זה בדיוק חצי מסך. כיוון שהגריד סימטרי, 
+       הפאנל ייחתך בדיוק באמצע הרווח (gap) שבין שני הטורים. */
+    width: 50vw;
+    
+    background: #101721;
+    
+    /* קשת אליפטית מתוחה ויוקרתית רק בצד שמאל למעלה */
+border-top-left-radius: 100% 85%;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    
+    box-shadow: -20px 0 80px -25px rgba(132,204,22,0.4);
+}
+
+/* התאמה למסכים קטנים/מובייל (שם אין 2 טורים אלא הטקסטים אחד מתחת לשני) */
+@media (max-width: 1024px) {
+    .hero-circle {
+        /* במובייל הפאנל יתרחב כדי לתת רקע יפה לכותרת העליונה */
+        width: 80vw; 
+        border-top-left-radius: 100% 80%;
+        
+        /* שומרים על החיתוך התחתון המדויק עם התמונה גם במובייל! */
+        bottom: 80px; 
+        
+        box-shadow: -16px 0 60px 0 rgba(132,204,22,0.3);
+    }
+}
         /* רקע סקשן הבשורה — חי, עם הילות ירוקות ורשת עדינה */
         .features-bg {
             position: relative;
@@ -375,8 +404,7 @@
     <div class="container mx-auto px-4 relative z-10 py-20">
 
         <!-- HERO דו-טורי: כותרת מצד אחד, הסבר מהצד -->
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-20">
-
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mt-12 lg:mt-24 mb-8 lg:mb-10">
             <!-- צד הכותרת -->
             <div class="text-center lg:text-right">
                 <div class="inline-flex items-center gap-2 bg-brand-50 border border-brand-200 text-brand-700 px-4 py-1.5 rounded-full text-sm font-bold mb-10 reveal">
@@ -436,7 +464,7 @@
     <div class="hero-fade-bottom"></div>
 
     <!-- SCROLL INDICATOR -->
-    <div class="text-center pb-8 mt-10 animate-bounce text-slate-400 relative z-10">
+    <div class="text-center pb-0 mt-0 animate-bounce text-slate-400 relative z-10">
         <i data-lucide="chevrons-down" class="w-6 h-6 mx-auto"></i>
     </div>
 </section>
@@ -445,15 +473,15 @@
 <!-- SECTION 2 — SOCIAL PROOF BAR (אמון ראשוני)                  -->
 <!-- ============================================================ -->
 <section class="bg-slate-900 border-y border-slate-800 py-5">
-    <div class="container mx-auto px-4">
-        <div class="flex flex-wrap justify-center items-center gap-x-8 gap-y-3 text-slate-400 text-sm font-medium">
-            <span class="flex items-center gap-2"><i data-lucide="layout-grid" class="w-4 h-4 text-brand-500"></i>כל העסק במקום אחד — מסתנכרן לבד</span>
-            <span class="flex items-center gap-2"><i data-lucide="eye" class="w-4 h-4 text-brand-500"></i>רואה בכל רגע מי חייב לך כמה</span>
-            <span class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-brand-500"></i>רכישה חד-פעמית — ללא מנוי</span>
-            <span class="flex items-center gap-2"><i data-lucide="hard-drive" class="w-4 h-4 text-brand-500"></i>הנתונים על המחשב שלך בלבד</span>
-            <span class="flex items-center gap-2"><i data-lucide="wifi-off" class="w-4 h-4 text-brand-500"></i>עובד גם ללא אינטרנט</span>
-            <span class="flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-brand-500"></i>מותאם לחוקי המס בישראל 2026</span>
-            <span class="flex items-center gap-2"><i data-lucide="refresh-cw" class="w-4 h-4 text-brand-500"></i>עדכונים חינם לנצח</span>
+    <div class="container mx-auto px-2 max-w-7xl">
+<div class="flex flex-wrap justify-center items-center gap-x-4 lg:gap-x-6 xl:gap-x-8 gap-y-3 text-slate-200 text-xs md:text-sm font-semibold antialiased">            <span class="flex items-center gap-2 whitespace-nowrap"><i data-lucide="layout-grid" class="w-4 h-4 text-brand-500"></i>כל העסק במקום אחד</span>
+            <span class="flex items-center gap-2 whitespace-nowrap"><i data-lucide="eye" class="w-4 h-4 text-brand-500"></i>רואה תמיד מי חייב כמה</span>
+            <span class="flex items-center gap-2 whitespace-nowrap"><i data-lucide="check-circle" class="w-4 h-4 text-brand-500"></i>רכישה חד-פעמית — ללא מנוי</span>
+            <span class="flex items-center gap-2 whitespace-nowrap"><i data-lucide="hard-drive" class="w-4 h-4 text-brand-500"></i>הנתונים על המחשב שלך בלבד</span>
+            <span class="flex items-center gap-2 whitespace-nowrap"><i data-lucide="wifi-off" class="w-4 h-4 text-brand-500"></i>עובד גם ללא אינטרנט</span>
+            <span class="flex items-center gap-2 whitespace-nowrap"><i data-lucide="shield-check" class="w-4 h-4 text-brand-500"></i>מותאם לחוקי המס 2026</span>
+            <span class="flex items-center gap-2 whitespace-nowrap"><i data-lucide="refresh-cw" class="w-4 h-4 text-brand-500"></i>עדכונים חינם לנצח</span>
+            
         </div>
     </div>
 </section>
@@ -1167,6 +1195,7 @@
         }
     })();
 
+
     window.addEventListener('DOMContentLoaded', () => {
         // progress bar + back-to-top (נוסף על ה-scroll של shared.js)
         window.addEventListener('scroll', () => {
@@ -1236,7 +1265,3 @@
 </script>
 </body>
 </html>
-
-<!-- Injection By NetFree -->
-<script src="//netfree.link/injection-script/go-payment.js" type="text/javascript" async ></script>
-<script src="//netfree.link/injection-script/popup-card-init.js" type="text/javascript" async ></script>
