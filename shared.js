@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const obs = new IntersectionObserver(es => {
         es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    document.querySelectorAll('.reveal, .flip-reveal').forEach(el => obs.observe(el));
 
     // ESC סוגר מודלים
     document.addEventListener('keydown', e => {

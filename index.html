@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>תכל&quot;ס — סדר בכל העסק לעצמאיים בישראל | מי חייב לך, מה נכנס, וכמה נשאר נטו</title>
-    <meta name="description" content="תוכנה לניהול עסק לעצמאיים: כל הלקוחות, הפרויקטים, התשלומים והחשבוניות במקום אחד מסודר — רואים מי חייב לך, שולחים דרישת תשלום בקליק, ויודעים כמה נשאר נטו. הנתונים אצלך — לא בענן.">
+    <meta name="description" content="תוכנה לניהול עסק לעצמאיים: כל הלקוחות, הפרויקטים, התשלומים והחשבוניות במקום אחד מסודר — רואים מי חייב לך, שולחים דרישת תשלום בקליק, ויודעים כמה נשאר נטו. אותה מערכת — על המחשב שלך או מכל מקום בענן, אתה בוחר.">
     <meta property="og:title" content="תכל&quot;ס — סדר בכל העסק לעצמאיים בישראל">
     <meta property="og:description" content="כל העסק מסודר מול העיניים: מי חייב לך, מה צפוי להיכנס, וכמה באמת נשאר לך נטו. הכל במקום אחד.">
     <meta property="og:type" content="website">
@@ -171,6 +171,105 @@ border-top-left-radius: 100% 85%;
 
         .reveal { opacity: 0; transform: translateY(28px); transition: all 0.75s cubic-bezier(.22,1,.36,1); }
         .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* === Flip cards (feature teaser) — דפדוף 3D אמיתי וברור === */
+        .flip-card {
+            perspective: 1400px;       /* עומק חזק יותר → רואים את הדף מסתובב */
+            display: block;
+            border-radius: 1rem;
+            /* הצללה על ה-card עצמו ולא על flip-inner — box-shadow על preserve-3d משטח את ה-3D! */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            transition: box-shadow 0.3s ease;
+        }
+        .flip-card:hover { box-shadow: 0 20px 40px -12px rgba(0,0,0,0.18); }
+        /* fade-in עדין לכרטיסים בלי transform — כדי לא לשטח את ה-3D */
+        .flip-reveal { opacity: 0; transition: opacity 0.7s ease; }
+        .flip-reveal.visible { opacity: 1; }
+        .flip-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 188px;
+            /* איטי ובולט → העין קולטת את הדפדוף, לא "קפיצה לתמונה" */
+            transition: transform 1s cubic-bezier(.6,.02,.3,1);
+            transform-style: preserve-3d;
+            transform-origin: center center;
+            will-change: transform;
+        }
+        .flip-card:hover .flip-inner,
+        .flip-card:focus-within .flip-inner {
+            transform: rotateY(-180deg);
+        }
+        .flip-front, .flip-back {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 1rem;
+            overflow: hidden;
+            transform-origin: center center;
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .flip-front {
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            background: #fff;
+            border: 2px solid #d9f99d; /* brand-200 */
+        }
+        .flip-card:hover .flip-front,
+        .flip-card:focus-within .flip-front { border-color: #84cc16; } /* brand-500 */
+        /* קצת חיים גם לאייקון: מתנדנד שמחה כשמרחפים */
+        .flip-card:hover .feat-icon-wrap,
+        .flip-card:focus-within .feat-icon-wrap { animation: iconWiggle 0.5s ease; }
+        @keyframes iconWiggle {
+            0%,100% { transform: rotate(0); }
+            30%     { transform: rotate(-9deg) scale(1.08); }
+            65%     { transform: rotate(7deg) scale(1.08); }
+        }
+        .flip-back {
+            transform: rotateY(180deg);
+            border: 2px solid #84cc16;
+            background: #101721;
+            box-shadow: 0 18px 40px -14px rgba(132,204,22,0.55); /* זוהר ירוק מתחת */
+        }
+        /* הצללה שמתחזקת באמצע הסיבוב ונעלמת בסוף — נותנת תחושת "דף מתקפל" */
+        .flip-front::after, .flip-back::after {
+            content: ""; position: absolute; inset: 0;
+            background: #0b0f16;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.85s cubic-bezier(.45,.05,.25,1);
+            border-radius: inherit;
+        }
+        .flip-card:hover .flip-front::after,
+        .flip-card:focus-within .flip-front::after { opacity: 0.28; } /* הצד שמתקפל מתכהה */
+        .flip-back::after { opacity: 0.28; }
+        .flip-card:hover .flip-back::after,
+        .flip-card:focus-within .flip-back::after { opacity: 0; }      /* הצד שנחשף מתבהר */
+        .flip-back img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+        .flip-back .flip-label {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: 0.75rem 1rem;
+            background: linear-gradient(to top, rgba(16,23,33,0.92), rgba(16,23,33,0));
+            color: #fff; font-weight: 800; font-size: 0.875rem;
+            display: flex; align-items: center; gap: 0.4rem;
+        }
+        .flip-back .flip-label i { transition: transform 0.3s ease; }
+        .flip-card:hover .flip-back .flip-label i { transform: translateX(-4px); } /* חץ "קורץ" שמאלה */
+        @media (max-width: 640px) {
+            /* touch devices: tap toggles via :focus-within, but keep min-height comfy */
+            .flip-inner { min-height: 200px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .flip-inner { transition: none; }
+            .flip-card:hover .flip-inner,
+            .flip-card:focus-within .flip-inner { transform: rotateY(-180deg); }
+            .flip-card:hover .feat-icon-wrap,
+            .flip-card:focus-within .feat-icon-wrap { animation: none; }
+            .flip-front::after, .flip-back::after { transition: none; }
+        }
 
         .glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.12); }
         .glass-light { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(0,0,0,0.06); }
@@ -420,10 +519,13 @@ border-top-left-radius: 100% 85%;
 
             <!-- צד ההסבר -->
             <div class="text-center lg:text-right reveal">
-                <p class="text-xl md:text-2xl text-slate-600 max-w-xl mx-auto lg:mr-0 mb-10 leading-relaxed font-medium">
+                <p class="text-xl md:text-2xl text-slate-600 max-w-xl mx-auto lg:mr-0 mb-6 leading-relaxed font-medium">
                     כל לקוח, כל פרויקט, כל תשלום — מסודר מול העיניים.
                     רואים מיד מי חייב לך, שולחים דרישת תשלום בקליק —
                     <strong class="text-slate-900 font-bold">ויודעים כל יום כמה באמת נשאר לך בכיס, אחרי מס, ביטוח לאומי ומע"מ.</strong>
+                </p>
+                <p class="text-base text-slate-500 max-w-xl mx-auto lg:mr-0 mb-10 font-medium">
+                    אותה מערכת חכמה — <strong class="text-slate-700">על המחשב שלך או מכל מקום בענן. אתה בוחר.</strong>
                 </p>
 
                 <!-- DUAL CTA — שטוח, רגוע, on-brand -->
@@ -433,11 +535,11 @@ border-top-left-radius: 100% 85%;
                         <i data-lucide="play-circle" class="w-6 h-6"></i>
                         נסה דמו חינמי — עכשיו
                     </a>
-                    <button onclick="initiateBuyProcess()"
+                    <a href="pricing.html"
                         class="bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 px-7 py-4 rounded-xl text-base font-bold transition-all duration-200 flex items-center gap-2 shadow-sm hover:shadow-md hover:-translate-y-0.5">
                         <i data-lucide="shopping-cart" class="w-5 h-5"></i>
-                        רכישה — 930 ₪
-                    </button>
+                        בחר את הגרסה שלך — מ-930 ₪
+                    </a>
                 </div>
                 <p class="text-slate-500 text-sm reveal">
                     דמו מלא עם נתוני דוגמה • ללא הרשמה • ללא כרטיס אשראי
@@ -476,10 +578,10 @@ border-top-left-radius: 100% 85%;
     <div class="container mx-auto px-2 max-w-7xl">
 <div class="flex flex-wrap justify-center items-center gap-x-4 lg:gap-x-6 xl:gap-x-8 gap-y-3 text-slate-200 text-xs md:text-sm font-semibold antialiased">            <span class="flex items-center gap-2 whitespace-nowrap"><i data-lucide="layout-grid" class="w-4 h-4 text-brand-500"></i>כל העסק במקום אחד</span>
             <span class="flex items-center gap-2 whitespace-nowrap"><i data-lucide="eye" class="w-4 h-4 text-brand-500"></i>רואה תמיד מי חייב כמה</span>
-            <span class="flex items-center gap-2 whitespace-nowrap"><i data-lucide="check-circle" class="w-4 h-4 text-brand-500"></i>רכישה חד-פעמית — ללא מנוי</span>
-            <span class="flex items-center gap-2 whitespace-nowrap"><i data-lucide="hard-drive" class="w-4 h-4 text-brand-500"></i>הנתונים על המחשב שלך בלבד</span>
-            <span class="flex items-center gap-2 whitespace-nowrap"><i data-lucide="wifi-off" class="w-4 h-4 text-brand-500"></i>עובד גם ללא אינטרנט</span>
+            <span class="flex items-center gap-2 whitespace-nowrap"><i data-lucide="trending-up" class="w-4 h-4 text-brand-500"></i>נטו אמיתי בזמן אמת</span>
+            <span class="flex items-center gap-2 whitespace-nowrap"><i data-lucide="monitor-smartphone" class="w-4 h-4 text-brand-500"></i>על המחשב שלך או בענן — אתה בוחר</span>
             <span class="flex items-center gap-2 whitespace-nowrap"><i data-lucide="shield-check" class="w-4 h-4 text-brand-500"></i>מותאם לחוקי המס 2026</span>
+            <span class="flex items-center gap-2 whitespace-nowrap"><i data-lucide="user-check" class="w-4 h-4 text-brand-500"></i>תמיכה אישית מהמפתח</span>
             <span class="flex items-center gap-2 whitespace-nowrap"><i data-lucide="refresh-cw" class="w-4 h-4 text-brand-500"></i>עדכונים חינם לנצח</span>
             
         </div>
@@ -493,12 +595,12 @@ border-top-left-radius: 100% 85%;
     <div class="container mx-auto px-4 max-w-5xl">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div class="reveal">
-                <div class="text-4xl md:text-5xl font-extrabold text-brand-600 stat-number">930&#8362;</div>
-                <p class="text-slate-500 text-sm mt-2 font-light">חד-פעמי — 0&#8362; מנוי חודשי</p>
+                <div class="text-4xl md:text-5xl font-extrabold text-brand-600 stat-number">מ-930&#8362;</div>
+                <p class="text-slate-500 text-sm mt-2 font-light">Desktop חד-פעמי · Web במנוי שנתי</p>
             </div>
             <div class="reveal" style="transition-delay:0.08s">
                 <div class="text-4xl md:text-5xl font-extrabold text-brand-600 stat-number">10 שנים</div>
-                <p class="text-slate-500 text-sm mt-2 font-light">היסטוריה פיננסית שמורה אצלך</p>
+                <p class="text-slate-500 text-sm mt-2 font-light">ההיסטוריה הפיננסית שלך נשמרת</p>
             </div>
             <div class="reveal" style="transition-delay:0.16s">
                 <div class="text-4xl md:text-5xl font-extrabold text-brand-600 stat-number">בזמן אמת</div>
@@ -550,7 +652,7 @@ border-top-left-radius: 100% 85%;
 
         <div class="bg-white border border-slate-100 rounded-3xl p-8 md:p-10 text-center reveal max-w-3xl mx-auto shadow-sm">
             <p class="text-xl md:text-2xl font-extrabold text-slate-900 leading-relaxed mb-3">הפתרונות הקיימים <span class="text-brand-600">לא עובדים עבורך.</span></p>
-            <p class="text-slate-500 leading-relaxed font-light">אקסל דורש שעות עדכון ידני. תוכנות ענן עולות 49–149₪ לחודש לנצח — ולא מבינות מה זה עוסק פטור. רואה חשבון עונה פעם בשנה. <strong class="text-slate-800 font-semibold">אף אחד לא עושה לך סדר אמיתי — ולא מראה לך מי חייב לך וכמה נשאר לך נטו, היום.</strong></p>
+            <p class="text-slate-500 leading-relaxed font-light">אקסל דורש שעות עדכון ידני. תוכנות המנוי הגדולות עולות 49–149₪ לחודש לנצח — ולא מבינות מה זה עוסק פטור. רואה חשבון עונה פעם בשנה. <strong class="text-slate-800 font-semibold">אף אחד לא עושה לך סדר אמיתי — ולא מראה לך מי חייב לך וכמה נשאר לך נטו, היום.</strong></p>
         </div>
     </div>
 </section>
@@ -645,11 +747,11 @@ border-top-left-radius: 100% 85%;
                     <i data-lucide="play-circle" class="w-5 h-5"></i>
                     פתח דמו חינמי — עכשיו
                 </a>
-                <button onclick="initiateBuyProcess()"
+                <a href="pricing.html"
                     class="bg-white/10 hover:bg-white/20 border border-white/20 text-white px-8 py-4 rounded-xl font-bold transition flex items-center justify-center gap-2">
                     <i data-lucide="shopping-cart" class="w-5 h-5"></i>
-                    רכישה — 930 ₪ חד-פעמי
-                </button>
+                    למחירון ובחירת גרסה
+                </a>
             </div>
         </div>
     </div>
@@ -734,35 +836,83 @@ border-top-left-radius: 100% 85%;
             <p class="text-lg text-slate-500">כל יכולת נולדה מכאב אמיתי של עצמאי.</p>
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
-            <a href="features.html#tab-2" class="group bg-white border-2 border-brand-200 hover:border-brand-500 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 reveal">
-                <div class="feat-icon-wrap bg-brand-500 text-white group-hover:bg-brand-600 shadow-md shadow-brand-500/30 mb-4 transition"><i data-lucide="users" class="w-7 h-7"></i></div>
-                <h3 class="font-black text-slate-900 mb-1">לקוחות ופרויקטים</h3>
-                <p class="text-sm text-slate-500">כמה נכנס, כמה צפוי, כמה חייב — בכרטיס אחד.</p>
+            <a href="features.html#tab-2" class="flip-card group block flip-reveal" aria-label="לקוחות ופרויקטים">
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        <div class="feat-icon-wrap bg-brand-500 text-white shadow-md shadow-brand-500/30 mb-4"><i data-lucide="users" class="w-7 h-7"></i></div>
+                        <h3 class="font-black text-slate-900 mb-1">לקוחות ופרויקטים</h3>
+                        <p class="text-sm text-slate-500">כמה נכנס, כמה צפוי, כמה חייב — בכרטיס אחד.</p>
+                    </div>
+                    <div class="flip-back">
+                        <img src="shot-clients-list.jpg" alt="רשימת לקוחות ופרויקטים בתכל&quot;ס" loading="lazy">
+                        <span class="flip-label"><i data-lucide="arrow-left" class="w-4 h-4"></i> לקוחות ופרויקטים</span>
+                    </div>
+                </div>
             </a>
-            <a href="features.html#tab-3" class="group bg-white border-2 border-brand-200 hover:border-brand-500 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 reveal">
-                <div class="feat-icon-wrap bg-brand-500 text-white group-hover:bg-brand-600 shadow-md shadow-brand-500/30 mb-4 transition"><i data-lucide="clock" class="w-7 h-7"></i></div>
-                <h3 class="font-black text-slate-900 mb-1">שעות וחשבוניות</h3>
-                <p class="text-sm text-slate-500">שעון נוכחות → חשבונית שעות אוטומטית.</p>
+            <a href="features.html#tab-3" class="flip-card group block flip-reveal" aria-label="שעות וחשבוניות">
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        <div class="feat-icon-wrap bg-brand-500 text-white shadow-md shadow-brand-500/30 mb-4"><i data-lucide="clock" class="w-7 h-7"></i></div>
+                        <h3 class="font-black text-slate-900 mb-1">שעות וחשבוניות</h3>
+                        <p class="text-sm text-slate-500">שעון נוכחות → חשבונית שעות אוטומטית.</p>
+                    </div>
+                    <div class="flip-back">
+                        <img src="shot-timer.jpg" alt="שעון נוכחות צף בתכל&quot;ס" loading="lazy">
+                        <span class="flip-label"><i data-lucide="arrow-left" class="w-4 h-4"></i> שעות וחשבוניות</span>
+                    </div>
+                </div>
             </a>
-            <a href="features.html#tab-6" class="group bg-white border-2 border-brand-200 hover:border-brand-500 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 reveal">
-                <div class="feat-icon-wrap bg-brand-500 text-white group-hover:bg-brand-600 shadow-md shadow-brand-500/30 mb-4 transition"><i data-lucide="send" class="w-7 h-7"></i></div>
-                <h3 class="font-black text-slate-900 mb-1">דרישת תשלום בקליק</h3>
-                <p class="text-sm text-slate-500">דרישת תשלום, חשבונית, דוח או הצעת מחיר — ללקוח ישירות מהמערכת.</p>
+            <a href="features.html#tab-6" class="flip-card group block flip-reveal" aria-label="דרישת תשלום בקליק">
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        <div class="feat-icon-wrap bg-brand-500 text-white shadow-md shadow-brand-500/30 mb-4"><i data-lucide="send" class="w-7 h-7"></i></div>
+                        <h3 class="font-black text-slate-900 mb-1">דרישת תשלום בקליק</h3>
+                        <p class="text-sm text-slate-500">דרישת תשלום, חשבונית, דוח או הצעת מחיר — ללקוח ישירות מהמערכת.</p>
+                    </div>
+                    <div class="flip-back">
+                        <img src="shot-quote-dialog.jpg" alt="הפקת דרישת תשלום והצעת מחיר בתכל&quot;ס" loading="lazy">
+                        <span class="flip-label"><i data-lucide="arrow-left" class="w-4 h-4"></i> דרישת תשלום בקליק</span>
+                    </div>
+                </div>
             </a>
-            <a href="features.html#tab-4" class="group bg-white border-2 border-brand-200 hover:border-brand-500 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 reveal">
-                <div class="feat-icon-wrap bg-brand-500 text-white group-hover:bg-brand-600 shadow-md shadow-brand-500/30 mb-4 transition"><i data-lucide="wallet" class="w-7 h-7"></i></div>
-                <h3 class="font-black text-slate-900 mb-1">ארנק ויומן</h3>
-                <p class="text-sm text-slate-500">כל הכלים הקטנים — מחוברים במקום אחד.</p>
+            <a href="features.html#tab-4" class="flip-card group block flip-reveal" aria-label="ארנק ויומן">
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        <div class="feat-icon-wrap bg-brand-500 text-white shadow-md shadow-brand-500/30 mb-4"><i data-lucide="wallet" class="w-7 h-7"></i></div>
+                        <h3 class="font-black text-slate-900 mb-1">ארנק ויומן</h3>
+                        <p class="text-sm text-slate-500">כל הכלים הקטנים — מחוברים במקום אחד.</p>
+                    </div>
+                    <div class="flip-back">
+                        <img src="shot-invoices.jpg" alt="מסך ניהול חשבוניות וכלים בתכל&quot;ס" loading="lazy">
+                        <span class="flip-label"><i data-lucide="arrow-left" class="w-4 h-4"></i> ארנק ויומן</span>
+                    </div>
+                </div>
             </a>
-            <a href="features.html#tab-0" class="group bg-white border-2 border-brand-200 hover:border-brand-500 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 reveal">
-                <div class="feat-icon-wrap bg-brand-500 text-white group-hover:bg-brand-600 shadow-md shadow-brand-500/30 mb-4 transition"><i data-lucide="trending-up" class="w-7 h-7"></i></div>
-                <h3 class="font-black text-slate-900 mb-1">נטו אמיתי בזמן אמת</h3>
-                <p class="text-sm text-slate-500">מס, מע״מ, ביטוח לאומי — מחושב כל יום.</p>
+            <a href="features.html#tab-0" class="flip-card group block flip-reveal" aria-label="נטו אמיתי בזמן אמת">
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        <div class="feat-icon-wrap bg-brand-500 text-white shadow-md shadow-brand-500/30 mb-4"><i data-lucide="trending-up" class="w-7 h-7"></i></div>
+                        <h3 class="font-black text-slate-900 mb-1">נטו אמיתי בזמן אמת</h3>
+                        <p class="text-sm text-slate-500">מס, מע״מ, ביטוח לאומי — מחושב כל יום.</p>
+                    </div>
+                    <div class="flip-back">
+                        <img src="shot-dashboard-net.jpg" alt="מסך נטו אמיתי בזמן אמת בתכל&quot;ס" loading="lazy">
+                        <span class="flip-label"><i data-lucide="arrow-left" class="w-4 h-4"></i> נטו אמיתי בזמן אמת</span>
+                    </div>
+                </div>
             </a>
-            <a href="features.html#tab-1" class="group bg-white border-2 border-brand-200 hover:border-brand-500 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 reveal">
-                <div class="feat-icon-wrap bg-brand-500 text-white group-hover:bg-brand-600 shadow-md shadow-brand-500/30 mb-4 transition"><i data-lucide="activity" class="w-7 h-7"></i></div>
-                <h3 class="font-black text-slate-900 mb-1">סימולטור מס</h3>
-                <p class="text-sm text-slate-500">כמה יישאר לך — לפני שחותמים על פרויקט.</p>
+            <a href="features.html#tab-1" class="flip-card group block flip-reveal" aria-label="סימולטור מס">
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        <div class="feat-icon-wrap bg-brand-500 text-white shadow-md shadow-brand-500/30 mb-4"><i data-lucide="activity" class="w-7 h-7"></i></div>
+                        <h3 class="font-black text-slate-900 mb-1">סימולטור מס</h3>
+                        <p class="text-sm text-slate-500">כמה יישאר לך — לפני שחותמים על פרויקט.</p>
+                    </div>
+                    <div class="flip-back">
+                        <img src="shot-tax-simulator.jpg" alt="סימולטור מס בתכל&quot;ס" loading="lazy">
+                        <span class="flip-label"><i data-lucide="arrow-left" class="w-4 h-4"></i> סימולטור מס</span>
+                    </div>
+                </div>
             </a>
         </div>
         <div class="text-center reveal">
@@ -800,27 +950,49 @@ border-top-left-radius: 100% 85%;
 
 
 
-<!-- SECTION 10 — PRIVATE DATA (פרטיות — מפנה להתנגדות)          -->
+<!-- SECTION 10 — CHOOSE YOUR WAY (בחירה סימטרית Desktop / Web)   -->
 <!-- ============================================================ -->
-<section class="py-20 brand-gradient text-white">
+<section id="choose" class="py-20 brand-gradient text-white">
     <div class="container mx-auto px-4 max-w-5xl">
-        <div class="grid md:grid-cols-3 gap-6 reveal">
-            <div class="glass rounded-2xl p-6 text-center">
-                <i data-lucide="hard-drive" class="w-10 h-10 text-brand-400 mx-auto mb-4"></i>
-                <h3 class="font-black text-lg mb-2">הנתונים אצלך</h3>
-                <p class="text-brand-100 text-sm">קובץ SQLite על המחשב שלך. אין שרת, אין חברה שרואה את ההכנסות שלך.</p>
+        <div class="text-center mb-12 reveal">
+            <span class="bg-white/10 border border-white/20 text-brand-200 px-4 py-1.5 rounded-full font-bold text-sm inline-block mb-4">אותה מערכת — אתה בוחר איפה</span>
+            <h2 class="text-3xl md:text-4xl font-black tracking-tighter mb-3">שתי דרכים. עסק אחד מסודר.</h2>
+            <p class="text-brand-100 max-w-2xl mx-auto">אותה תוכנה חכמה, אותו חישוב נטו, אותם פיצ'רים — ההבדל הוא רק איפה הנתונים יושבים ואיך אתה ניגש אליהם.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6 reveal">
+            <!-- Desktop -->
+            <div class="glass rounded-3xl p-7 md:p-8 flex flex-col">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="bg-white/10 border border-white/15 w-12 h-12 rounded-xl flex items-center justify-center text-brand-300"><i data-lucide="monitor" class="w-6 h-6"></i></div>
+                    <div><h3 class="font-black text-xl">תכל&quot;ס Desktop</h3><p class="text-brand-200 text-sm">מותקן על המחשב</p></div>
+                </div>
+                <p class="text-brand-100 text-sm leading-relaxed mb-5">שלך לנצח, בתשלום אחד. הנתונים יושבים אצלך על המחשב — פרטיות מלאה, בלי שאף אחד אחר נוגע בהם. עובד מצוין גם בלי חיבור לאינטרנט, ובלי מנוי חודשי שרודף אותך.</p>
+                <ul class="space-y-2.5 text-sm mb-5">
+                    <li class="flex items-center gap-2"><i data-lucide="lock" class="w-4 h-4 text-brand-300 shrink-0"></i> פרטיות מלאה — הנתונים אצלך</li>
+                    <li class="flex items-center gap-2"><i data-lucide="wifi-off" class="w-4 h-4 text-brand-300 shrink-0"></i> עובד גם ללא אינטרנט</li>
+                    <li class="flex items-center gap-2"><i data-lucide="infinity" class="w-4 h-4 text-brand-300 shrink-0"></i> 930 ₪ חד-פעמי לנצח — בלי מנוי</li>
+                </ul>
+                <p class="text-xs text-brand-200 bg-white/5 border border-white/10 rounded-lg px-3 py-2 mt-auto"><strong class="text-white">מתאים לך אם:</strong> אתה עובד בעיקר ממחשב אחד, ורוצה שליטה מלאה ושקט נפשי לאורך שנים. בעשר שנים חסכת 6,000–18,000₪ לעומת מנוי חודשי זר.</p>
             </div>
-            <div class="glass rounded-2xl p-6 text-center">
-                <i data-lucide="wifi-off" class="w-10 h-10 text-brand-400 mx-auto mb-4"></i>
-                <h3 class="font-black text-lg mb-2">עובד ללא אינטרנט</h3>
-                <p class="text-brand-100 text-sm">נפל האינטרנט? תכל&quot;ס עובדת. החברה נסגרה? הנתונים שלך בטוחים.</p>
-            </div>
-            <div class="glass rounded-2xl p-6 text-center">
-                <i data-lucide="infinity" class="w-10 h-10 text-brand-400 mx-auto mb-4"></i>
-                <h3 class="font-black text-lg mb-2">משלמים פעם. לנצח.</h3>
-                <p class="text-brand-100 text-sm">930 ₪ היום — ו-0 ₪ לעולם אחר כך. בעשר שנים חסכת 6,000–18,000₪ לעומת ענן.</p>
+
+            <!-- Web -->
+            <div class="glass rounded-3xl p-7 md:p-8 flex flex-col">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="bg-white/10 border border-white/15 w-12 h-12 rounded-xl flex items-center justify-center text-brand-300"><i data-lucide="globe" class="w-6 h-6"></i></div>
+                    <div><h3 class="font-black text-xl">תכל&quot;ס Web</h3><p class="text-brand-200 text-sm">נגיש מכל מקום</p></div>
+                </div>
+                <p class="text-brand-100 text-sm leading-relaxed mb-5">כל העסק שלך זמין מהדפדפן — במשרד, בבית, מהנייד, מכל מחשב. הגיבוי בענן אוטומטי, אז גם אם המחשב נשבר — הנתונים בטוחים. כל עדכון חדש מגיע אליך מאליו, בלי להתקין כלום.</p>
+                <ul class="space-y-2.5 text-sm mb-5">
+                    <li class="flex items-center gap-2"><i data-lucide="monitor-smartphone" class="w-4 h-4 text-brand-300 shrink-0"></i> גישה מכל מקום ומכשיר</li>
+                    <li class="flex items-center gap-2"><i data-lucide="cloud" class="w-4 h-4 text-brand-300 shrink-0"></i> גיבוי ענן אוטומטי</li>
+                    <li class="flex items-center gap-2"><i data-lucide="refresh-cw" class="w-4 h-4 text-brand-300 shrink-0"></i> עדכונים אוטומטיים — תמיד מעודכן</li>
+                </ul>
+                <p class="text-xs text-brand-200 bg-white/5 border border-white/10 rounded-lg px-3 py-2 mt-auto"><strong class="text-white">מתאים לך אם:</strong> אתה זז בין מקומות ומכשירים, ורוצה שהכל יהיה מסונכרן וגיבוי ידאג לעצמו. 170 ₪ לשנה — פחות מ-15 ₪ לחודש, ענן ישראלי שמבין עוסק פטור.</p>
             </div>
         </div>
+
+        <p class="text-center text-brand-200 text-sm mt-8 reveal">שתיהן אותה מערכת חכמה — אין "גרסה מקוצצת", רק בחירה איפה נוח לך לעבוד.</p>
     </div>
 </section>
 
@@ -831,7 +1003,7 @@ border-top-left-radius: 100% 85%;
     <div class="container mx-auto px-4 max-w-5xl">
         <div class="text-center mb-12 reveal">
             <h2 class="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter mb-3">
-                אקסל, ענן, רואה חשבון —<br>
+                אקסל, מנוי זר, רואה חשבון —<br>
                 <span class="text-brand-600">מה חסר בכל אחד?</span>
             </h2>
             <p class="text-xl text-slate-600">השוואה ישירה.</p>
@@ -842,7 +1014,7 @@ border-top-left-radius: 100% 85%;
                     <tr class="bg-slate-900 text-white">
                         <th class="px-4 py-4 text-right font-bold text-sm">תכונה</th>
                         <th class="px-4 py-4 text-center font-bold text-sm">אקסל</th>
-                        <th class="px-4 py-4 text-center font-bold text-sm">ענן (מנוי)</th>
+                        <th class="px-4 py-4 text-center font-bold text-sm">מנוי חודשי זר</th>
                         <th class="px-4 py-4 text-center font-bold text-sm">רו"ח בלבד</th>
                         <th class="px-4 py-4 text-center font-black text-sm bg-brand-600">תכל&quot;ס</th>
                     </tr>
@@ -851,16 +1023,48 @@ border-top-left-radius: 100% 85%;
                     <tr class="border-b border-slate-100"><td class="px-4 py-3 font-bold">כל העסק במקום אחד — לקוחות, פרויקטים, שעות, חשבוניות</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-yellow-500">כלים נפרדים</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center bg-brand-50 text-brand-700 font-black">✓</td></tr>
                     <tr class="border-b border-slate-100 bg-slate-50"><td class="px-4 py-3 font-bold">רואה מי חייב לך + דרישת תשלום בקליק</td><td class="px-4 py-3 text-center text-yellow-500">ידני</td><td class="px-4 py-3 text-center text-yellow-500">חלקי</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center bg-brand-50 text-brand-700 font-black">✓</td></tr>
                     <tr class="border-b border-slate-100"><td class="px-4 py-3 font-bold">חישוב נטו אמיתי בזמן אמת</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-yellow-500">חלקי</td><td class="px-4 py-3 text-center text-yellow-500">סוף שנה</td><td class="px-4 py-3 text-center bg-brand-50 text-brand-700 font-black">✓</td></tr>
-                    <tr class="border-b border-slate-100 bg-slate-50"><td class="px-4 py-3 font-bold">תשלום חד-פעמי (ללא מנוי)</td><td class="px-4 py-3 text-center text-green-600 font-bold">✓</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center bg-brand-50 text-brand-700 font-black">✓</td></tr>
+                    <tr class="border-b border-slate-100 bg-slate-50"><td class="px-4 py-3 font-bold">מודל הוגן — בלי מנוי שובר-כיס</td><td class="px-4 py-3 text-center text-green-600 font-bold">✓</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center bg-brand-50 text-brand-700 font-black">✓<span class="block text-[10px] font-semibold text-brand-600 leading-tight mt-0.5">חד-פעמי ב-Desktop · 170₪/שנה ב-Web</span></td></tr>
                     <tr class="border-b border-slate-100"><td class="px-4 py-3 font-bold">סימולטור מס "מה אם"</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center bg-brand-50 text-brand-700 font-black">✓</td></tr>
                     <tr class="border-b border-slate-100 bg-slate-50"><td class="px-4 py-3 font-bold">בדיקת מענק עבודה</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-yellow-500">בתשלום</td><td class="px-4 py-3 text-center bg-brand-50 text-brand-700 font-black">✓</td></tr>
-                    <tr class="border-b border-slate-100"><td class="px-4 py-3 font-bold">הנתונים אצלי — לא בענן זר</td><td class="px-4 py-3 text-center text-green-600 font-bold">✓</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center bg-brand-50 text-brand-700 font-black">✓</td></tr>
-                    <tr class="border-b border-slate-100 bg-slate-50"><td class="px-4 py-3 font-bold">עובד ללא אינטרנט</td><td class="px-4 py-3 text-center text-green-600 font-bold">✓</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-green-600 font-bold">✓</td><td class="px-4 py-3 text-center bg-brand-50 text-brand-700 font-black">✓</td></tr>
+                    <tr class="border-b border-slate-100"><td class="px-4 py-3 font-bold">הנתונים שלך — לא נסחרים, מיוצאים בקליק</td><td class="px-4 py-3 text-center text-green-600 font-bold">✓</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center bg-brand-50 text-brand-700 font-black">✓</td></tr>
+                    <tr class="border-b border-slate-100 bg-slate-50"><td class="px-4 py-3 font-bold">עובד ללא אינטרנט</td><td class="px-4 py-3 text-center text-green-600 font-bold">✓</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-green-600 font-bold">✓</td><td class="px-4 py-3 text-center bg-brand-50 text-brand-700 font-black">✓<span class="block text-[10px] font-semibold text-brand-600 leading-tight mt-0.5">בגרסת Desktop</span></td></tr>
                     <tr class="border-b border-slate-100"><td class="px-4 py-3 font-bold">מעקב שעות + חשבוניות שעות</td><td class="px-4 py-3 text-center text-yellow-500">ידני</td><td class="px-4 py-3 text-center text-yellow-500">חלק</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center bg-brand-50 text-brand-700 font-black">✓</td></tr>
                     <tr class="border-b border-slate-100 bg-slate-50"><td class="px-4 py-3 font-bold">ארנק לקוחות אוטומטי</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center bg-brand-50 text-brand-700 font-black">✓</td></tr>
                     <tr><td class="px-4 py-3 font-bold">הפקת חשבוניות מס מובנית</td><td class="px-4 py-3 text-center text-red-500 font-bold">✗</td><td class="px-4 py-3 text-center text-yellow-500">נפרד</td><td class="px-4 py-3 text-center text-yellow-500">בתשלום</td><td class="px-4 py-3 text-center bg-brand-50 text-brand-700 font-black">✓</td></tr>
                 </tbody>
             </table>
+        </div>
+        <p class="text-sm text-slate-500 mt-4 max-w-3xl mx-auto text-center reveal">
+            * "פרטיות מלאה" ו"עובד אופליין" — בגרסת <strong class="text-slate-700">Desktop</strong>. בגרסת <strong class="text-slate-700">Web</strong> מקבלים במקומן גישה מכל מקום וגיבוי ענן אוטומטי. כך או כך — אותה מערכת שמבינה עוסק פטור, בלי מנוי זר שמתנקז כל חודש.
+        </p>
+
+        <!-- טבלה 2 — Desktop מול Web (כלי החלטה, לא השוואת ניצחון) -->
+        <div class="mt-16 reveal">
+            <div class="text-center mb-8">
+                <span class="bg-brand-100 text-brand-700 px-4 py-1.5 rounded-full font-bold text-sm inline-block mb-3">בחרת תכל&quot;ס? נשאר רק לבחור איפה</span>
+                <h3 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tighter">Desktop מול Web — מה מתאים לך?</h3>
+            </div>
+            <div class="overflow-x-auto rounded-2xl shadow-lg border border-slate-200">
+                <table class="w-full text-right bg-white min-w-[560px]">
+                    <thead>
+                        <tr class="bg-slate-100 text-slate-900">
+                            <th class="px-4 py-4 text-right font-bold text-sm"></th>
+                            <th class="px-4 py-4 text-center font-black text-sm"><span class="inline-flex items-center gap-1.5"><i data-lucide="monitor" class="w-4 h-4 text-brand-600"></i> Desktop</span></th>
+                            <th class="px-4 py-4 text-center font-black text-sm"><span class="inline-flex items-center gap-1.5"><i data-lucide="globe" class="w-4 h-4 text-brand-600"></i> Web</span></th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-slate-700 text-sm">
+                        <tr class="border-b border-slate-100"><td class="px-4 py-3 font-bold">מודל תשלום</td><td class="px-4 py-3 text-center">930₪ חד-פעמי לנצח</td><td class="px-4 py-3 text-center">1,130₪ שנה א' · 170₪/שנה</td></tr>
+                        <tr class="border-b border-slate-100 bg-slate-50"><td class="px-4 py-3 font-bold">איפה הנתונים</td><td class="px-4 py-3 text-center">על המחשב שלך</td><td class="px-4 py-3 text-center">ענן מאובטח · ייצוא בקליק</td></tr>
+                        <tr class="border-b border-slate-100"><td class="px-4 py-3 font-bold">גישה מכמה מכשירים</td><td class="px-4 py-3 text-center">קובץ ב-Drive (לא בו-זמנית)</td><td class="px-4 py-3 text-center text-brand-700 font-bold">מכל דפדפן, בכל מקום</td></tr>
+                        <tr class="border-b border-slate-100 bg-slate-50"><td class="px-4 py-3 font-bold">עובד בלי אינטרנט</td><td class="px-4 py-3 text-center text-brand-700 font-bold">כן</td><td class="px-4 py-3 text-center text-slate-400">דורש חיבור</td></tr>
+                        <tr class="border-b border-slate-100"><td class="px-4 py-3 font-bold">גיבוי</td><td class="px-4 py-3 text-center">לתיקייה שלך (Drive/Dropbox)</td><td class="px-4 py-3 text-center text-brand-700 font-bold">אוטומטי בענן</td></tr>
+                        <tr class="border-b border-slate-100 bg-slate-50"><td class="px-4 py-3 font-bold">עדכונים</td><td class="px-4 py-3 text-center">כלול</td><td class="px-4 py-3 text-center">אוטומטי, כלול</td></tr>
+                        <tr class="bg-brand-50/60"><td class="px-4 py-3 font-black text-slate-900">למי מתאים</td><td class="px-4 py-3 text-center font-semibold text-slate-700">עבודה ממחשב קבוע, פרטיות מלאה</td><td class="px-4 py-3 text-center font-semibold text-slate-700">עבודה מכמה מקומות ומכשירים</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-center text-slate-500 text-sm mt-5">לא בטוח? <a href="https://tacles.vercel.app/?demo=1" target="_blank" rel="noopener" class="text-brand-700 hover:text-brand-600 font-bold">הדמו שאתה מנסה הוא בדיוק גרסת ה-Web →</a></p>
         </div>
     </div>
 </section>
@@ -878,10 +1082,10 @@ border-top-left-radius: 100% 85%;
                class="bg-slate-900 hover:bg-slate-800 text-white px-8 py-4 rounded-xl font-black transition flex items-center justify-center gap-2 text-lg">
                 <i data-lucide="play-circle" class="w-5 h-5"></i> דמו חינמי — עכשיו
             </a>
-            <button onclick="initiateBuyProcess()"
+            <a href="pricing.html"
                 class="bg-white hover:bg-slate-50 text-slate-900 px-8 py-4 rounded-xl font-black transition flex items-center justify-center gap-2 text-lg shadow-lg">
-                <i data-lucide="shopping-cart" class="w-5 h-5"></i> רכישה — 930 ₪ חד-פעמי
-            </button>
+                <i data-lucide="shopping-cart" class="w-5 h-5"></i> למחירון ובחירת גרסה
+            </a>
         </div>
     </div>
 </section>
@@ -912,7 +1116,7 @@ border-top-left-radius: 100% 85%;
             <i data-lucide="settings" class="text-brand-600 w-5 h-5"></i> טכני, התקנה ופלטפורמה
         </h3>
         <div class="space-y-3 mb-10 reveal">
-            <div class="bg-white rounded-lg border border-brand-100 overflow-hidden shadow-sm"><button class="w-full px-6 py-4 text-right font-bold flex justify-between items-center focus:outline-none hover:bg-brand-50 transition text-sm" onclick="this.nextElementSibling.classList.toggle('hidden')">האם זו תוכנה בענן או מקומית?<i data-lucide="chevron-down" class="text-brand-500 w-5 h-5 shrink-0"></i></button><div class="px-6 pb-5 text-slate-600 text-sm hidden border-t border-brand-100 pt-4 leading-relaxed">תוכנה מקומית. מתקינים על המחשב, והנתונים נשמרים אצלך. עובדת גם ללא חיבור לאינטרנט, ואין סיכון שחברה זרה תיסגר ותיקח איתה את העסק שלך. יש גם גרסת Web למי שרוצה גישה מכל מקום.</div></div>
+            <div class="bg-white rounded-lg border border-brand-100 overflow-hidden shadow-sm"><button class="w-full px-6 py-4 text-right font-bold flex justify-between items-center focus:outline-none hover:bg-brand-50 transition text-sm" onclick="this.nextElementSibling.classList.toggle('hidden')">האם זו תוכנה בענן או מקומית?<i data-lucide="chevron-down" class="text-brand-500 w-5 h-5 shrink-0"></i></button><div class="px-6 pb-5 text-slate-600 text-sm hidden border-t border-brand-100 pt-4 leading-relaxed">שתי הגרסאות שוות לחלוטין ביכולות — ההבדל הוא רק איפה הנתונים יושבים. <strong>Desktop</strong>: מתקינים על המחשב, הנתונים אצלך, עובד גם ללא אינטרנט. <strong>Web</strong>: עובדים מהדפדפן בכל מקום, עם גיבוי ענן אוטומטי ועדכונים אוטומטיים. אתה בוחר מה מתאים לך — אותו מנוע חכם בשתיהן. <strong>טיפ:</strong> הדמו שאתה מנסה הוא בדיוק גרסת ה-Web.</div></div>
             <div class="bg-white rounded-lg border border-brand-100 overflow-hidden shadow-sm"><button class="w-full px-6 py-4 text-right font-bold flex justify-between items-center focus:outline-none hover:bg-brand-50 transition text-sm" onclick="this.nextElementSibling.classList.toggle('hidden')">איך עובד הגיבוי?<i data-lucide="chevron-down" class="text-brand-500 w-5 h-5 shrink-0"></i></button><div class="px-6 pb-5 text-slate-600 text-sm hidden border-t border-brand-100 pt-4 leading-relaxed">אתה בוחר תיקייה — יכולה להיות Google Drive, Dropbox, OneDrive, או כונן חיצוני. המערכת שומרת אוטומטית גיבוי בכל פתיחה ובמרווחי זמן שאתה מגדיר. אפשר לייצא גם קובץ גיבוי מלא (JSON) בלחיצה.</div></div>
             <div class="bg-white rounded-lg border border-brand-100 overflow-hidden shadow-sm"><button class="w-full px-6 py-4 text-right font-bold flex justify-between items-center focus:outline-none hover:bg-brand-50 transition text-sm" onclick="this.nextElementSibling.classList.toggle('hidden')">איך עוברים ממערכת קיימת לתכל&quot;ס?<i data-lucide="chevron-down" class="text-brand-500 w-5 h-5 shrink-0"></i></button><div class="px-6 pb-5 text-slate-600 text-sm hidden border-t border-brand-100 pt-4 leading-relaxed">המערכת תומכת בייבוא רשימת לקוחות ופרויקטים מ-Excel/CSV. אפשר גם להוסיף ידנית — רוב המשתמשים מסיימים את ההזנה הראשונית בתוך שעה-שעתיים.</div></div>
             <div class="bg-white rounded-lg border border-brand-100 overflow-hidden shadow-sm"><button class="w-full px-6 py-4 text-right font-bold flex justify-between items-center focus:outline-none hover:bg-brand-50 transition text-sm" onclick="this.nextElementSibling.classList.toggle('hidden')">האם אפשר לעבוד מכמה מחשבים?<i data-lucide="chevron-down" class="text-brand-500 w-5 h-5 shrink-0"></i></button><div class="px-6 pb-5 text-slate-600 text-sm hidden border-t border-brand-100 pt-4 leading-relaxed">הרישיון הוא למחשב אחד. אם אתה צריך לעבוד מכמה מקומות — אפשר לשמור את קובץ הנתונים בתיקיית ענן (Drive/Dropbox) ולפתוח אותו ממחשבים שונים. רק לא בו-זמנית. לחילופין — גרסת Web מתאימה בדיוק לזה.</div></div>
@@ -963,20 +1167,21 @@ border-top-left-radius: 100% 85%;
     </div>
     <div class="container mx-auto px-4 max-w-3xl text-center relative z-10 reveal">
         <span class="bg-amber-400 text-slate-900 px-4 py-1.5 rounded-full font-black text-sm inline-block mb-5">⚡ מחיר השקה</span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tighter mb-4">רכישה אחת. <span class="text-brand-400">שימוש לנצח.</span></h2>
-        <p class="text-slate-300 text-lg mb-8">בלי מנוי חודשי. בוחרים גרסה, משלמים פעם אחת, עובדים.</p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-stretch mb-8">
-            <div class="bg-gradient-to-br from-navy-900 to-navy-950 border-2 border-brand-500 rounded-2xl px-8 py-6 flex-1 max-w-xs mx-auto">
+        <h2 class="text-3xl md:text-5xl font-black tracking-tighter mb-4">אותה מערכת. <span class="text-brand-400">אתה בוחר איפה.</span></h2>
+        <p class="text-slate-300 text-lg mb-8">בוחרים את הגרסה שמתאימה לך — Desktop על המחשב, או Web מכל מקום.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-stretch mb-6">
+            <div class="bg-navy-800 border border-brand-500/40 rounded-2xl px-8 py-6 flex-1 max-w-xs mx-auto">
                 <p class="text-brand-300 font-bold mb-1">Desktop</p>
                 <p class="text-4xl font-black stat-number">930 ₪</p>
                 <p class="text-brand-400 text-sm mt-1">חד-פעמי לנצח</p>
             </div>
-            <div class="bg-navy-800 border border-navy-700 rounded-2xl px-8 py-6 flex-1 max-w-xs mx-auto">
+            <div class="bg-navy-800 border border-brand-500/40 rounded-2xl px-8 py-6 flex-1 max-w-xs mx-auto">
                 <p class="text-brand-300 font-bold mb-1">Web</p>
                 <p class="text-4xl font-black stat-number">1,130 ₪</p>
-                <p class="text-slate-400 text-sm mt-1">שנה ראשונה</p>
+                <p class="text-slate-400 text-sm mt-1">שנה ראשונה · 170₪/שנה</p>
             </div>
         </div>
+        <p class="text-slate-400 text-sm mb-8">ובקרוב — <span class="text-brand-300 font-semibold">תכל&quot;ס פרימיום</span> עם אחסון ענן לקבצים ותמונות של הפרויקטים.</p>
         <a href="pricing.html" class="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-400 text-slate-900 px-8 py-4 rounded-xl font-black transition hover:scale-105 shadow-lg glow-green">
             למחירון המלא ומה כלול <i data-lucide="arrow-left" class="w-5 h-5"></i>
         </a>
@@ -1013,11 +1218,11 @@ border-top-left-radius: 100% 85%;
             </div>
 
             <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
-                <button onclick="initiateBuyProcess()"
+                <a href="pricing.html"
                     class="bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-xl px-7 py-3 transition flex items-center gap-2 font-bold">
                     <i data-lucide="shopping-cart" class="w-5 h-5"></i>
-                    ראיתי, אני קונה — 930 ₪ חד-פעמי
-                </button>
+                    ראיתי — למחירון ובחירת גרסה
+                </a>
                 <a href="#lead-form" class="text-slate-400 hover:text-brand-400 transition text-sm hover:underline underline-offset-4">
                     יש שאלות? השאר פרטים ואחזור אליך
                 </a>
@@ -1068,7 +1273,7 @@ border-top-left-radius: 100% 85%;
         <div class="pt-8 border-t border-slate-800 grid md:grid-cols-3 gap-6 text-center md:text-right text-sm text-slate-400">
             <div>
                 <h4 class="font-black text-white mb-2">תכל&quot;ס</h4>
-                <p>תוכנה לניהול עסק לעצמאיים בישראל.<br>רכישה חד-פעמית, בלי מנוי, הנתונים אצלך.</p>
+                <p>תוכנה לניהול עסק לעצמאיים בישראל.<br>אותה מערכת — Desktop על המחשב שלך או Web מכל מקום, אתה בוחר.</p>
             </div>
             <div>
                 <h4 class="font-black text-white mb-2">ניווט מהיר</h4>
