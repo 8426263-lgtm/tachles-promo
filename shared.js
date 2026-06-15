@@ -9,16 +9,16 @@
 const PLANS = {
     desktop: {
         mode: 'pay',  // תשלום אוטומטי מיידי
-        buyUrl: 'https://app.upay.co.il/API6/s.php?m=SEtydWxWR0JERnlvNk84QjZhdUlGdz09',
+        buyUrl: 'https://app.upay.co.il/API6/clientsecure/redirectpage.php?msg=L2xGQVAxMFl1dTMzYXA4Y2tMSmZXR3BmWVVKMGh4YmZUMk1yci9ydVNnYkFpSHUxY05OeUNhMVJvbHh0bzJ6VktnYUJYUHhmTEFOaW14dHZZQ09vbWdEN0VON28zN1ZRQWlaVTlRTElNZGVvQ1FoZ0pLa0tCV2ZOR2VLcG9Hd1IvKzFuSW9sempiQ2I4TE53NHNvZWtQb3c5MzVyMTMyakRMQ2s2N21DOExCZ2tRQnNSaXJ1THNCT3ZzdnVjbWhBL3N3U1V1R0hkUEFWUmQ0OFFQWTdHQT09',
         licenseLine: 'הרכישה מקנה רישיון שימוש לכל החיים למחשב אחד, ללא דמי מנוי.',
         refundLine: 'המוצר הינו מוצר דיגיטלי. בהתאם לחוק, <strong>לא יינתן החזר כספי</strong> לאחר קבלת קוד הרישוי.',
     },
     web: {
-        mode: 'lead',  // עדיין אין קישור תשלום ל-Web → טופס ליד. כשיהיה: mode:'pay' + buyUrl.
-        buyUrl: null,
+        mode: 'pay',  // תשלום אוטומטי מיידי — גישה לאתר נפתחת מיד אחרי התשלום
+        buyUrl: 'https://app.upay.co.il/API6/s.php?m=TDA5Ulk3OFBGUThWOCtvWHptN0w5dz09',
         leadUrl: 'demo.html#zoom-form',
-        licenseLine: 'גרסת Web פועלת במודל מנוי שנתי, עם גישה מכל דפדפן וגיבוי ענן אוטומטי.',
-        refundLine: 'מנוי Web ניתן לביטול בכל עת בהתאם להוראות חוק הגנת הצרכן; חיוב מתבצע מראש לתקופת המנוי.',
+        licenseLine: 'הרכישה מקנה רישיון שימוש בגרסת הענן (Web), עם גישה מכל דפדפן ומכשיר וגיבוי ענן אוטומטי. הגישה לאתר נפתחת מיד עם השלמת התשלום, לפי כתובת המייל שאיתה תזדהו במערכת. מהשנה השנייה — 170 ₪/שנה דמי אחסון בענן בלבד.',
+        refundLine: 'המוצר הינו מוצר דיגיטלי המאפשר גישה מיידית. בהתאם לחוק, <strong>לא יינתן החזר כספי</strong> לאחר פתיחת הגישה לאתר.',
     },
     premium: {
         mode: 'notify',  // "בקרוב" → רישום להתעניינות
@@ -212,6 +212,11 @@ function termsModalHTML(plan = 'desktop') {
         </div>
         <div class="p-8 overflow-y-auto text-right text-slate-700 leading-relaxed">
             <p class="font-bold mb-4">אנא קרא/י בעיון לפני הרכישה:</p>
+            ${plan === 'web' ? `
+            <div class="mb-5 p-4 bg-brand-50 border border-brand-200 rounded-lg text-sm text-slate-800 flex items-start gap-2">
+                <i data-lucide="info" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>
+                <span>שימו לב: הגישה למערכת נפתחת <strong>אוטומטית ומיד</strong> עם השלמת התשלום, לפי <strong>כתובת המייל</strong> שתזינו בעמוד התשלום. הקפידו להזין את אותה כתובת מייל שאיתה תתחברו למערכת.</span>
+            </div>` : ''}
             <h4 class="font-bold text-slate-900 mt-4">1. מהות המוצר</h4>
             <p>תוכנת "תכל'ס" הינה כלי לניהול עסק המסופקת "כמות שהיא". ${p.licenseLine}</p>
             <h4 class="font-bold text-slate-900 mt-4">2. מדיניות החזרים</h4>
