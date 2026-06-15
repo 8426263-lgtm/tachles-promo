@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>גמישות ביצירת לקוח — תכל'ס | כל לקוח, בכל שלב, בלחיצה אחת</title>
-    <meta name="description" content="ליד טרי, עסקה שנסגרה, מוצר חד-פעמי, לקוח קבוע או מישהו שכבר שילם — בתכל'ס כל לקוח נכנס במקום הנכון מכפתור אחד. אף לקוח לא נשכח בפתק.">
+    <meta name="description" content="ליד טרי, עסקה שנסגרה, מוצר חד-פעמי, לקוח קבוע, מישהו שכבר שילם — או עבודה לפי שעה שפותחת לקוח ישר מהשעון. בתכל'ס כל לקוח נכנס במקום הנכון. אף לקוח לא נשכח בפתק.">
     <link rel="icon" type="image/x-icon" href="תכלס.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -53,10 +53,10 @@
         <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand-500 text-white shadow-lg shadow-brand-500/30 mb-6">
             <i data-lucide="user-plus" class="w-8 h-8"></i>
         </div>
-        <h2 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight mb-4">כפתור אחד — "לקוח חדש". ארבעה מסלולים בפנים.</h2>
+        <h2 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight mb-4">כפתור אחד — "לקוח חדש". ארבעה מסלולים בפנים — ועוד אחד ישר מהשעון.</h2>
         <p class="text-lg text-slate-500 leading-relaxed">
             רוב המערכות מכריחות אותך להזין כל לקוח באותה תבנית נוקשה. בתכל'ס
-            <strong class="text-slate-800">השלב של הלקוח קובע את הדרך</strong> — מהליד הראשון ועד הלקוח הקבוע.
+            <strong class="text-slate-800">השלב של הלקוח קובע את הדרך</strong> — מהליד הראשון, דרך הפרויקט והריטיינר, ועד מי שעובד לפי שעה ופותח לקוח ישר מהשעון.
             בוחרים את המסלול שמתאים, והמערכת עושה את השאר.
         </p>
     </div>
@@ -143,6 +143,26 @@
             <div class="order-1 rounded-3xl overflow-hidden shadow-2xl border border-slate-200 relative">
                 <img src="shot-clients-list.jpg" alt="תיעוד מהיר של לקוח ששילם" class="w-full object-cover zoomable" onclick="openLightbox(this.src)">
                 <div class="absolute top-3 right-3 bg-brand-500 text-slate-900 rounded-lg px-3 py-1 shadow font-black text-xs">תיעוד מהיר — 100% שולם</div>
+            </div>
+        </div>
+
+        <!-- 5 — עובד לפי שעה (ישר מהשעון) -->
+        <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center reveal">
+            <div class="order-2 lg:order-1">
+                <span class="inline-flex items-center gap-2 text-xs font-black text-brand-700 uppercase tracking-widest mb-3">
+                    <span class="bg-brand-100 text-brand-700 w-6 h-6 rounded-lg flex items-center justify-center">5</span> עובד לפי שעה
+                </span>
+                <h3 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter mb-5 leading-tight">עובד לפי שעה? —<br><span class="text-brand-600">לקוח חדש ישר מהשעון.</span></h3>
+                <p class="text-lg text-slate-500 leading-relaxed mb-7">לא חייבים לפתוח לקוח מראש. <strong class="text-slate-800">מקלידים שם לקוח חדש בשעון הנוכחות ומתחילים לעבוד</strong> — והמערכת יוצרת בשבילך את הלקוח ותיקיית פעילות אוטומטית. השעות מצטברות, ובסוף החודש הופכות לחשבונית שעות מסודרת. את פרטי הקשר תמיד אפשר להשלים אחר כך.</p>
+                <ul class="space-y-3">
+                    <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="timer" class="w-4 h-4"></i></span> שם חדש בשעון = לקוח ותיקייה נוצרים אוטומטית</li>
+                    <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="zap" class="w-4 h-4"></i></span> אפס הכנה מוקדמת — מתחילים לעבוד מיד</li>
+                    <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="receipt" class="w-4 h-4"></i></span> השעות מתאספות לחשבונית שעות מסודרת</li>
+                </ul>
+            </div>
+            <div class="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl border border-slate-200 relative">
+                <img src="shot-timer.jpg" alt="יצירת לקוח חדש ישירות משעון הנוכחות" class="w-full object-cover zoomable" onclick="openLightbox(this.src)">
+                <div class="absolute top-3 right-3 bg-brand-500 text-slate-900 rounded-lg px-3 py-1 shadow font-black text-xs">שעון נוכחות — לקוח חדש בקליק</div>
             </div>
         </div>
 
