@@ -27,7 +27,7 @@ const PLANS = {
     },
 };
 const DEMO_URL = 'https://tacles.vercel.app/?demo=1';
-const SUPPORT_EMAIL = '8426263@gmail.com';
+const SUPPORT_EMAIL = 'tachles263@gmail.com';
 
 // הגרסה שנבחרה כעת בזרימת הרכישה (נקבע ע"י initiateBuyProcess)
 let selectedPlan = 'desktop';
@@ -189,7 +189,7 @@ function footerHTML() {
             <div>
                 <h4 class="font-black text-white mb-3">תמיכה אישית</h4>
                 <p class="leading-relaxed">מענה <strong class="text-white">ישירות ממפתח המערכת</strong> — לא מוקד בחו"ל. תוך 24 שעות בימי עבודה.</p>
-                <a href="mailto:${SUPPORT_EMAIL}" class="text-brand-400 hover:text-brand-300 transition font-bold inline-block mt-2">${SUPPORT_EMAIL}</a>
+                <a href="mailto:${SUPPORT_EMAIL}" dir="ltr" class="text-brand-400 hover:text-brand-300 transition font-bold inline-block mt-2">${SUPPORT_EMAIL}</a>
             </div>
         </div>
         <div class="mt-10 pt-6 border-t border-slate-800 text-slate-600 text-sm text-center">
