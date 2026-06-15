@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>מחירון — תכל'ס | רכישה אחת, שימוש לנצח</title>
-    <meta name="description" content="מחירון תכל'ס: Desktop 930₪ חד-פעמי לנצח, Web 1,130₪ שנה ראשונה. בלי מנוי חודשי, כולל כל העדכונים.">
+    <meta name="description" content="מחירון תכל'ס: Desktop 930₪ ו-Web 1,130₪ — התוכנה לכל החיים, בלי מנוי חודשי. אותה מערכת, אתה בוחר איפה. ובקרוב גרסת פרימיום עם אחסון ענן.">
     <link rel="icon" type="image/x-icon" href="תכלס.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -45,52 +45,88 @@
         </p>
 
         <div class="grid md:grid-cols-2 gap-8 items-stretch">
-            <!-- Desktop (מודגש) -->
+            <!-- Desktop -->
             <div class="relative bg-white rounded-3xl border-2 border-brand-400 shadow-2xl shadow-brand-500/10 p-8 flex flex-col reveal">
-                <div class="absolute -top-4 right-8"><span class="bg-brand-400 text-navy-950 px-4 py-1.5 rounded-full text-sm font-extrabold shadow-lg">הגרסה הפופולרית</span></div>
-                <div class="flex items-center gap-3 mb-6 mt-2">
+                <div class="absolute -top-4 right-8"><span class="bg-brand-400 text-navy-950 px-4 py-1.5 rounded-full text-sm font-extrabold shadow-lg">על המחשב שלך</span></div>
+                <div class="flex items-center gap-3 mb-4 mt-2">
                     <div class="bg-brand-100 text-brand-700 w-12 h-12 rounded-xl flex items-center justify-center"><i data-lucide="monitor" class="w-6 h-6"></i></div>
-                    <div><h3 class="text-2xl font-extrabold text-slate-900">Desktop</h3><p class="text-sm text-slate-500">הנתונים אצלך — לא בענן</p></div>
+                    <div><h3 class="text-2xl font-extrabold text-slate-900">Desktop</h3><p class="text-sm text-slate-500">מותקן על המחשב שלך</p></div>
                 </div>
+                <p class="text-slate-600 text-sm leading-relaxed mb-6">מתקינים את התוכנה על המחשב, וכל הנתונים נשמרים אצלך מקומית. עובד גם בלי חיבור לאינטרנט. משלמים פעם אחת — שלך לתמיד, בלי תשלום חודשי.</p>
                 <div class="mb-6">
                     <div class="flex items-center gap-2 mb-1"><span class="text-slate-400 line-through text-lg">1,250 ₪</span><span class="bg-amber-100 text-amber-700 text-xs font-bold px-2 py-0.5 rounded-full">מחיר השקה</span></div>
                     <div class="flex items-baseline gap-2"><span class="text-6xl font-extrabold text-slate-900 stat-number">930</span><span class="text-2xl font-bold text-slate-400">₪</span></div>
-                    <p class="text-brand-700 font-bold text-sm mt-1">חד-פעמי לנצח. 0 ₪ חיוב חודשי.</p>
+                    <p class="text-brand-700 font-bold text-sm mt-1">תשלום אחד לכל החיים. 0 ₪ חיוב חודשי.</p>
                 </div>
                 <ul class="space-y-3 mb-8 flex-1">
-                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>רישיון לצמיתות + כל העדכונים</li>
-                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>הנתונים על המחשב שלך בלבד</li>
-                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>עובד ללא אינטרנט</li>
-                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>גיבוי לתיקייה שלך (Drive, Dropbox...)</li>
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>כל המודולים — לקוחות, פרויקטים, כספים, מסים, לידים</li>
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>חישוב נטו אמיתי + סימולטור מס "מה אם"</li>
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>שעון נוכחות + חשבוניות שעות</li>
                     <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>אינטגרציית חשבוניות (ריווחית/ירוקה/סאמיט)</li>
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>שליחת דוחות והצעות מחיר במייל</li>
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>הנתונים על המחשב שלך בלבד</li>
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>עובד גם ללא אינטרנט</li>
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>גיבוי לתיקייה שלך (Drive, Dropbox...)</li>
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>כל העדכונים העתידיים — כלולים</li>
                     <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>תמיכה אישית ממפתח המערכת</li>
                 </ul>
-                <button onclick="initiateBuyProcess()" class="w-full bg-brand-400 hover:bg-brand-300 text-navy-950 font-extrabold py-4 rounded-xl transition shadow-lg shadow-brand-500/30 hover:scale-[1.02] flex items-center justify-center gap-2 text-lg"><i data-lucide="shopping-cart" class="w-5 h-5"></i> רכישה מאובטחת ←</button>
+                <button onclick="initiateBuyProcess('desktop')" class="w-full bg-brand-400 hover:bg-brand-300 text-navy-950 font-extrabold py-4 rounded-xl transition shadow-lg shadow-brand-500/30 hover:scale-[1.02] flex items-center justify-center gap-2 text-lg"><i data-lucide="shopping-cart" class="w-5 h-5"></i> רכישת Desktop מאובטחת ←</button>
                 <p class="text-center text-xs text-slate-400 mt-3">תשלום דרך uPay | גישה מיידית אחרי תשלום</p>
             </div>
 
             <!-- Web -->
             <div class="relative bg-white rounded-3xl border border-slate-200 shadow-lg p-8 flex flex-col reveal" style="transition-delay:0.1s">
-                <div class="absolute -top-4 right-8"><span class="bg-navy-800 text-white px-4 py-1.5 rounded-full text-sm font-bold shadow-lg">חדש — גרסת Web</span></div>
-                <div class="flex items-center gap-3 mb-6 mt-2">
+                <div class="absolute -top-4 right-8"><span class="bg-navy-800 text-white px-4 py-1.5 rounded-full text-sm font-bold shadow-lg">מכל מקום, בענן</span></div>
+                <div class="flex items-center gap-3 mb-4 mt-2">
                     <div class="bg-navy-50 text-navy-700 w-12 h-12 rounded-xl flex items-center justify-center"><i data-lucide="globe" class="w-6 h-6"></i></div>
-                    <div><h3 class="text-2xl font-extrabold text-slate-900">Web</h3><p class="text-sm text-slate-500">גישה מכל מקום, מכל דפדפן</p></div>
+                    <div><h3 class="text-2xl font-extrabold text-slate-900">Web</h3><p class="text-sm text-slate-500">מהדפדפן, בכל מקום ומכשיר</p></div>
                 </div>
+                <p class="text-slate-600 text-sm leading-relaxed mb-6">עובדים מהדפדפן — מהמשרד, מהבית, מהנייד, מכל מחשב. אין מה להתקין. הנתונים שמורים בענן עם גיבוי אוטומטי, וכל עדכון מגיע אליך מאליו.</p>
                 <div class="mb-6">
                     <div class="flex items-center gap-2 mb-1"><span class="text-slate-400 line-through text-lg">1,450 ₪</span><span class="bg-amber-100 text-amber-700 text-xs font-bold px-2 py-0.5 rounded-full">מחיר השקה</span></div>
-                    <div class="flex items-baseline gap-2"><span class="text-6xl font-extrabold text-slate-900 stat-number">1,130</span><span class="text-2xl font-bold text-slate-400">₪</span></div>
-                    <p class="text-slate-500 font-bold text-sm mt-1">שנה ראשונה • <span class="text-slate-400">170 ₪/שנה מהשנה השנייה</span></p>
+                    <div class="flex items-baseline gap-2"><span class="text-6xl font-extrabold text-slate-900 stat-number">1,130</span><span class="text-2xl font-bold text-slate-400">₪</span><span class="text-brand-600 font-bold text-lg">*</span></div>
+                    <p class="text-slate-500 font-bold text-sm mt-1">התוכנה לכל החיים. <span class="text-slate-400">* מהשנה השנייה — 170 ₪/שנה דמי אחסון בענן בלבד.</span></p>
                 </div>
                 <ul class="space-y-3 mb-8 flex-1">
-                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-navy-500 shrink-0 mt-0.5"></i>גרסת Web מלאה — מכל דפדפן, בכל מחשב</li>
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-navy-500 shrink-0 mt-0.5"></i>כל המודולים — לקוחות, פרויקטים, כספים, מסים, לידים</li>
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-navy-500 shrink-0 mt-0.5"></i>חישוב נטו אמיתי + סימולטור מס "מה אם"</li>
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-navy-500 shrink-0 mt-0.5"></i>שעון נוכחות + חשבוניות שעות</li>
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-navy-500 shrink-0 mt-0.5"></i>אינטגרציית חשבוניות (ריווחית/ירוקה/סאמיט)</li>
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-navy-500 shrink-0 mt-0.5"></i>שליחת דוחות והצעות מחיר במייל</li>
+                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-navy-500 shrink-0 mt-0.5"></i>גישה מכל מקום ומכשיר — מהדפדפן</li>
                     <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-navy-500 shrink-0 mt-0.5"></i>גיבוי אוטומטי בענן</li>
                     <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-navy-500 shrink-0 mt-0.5"></i>עדכונים אוטומטיים — תמיד הגרסה האחרונה</li>
-                    <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-navy-500 shrink-0 mt-0.5"></i>כל הפיצ'רים — זהה לגמרי ל-Desktop</li>
                     <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-navy-500 shrink-0 mt-0.5"></i>תמיכה אישית ממפתח המערכת</li>
                 </ul>
                 <div class="flex flex-col gap-3">
-                    <a href="https://tacles.vercel.app/?demo=1" target="_blank" rel="noopener" class="w-full bg-navy-900 hover:bg-navy-800 text-white font-bold py-4 rounded-xl transition flex items-center justify-center gap-2 text-lg"><i data-lucide="play-circle" class="w-5 h-5"></i> נסה דמו חינם</a>
-                    <a href="demo.html" class="w-full border border-slate-200 hover:border-navy-400 text-slate-600 hover:text-slate-900 font-bold py-3 rounded-xl transition text-center text-sm">צור קשר לרכישת Web</a>
+                    <button onclick="initiateBuyProcess('web')" class="w-full bg-navy-900 hover:bg-navy-800 text-white font-bold py-4 rounded-xl transition flex items-center justify-center gap-2 text-lg"><i data-lucide="rocket" class="w-5 h-5"></i> שריין מחיר השקה ל-Web ←</button>
+                    <a href="https://tacles.vercel.app/?demo=1" target="_blank" rel="noopener" class="w-full border border-slate-200 hover:border-navy-400 text-slate-600 hover:text-slate-900 font-bold py-3 rounded-xl transition text-center text-sm flex items-center justify-center gap-2"><i data-lucide="play-circle" class="w-4 h-4"></i> נסה דמו חינם — הדגמה מלאה של המערכת</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- כרטיס פרימיום עתידי — "בקרוב", בלי מחיר -->
+        <div class="mt-8 reveal">
+            <div class="bg-gradient-to-br from-navy-900 to-navy-950 text-white rounded-3xl px-7 py-8 md:px-10 border border-navy-700 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-64 h-64 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="bg-brand-500/15 text-brand-300 w-12 h-12 rounded-xl flex items-center justify-center shrink-0"><i data-lucide="cloud-upload" class="w-6 h-6"></i></span>
+                        <div>
+                            <p class="font-black text-xl flex items-center gap-2">תכל&quot;ס פרימיום <span class="bg-brand-400 text-navy-950 text-[11px] font-extrabold px-2 py-0.5 rounded-full">בקרוב</span></p>
+                            <p class="text-brand-300 text-sm font-semibold">לא רק המספרים — גם כל החומר של העבודה במקום אחד</p>
+                        </div>
+                    </div>
+                    <p class="text-slate-100 text-base leading-relaxed max-w-3xl mb-5">
+                        עד היום תכל&quot;ס ניהלה לך את הכסף. בגרסת הפרימיום תקבל גם <strong class="text-white">שטח אחסון בענן</strong> — מקום לשמור את כל הקבצים, המסמכים והתמונות של כל פרויקט, צמודים ללקוח הנכון. הכל מסודר במקום אחד, מגובה אוטומטית, ונגיש מכל מקום — בלי לחפש בין מיילים ותיקיות.
+                    </p>
+                    <div class="grid sm:grid-cols-3 gap-3 mb-6">
+                        <div class="bg-white/10 border border-white/15 rounded-xl p-3 flex items-start gap-2"><i data-lucide="folder" class="w-4 h-4 text-brand-300 shrink-0 mt-0.5"></i><span class="text-sm text-white">קבצים ומסמכים צמודים לכל פרויקט</span></div>
+                        <div class="bg-white/10 border border-white/15 rounded-xl p-3 flex items-start gap-2"><i data-lucide="image" class="w-4 h-4 text-brand-300 shrink-0 mt-0.5"></i><span class="text-sm text-white">תמונות ומסמכים ליד הלקוח</span></div>
+                        <div class="bg-white/10 border border-white/15 rounded-xl p-3 flex items-start gap-2"><i data-lucide="search" class="w-4 h-4 text-brand-300 shrink-0 mt-0.5"></i><span class="text-sm text-white">מוצאים כל מסמך בשניות</span></div>
+                    </div>
+                    <button onclick="initiateBuyProcess('premium')" class="w-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold px-6 py-3.5 rounded-xl transition text-sm flex items-center justify-center gap-2"><i data-lucide="bell" class="w-4 h-4"></i> עדכנו אותי כשזה יוצא</button>
+                    <p class="text-slate-400 text-xs text-center mt-3">רוב היכולות של תכל&quot;ס כלולות וללא תוספת. חלק מההרחבות העתידיות עשויות להיות בתוספת תשלום.</p>
                 </div>
             </div>
         </div>

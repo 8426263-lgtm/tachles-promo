@@ -4,10 +4,33 @@
    נכתב כמחרוזות מוזרקות (לא fetch) כדי לעבוד גם בפתיחת קובץ מקומי file://
    ===================================================================== */
 
-// קישור רכישה (UPAY) — מקום אחד לעדכון
-const BUY_URL  = 'https://app.upay.co.il/API6/s.php?m=SEtydWxWR0JERnlvNk84QjZhdUlGdz09';
+// ===== גרסאות המוצר — מקום אחד לעדכון =====
+// כשיהיה קישור תשלום ל-Web: לשנות web.mode ל-'pay' ולמלא buyUrl. שאר הזרימה כבר תומכת.
+const PLANS = {
+    desktop: {
+        mode: 'pay',  // תשלום אוטומטי מיידי
+        buyUrl: 'https://app.upay.co.il/API6/s.php?m=SEtydWxWR0JERnlvNk84QjZhdUlGdz09',
+        licenseLine: 'הרכישה מקנה רישיון שימוש לכל החיים למחשב אחד, ללא דמי מנוי.',
+        refundLine: 'המוצר הינו מוצר דיגיטלי. בהתאם לחוק, <strong>לא יינתן החזר כספי</strong> לאחר קבלת קוד הרישוי.',
+    },
+    web: {
+        mode: 'lead',  // עדיין אין קישור תשלום ל-Web → טופס ליד. כשיהיה: mode:'pay' + buyUrl.
+        buyUrl: null,
+        leadUrl: 'demo.html#zoom-form',
+        licenseLine: 'גרסת Web פועלת במודל מנוי שנתי, עם גישה מכל דפדפן וגיבוי ענן אוטומטי.',
+        refundLine: 'מנוי Web ניתן לביטול בכל עת בהתאם להוראות חוק הגנת הצרכן; חיוב מתבצע מראש לתקופת המנוי.',
+    },
+    premium: {
+        mode: 'notify',  // "בקרוב" → רישום להתעניינות
+        buyUrl: null,
+        leadUrl: 'demo.html#zoom-form',
+    },
+};
 const DEMO_URL = 'https://tacles.vercel.app/?demo=1';
 const SUPPORT_EMAIL = '8426263@gmail.com';
+
+// הגרסה שנבחרה כעת בזרימת הרכישה (נקבע ע"י initiateBuyProcess)
+let selectedPlan = 'desktop';
 
 /* ---------- קביעת העמוד הנוכחי לסימון אקטיבי בנאבר ---------- */
 function currentPage() {
@@ -113,10 +136,10 @@ function navHTML() {
         <!-- CTA דסקטופ -->
         <div class="hidden md:flex items-center gap-3">
             <a href="demo.html" class="text-slate-300 hover:text-white font-medium text-sm transition">מפגש זום חי</a>
-            <button onclick="initiateBuyProcess()"
+            <a href="pricing.html"
                 class="bg-brand-400 hover:bg-brand-300 text-navy-950 px-5 py-2 rounded-full font-extrabold transition text-sm shadow-lg shadow-brand-500/20">
                 התחילו עכשיו ←
-            </button>
+            </a>
         </div>
 
         <!-- כפתור נייד -->
@@ -133,8 +156,8 @@ function navHTML() {
         <a href="pricing.html" class="block text-amber-300 font-bold py-1">מחירון</a>
         <a href="demo.html" class="block text-slate-300 hover:text-white font-medium py-1">מפגש זום חי</a>
         <a href="${DEMO_URL}" target="_blank" rel="noopener" class="block text-brand-400 font-bold py-1">▶ דמו חי</a>
-        <button onclick="initiateBuyProcess(); toggleMobileMenu();"
-            class="w-full bg-brand-400 hover:bg-brand-300 text-navy-950 px-4 py-3 rounded-lg font-extrabold mt-2">התחילו עכשיו ←</button>
+        <a href="pricing.html" onclick="toggleMobileMenu();"
+            class="block w-full text-center bg-brand-400 hover:bg-brand-300 text-navy-950 px-4 py-3 rounded-lg font-extrabold mt-2">התחילו עכשיו ←</a>
     </div>`;
 }
 
@@ -175,22 +198,24 @@ function footerHTML() {
     </div>`;
 }
 
-/* ---------- HTML של מודל התקנון ---------- */
-function termsModalHTML() {
+/* ---------- HTML של מודל התקנון (דינמי לפי גרסה) ---------- */
+function termsModalHTML(plan = 'desktop') {
+    const p = PLANS[plan] || PLANS.desktop;
+    const versionLabel = plan === 'web' ? 'Web' : 'Desktop';
     return `
     <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[82vh] overflow-hidden flex flex-col shadow-2xl">
         <div class="p-6 border-b flex justify-between items-center bg-slate-50">
             <h3 class="text-xl font-black text-slate-900 flex items-center gap-2">
-                <i data-lucide="file-text" class="text-brand-600"></i> תקנון שימוש ואישור רכישה
+                <i data-lucide="file-text" class="text-brand-600"></i> תקנון שימוש ואישור רכישה — תכל'ס ${versionLabel}
             </h3>
             <button onclick="closeTerms()" class="text-slate-400 hover:text-slate-600 bg-slate-200 rounded-full p-1.5"><i data-lucide="x"></i></button>
         </div>
         <div class="p-8 overflow-y-auto text-right text-slate-700 leading-relaxed">
             <p class="font-bold mb-4">אנא קרא/י בעיון לפני הרכישה:</p>
             <h4 class="font-bold text-slate-900 mt-4">1. מהות המוצר</h4>
-            <p>תוכנת "תכלס" הינה כלי לניהול עסק המסופקת "כמות שהיא". הרכישה מקנה רישיון שימוש לכל החיים למחשב אחד, ללא דמי מנוי.</p>
+            <p>תוכנת "תכל'ס" הינה כלי לניהול עסק המסופקת "כמות שהיא". ${p.licenseLine}</p>
             <h4 class="font-bold text-slate-900 mt-4">2. מדיניות החזרים</h4>
-            <p>המוצר הינו מוצר דיגיטלי. בהתאם לחוק, <strong>לא יינתן החזר כספי</strong> לאחר קבלת קוד הרישוי.</p>
+            <p>${p.refundLine}</p>
             <h4 class="font-bold text-slate-900 mt-4">3. אחריות</h4>
             <p>השימוש בתוכנה הוא באחריות המשתמש. יש לבצע גיבויים שוטפים.</p>
             <h4 class="font-bold text-slate-900 mt-4">4. עדכונים ותמיכה</h4>
@@ -215,8 +240,21 @@ function toggleMobileMenu() {
 }
 
 // רכישה / תקנון
-function initiateBuyProcess() {
+// version: 'desktop' (ברירת מחדל) | 'web' | 'premium'
+function initiateBuyProcess(version = 'desktop') {
+    selectedPlan = (version in PLANS) ? version : 'desktop';
+    const plan = PLANS[selectedPlan];
+
+    // Web/פרימיום עדיין בלי תשלום אוטומטי → ישר לטופס ליד, בלי מודל תקנון (אין עסקה לאשר)
+    if (plan.mode !== 'pay') {
+        window.location.href = plan.leadUrl;
+        return;
+    }
+
+    // Desktop (mode:'pay') → מודל התקנון עם טקסט מותאם לגרסה
     const m = document.getElementById('terms-modal');
+    m.innerHTML = termsModalHTML(selectedPlan);
+    if (window.lucide) lucide.createIcons();
     m.classList.remove('hidden'); m.classList.add('open');
     document.body.style.overflow = 'hidden';
 }
@@ -225,7 +263,15 @@ function closeTerms() {
     m.classList.add('hidden'); m.classList.remove('open');
     document.body.style.overflow = '';
 }
-function proceedToBuy() { closeTerms(); window.open(BUY_URL, '_blank'); }
+function proceedToBuy() {
+    closeTerms();
+    const plan = PLANS[selectedPlan] || PLANS.desktop;
+    if (plan.mode === 'pay' && plan.buyUrl) {
+        window.open(plan.buyUrl, '_blank');
+    } else {
+        window.location.href = plan.leadUrl;  // נפילה בטוחה — בלי חלון uPay ריק
+    }
+}
 function approveAndPay() { proceedToBuy(); }
 
 // לייטבוקס
