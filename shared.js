@@ -14,6 +14,7 @@ function currentPage() {
     const p = location.pathname.split('/').pop().toLowerCase();
     if (!p || p === 'index.html' || p === 'index.html') return 'home';
     if (p.startsWith('features')) return 'features';
+    if (p.startsWith('flexibility')) return 'flexibility';
     if (p.startsWith('pricing'))  return 'pricing';
     if (p.startsWith('demo') || p.startsWith('contact')) return 'demo';
     return 'home';
@@ -101,6 +102,7 @@ function navHTML() {
                 </div>
             </div>
 
+            ${link('flexibility.html', 'קליטת לקוחות', 'flexibility')}
             ${link('pricing.html', 'מחירון', 'pricing', 'text-amber-300 font-bold hover:text-amber-200')}
             <a href="${DEMO_URL}" target="_blank" rel="noopener"
                class="flex items-center gap-1 px-3 py-2 text-brand-400 hover:text-brand-300 font-bold transition">
@@ -127,6 +129,7 @@ function navHTML() {
     <div id="mobile-menu" class="md:hidden hidden bg-slate-900 border-t border-slate-800 px-4 py-4 space-y-2">
         <a href="index.html" class="block text-slate-300 hover:text-white font-medium py-1">למה תכל'ס</a>
         <a href="features.html" class="block text-slate-300 hover:text-white font-medium py-1">פיצ'רים</a>
+        <a href="flexibility.html" class="block text-brand-400 hover:text-brand-300 font-medium py-1">✦ גמישות ביצירת לקוח</a>
         <a href="pricing.html" class="block text-amber-300 font-bold py-1">מחירון</a>
         <a href="demo.html" class="block text-slate-300 hover:text-white font-medium py-1">מפגש זום חי</a>
         <a href="${DEMO_URL}" target="_blank" rel="noopener" class="block text-brand-400 font-bold py-1">▶ דמו חי</a>

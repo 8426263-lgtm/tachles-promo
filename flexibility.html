@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>גמישות ביצירת לקוח — תכל'ס | כל לקוח, בכל שלב, בלחיצה אחת</title>
+    <meta name="description" content="ליד טרי, עסקה שנסגרה, מוצר חד-פעמי, לקוח קבוע או מישהו שכבר שילם — בתכל'ס כל לקוח נכנס במקום הנכון מכפתור אחד. אף לקוח לא נשכח בפתק.">
+    <link rel="icon" type="image/x-icon" href="תכלס.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="shared.css">
+
+    <!-- Cloudflare Web Analytics — ספירת כניסות לאתר הפרסום -->
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "83092bfbb5b149bfb9d965017494f5b2"}'></script>
+    <!-- End Cloudflare Web Analytics -->
+
+    <script>
+        tailwind.config = { theme: { extend: { colors: { brand: {
+            50:'#f7fee7',100:'#ecfccb',200:'#d9f99d',300:'#bef264',400:'#a3e635',
+            500:'#84cc16',600:'#65a30d',700:'#4d7c0f',800:'#3f6212',900:'#365314',950:'#1a2e05' },
+                        navy: {
+            50:'#eef0f3',100:'#dadde3',300:'#8c93a3',500:'#3f4654',700:'#2b303d',
+            800:'#202430',900:'#161c27',950:'#101721' } } } } }
+    </script>
+</head>
+<body class="text-slate-800">
+
+<header id="navbar" class="fixed w-full top-0 z-50 bg-slate-900/95 backdrop-blur border-b border-slate-800/60"></header>
+
+<!-- ===== HERO ===== -->
+<section class="hero-bg pt-32 pb-16 text-center relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5 pointer-events-none">
+        <div class="absolute top-10 right-20 w-80 h-80 bg-brand-400 rounded-full blur-3xl"></div>
+    </div>
+    <div class="container mx-auto px-4 relative z-10">
+        <span class="inline-flex items-center gap-2 bg-navy-800/60 border border-brand-500/30 text-brand-300 px-4 py-1.5 rounded-full text-sm font-bold mb-6">
+            <i data-lucide="users" class="w-4 h-4"></i> שליטה מלאה בתהליך
+        </span>
+        <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter mb-5">
+            קליטת לקוחות גמישה –<br><span class="text-brand-400">בדיוק כמו שהעסק שלך צריך</span>
+        </h1>
+        <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto">
+            מליד שרק מתעניין, דרך פרויקט מורכב ועד ריטיינר קבוע. המערכת מתאימה את עצמה לכל תרחיש,<br class="hidden md:block">
+            כדי שאף לקוח לא ילך לאיבוד בין הפתקיות.
+        </p>
+    </div>
+</section>
+
+<!-- ===== INTRO — כפתור אחד, ארבעה מסלולים ===== -->
+<section class="py-16 bg-white border-b border-slate-100">
+    <div class="container mx-auto px-4 max-w-4xl text-center reveal">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand-500 text-white shadow-lg shadow-brand-500/30 mb-6">
+            <i data-lucide="user-plus" class="w-8 h-8"></i>
+        </div>
+        <h2 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight mb-4">כפתור אחד — "לקוח חדש". ארבעה מסלולים בפנים.</h2>
+        <p class="text-lg text-slate-500 leading-relaxed">
+            רוב המערכות מכריחות אותך להזין כל לקוח באותה תבנית נוקשה. בתכל'ס
+            <strong class="text-slate-800">השלב של הלקוח קובע את הדרך</strong> — מהליד הראשון ועד הלקוח הקבוע.
+            בוחרים את המסלול שמתאים, והמערכת עושה את השאר.
+        </p>
+    </div>
+</section>
+
+<!-- ===== ROUTES (zig-zag) ===== -->
+<section class="py-16 md:py-24 bg-white">
+    <div class="container mx-auto px-4 max-w-6xl space-y-20 md:space-y-28">
+
+        <!-- 1 — פנייה חדשה (ליד) -->
+        <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center reveal">
+            <div class="order-2 lg:order-1">
+                <span class="inline-flex items-center gap-2 text-xs font-black text-brand-700 uppercase tracking-widest mb-3">
+                    <span class="bg-brand-100 text-brand-700 w-6 h-6 rounded-lg flex items-center justify-center">1</span> פנייה חדשה (ליד)
+                </span>
+                <h3 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter mb-5 leading-tight">הלקוח רק פנה? —<br><span class="text-brand-600">הצעת מחיר מעוצבת בקליק.</span></h3>
+                <p class="text-lg text-slate-500 leading-relaxed mb-7">הלקוח רק פנה? מפיקים <strong class="text-slate-800">הצעת מחיר מעוצבת (PDF)</strong> בקליק. ברגע שהוא מאשר, לחיצה אחת הופכת אותו ל"פרויקט פעיל". קולטים שם, טלפון, אימייל ומקור הפנייה — והמחיר ולוח התשלומים קופצים אוטומטית לפי השירות.</p>
+                <ul class="space-y-3">
+                    <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="percent" class="w-4 h-4"></i></span> הנחה באחוזים או בשקלים — חישוב אוטומטי</li>
+                    <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="file-text" class="w-4 h-4"></i></span> טקסט ברירת מחדל להצעה — ניתן לעריכה</li>
+                    <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="git-branch" class="w-4 h-4"></i></span> "הפוך לפרויקט" — מליד לעבודה פעילה בקליק</li>
+                </ul>
+            </div>
+            <div class="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl border border-slate-200 relative">
+                <img src="shot-quote-dialog.jpg" alt="הפקת הצעת מחיר ללקוח חדש" class="w-full object-cover zoomable" onclick="openLightbox(this.src)">
+                <div class="absolute top-3 right-3 bg-brand-500 text-slate-900 rounded-lg px-3 py-1 shadow font-black text-xs">הצעת מחיר — הפק ושמור</div>
+            </div>
+        </div>
+
+        <!-- 2 — סגר עסקה (פרויקט) -->
+        <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center reveal">
+            <div class="order-2">
+                <span class="inline-flex items-center gap-2 text-xs font-black text-brand-700 uppercase tracking-widest mb-3">
+                    <span class="bg-brand-100 text-brand-700 w-6 h-6 rounded-lg flex items-center justify-center">2</span> פרויקט / עבודה
+                </span>
+                <h3 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter mb-5 leading-tight">הלקוח כבר בפנים? —<br><span class="text-brand-600">פרויקט מסודר עם שלבי תשלום.</span></h3>
+                <p class="text-lg text-slate-500 leading-relaxed mb-7">הלקוח כבר בפנים? מכניסים אותו ישירות כפרויקט מסודר, מגדירים את השירות ופורסים שלבי תשלום. <strong class="text-slate-800">מעולה גם לעבודה עם קבוצות</strong> — מוכרי קורסים ואדריכלים שעובדים מול קבוצת אנשים תחת פרויקט אחד. כולל ת"ז ושם לחשבונית.</p>
+                <ul class="space-y-3">
+                    <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="layout-list" class="w-4 h-4"></i></span> לוח תשלומים מוכן לפי השירות שבחרת</li>
+                    <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="users-round" class="w-4 h-4"></i></span> פרויקט קבוצה — קורס או קבוצת לקוחות תחת פרויקט אחד</li>
+                    <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="receipt" class="w-4 h-4"></i></span> ת"ז ושם לחשבונית — מוכן להפקה</li>
+                </ul>
+            </div>
+            <div class="order-1 rounded-3xl overflow-hidden shadow-2xl border border-slate-200 relative">
+                <img src="shot-clients-list.jpg" alt="כפתור לקוח חדש ורשימת פרויקטים" class="w-full object-cover zoomable" onclick="openLightbox(this.src)">
+                <div class="absolute top-3 right-3 bg-brand-500 text-slate-900 rounded-lg px-3 py-1 shadow font-black text-xs">כפתור אחד — כל סוגי הלקוחות</div>
+            </div>
+        </div>
+
+        <!-- 3 — מוצר קבוע / ריטיינר -->
+        <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center reveal">
+            <div class="order-2 lg:order-1">
+                <span class="inline-flex items-center gap-2 text-xs font-black text-brand-700 uppercase tracking-widest mb-3">
+                    <span class="bg-brand-100 text-brand-700 w-6 h-6 rounded-lg flex items-center justify-center">3</span> מוצר / ריטיינר קבוע
+                </span>
+                <h3 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter mb-5 leading-tight">שירות נקודתי —<br><span class="text-brand-600">או לקוח חודשי קבוע.</span></h3>
+                <p class="text-lg text-slate-500 leading-relaxed mb-7">מתאים לשירותים נקודתיים (כמו פגישת ייעוץ בודדת) עם <strong class="text-slate-800">דרישת תשלום מיידית</strong>, או להגדרת <strong class="text-slate-800">לקוחות קבועים בחיוב חודשי אוטומטי</strong>. מזינים תיאור, כמות ומחיר ליחידה — והמערכת מחשבת סך הכל ומפיקה את המסמך.</p>
+                <ul class="space-y-3">
+                    <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="package" class="w-4 h-4"></i></span> כמות × מחיר ליחידה → סך הכל אוטומטי</li>
+                    <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="file-down" class="w-4 h-4"></i></span> דרישת תשלום PDF — נוצרת מיד</li>
+                    <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="repeat" class="w-4 h-4"></i></span> ריטיינר חודשי — מנוהל ב"לקוחות קבועים"</li>
+                </ul>
+            </div>
+            <div class="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl border border-slate-200 relative">
+                <img src="shot-clients-list.jpg" alt="לקוחות קבועים וריטיינר חודשי" class="w-full object-cover zoomable" onclick="openLightbox(this.src)">
+                <div class="absolute top-3 right-3 bg-brand-500 text-slate-900 rounded-lg px-3 py-1 shadow font-black text-xs">ריטיינר חודשי — לקוחות קבועים</div>
+            </div>
+        </div>
+
+        <!-- 4 — כבר שילם (תיעוד מהיר) -->
+        <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center reveal">
+            <div class="order-2">
+                <span class="inline-flex items-center gap-2 text-xs font-black text-brand-700 uppercase tracking-widest mb-3">
+                    <span class="bg-brand-100 text-brand-700 w-6 h-6 rounded-lg flex items-center justify-center">4</span> כבר שילם (רישום מהיר)
+                </span>
+                <h3 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter mb-5 leading-tight">העביר כסף מראש? —<br><span class="text-brand-600">רישום מהיר בשניות.</span></h3>
+                <p class="text-lg text-slate-500 leading-relaxed mb-7">הלקוח העביר כסף מראש? פשוט מזינים שם, סכום ותיאור – <strong class="text-slate-800">והוא נכנס מיד למערכת כפרויקט ששולם ב-100%.</strong> בלי הצעות מחיר, בלי שלבים. מהיר.</p>
+                <ul class="space-y-3">
+                    <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="zap" class="w-4 h-4"></i></span> שם, סכום, תיאור — וזהו</li>
+                    <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="check-circle-2" class="w-4 h-4"></i></span> נכנס מסומן 100% שולם ועודכן</li>
+                    <li class="flex items-center gap-3 text-slate-700"><span class="bg-brand-100 text-brand-600 p-1.5 rounded-lg"><i data-lucide="table" class="w-4 h-4"></i></span> מופיע ישר בטבלת הלקוחות</li>
+                </ul>
+            </div>
+            <div class="order-1 rounded-3xl overflow-hidden shadow-2xl border border-slate-200 relative">
+                <img src="shot-clients-list.jpg" alt="תיעוד מהיר של לקוח ששילם" class="w-full object-cover zoomable" onclick="openLightbox(this.src)">
+                <div class="absolute top-3 right-3 bg-brand-500 text-slate-900 rounded-lg px-3 py-1 shadow font-black text-xs">תיעוד מהיר — 100% שולם</div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ===== ALSO — ולמי שכבר במערכת ===== -->
+<section class="py-20 bg-slate-50 border-y border-slate-100">
+    <div class="container mx-auto px-4 max-w-5xl">
+        <div class="text-center mb-12 reveal">
+            <span class="bg-slate-200 text-slate-700 px-4 py-1.5 rounded-full font-bold text-sm inline-block mb-4">ולמי שכבר במערכת</span>
+            <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter mb-3">לקוח קיים — <span class="text-brand-600">הכל מהשורה שלו.</span></h2>
+            <p class="text-lg text-slate-500 max-w-2xl mx-auto">לחיצה על לקוח בטבלה פותחת כרטיס לקוח מלא — וכל הפעולות נמצאות במקום אחד.</p>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 reveal">
+            <div class="bg-white border border-slate-200 rounded-2xl p-6">
+                <div class="w-11 h-11 rounded-xl bg-brand-100 flex items-center justify-center text-brand-600 mb-4"><i data-lucide="id-card" class="w-5 h-5"></i></div>
+                <h3 class="font-black text-slate-900 mb-1">כרטיס לקוח מרוכז</h3>
+                <p class="text-sm text-slate-500">כל הנתונים, ההיסטוריה והמסמכים שהופקו — בחלון אחד, מוכנים לצפייה והדפסה.</p>
+            </div>
+            <div class="bg-white border border-slate-200 rounded-2xl p-6">
+                <div class="w-11 h-11 rounded-xl bg-brand-100 flex items-center justify-center text-brand-600 mb-4"><i data-lucide="folder" class="w-5 h-5"></i></div>
+                <h3 class="font-black text-slate-900 mb-1">טאב קבצים</h3>
+                <p class="text-sm text-slate-500">דרישות תשלום, הצעות מחיר וכל מסמך שהופק — מרוכזים ומוכנים לשליחה.</p>
+            </div>
+            <div class="bg-white border border-slate-200 rounded-2xl p-6">
+                <div class="w-11 h-11 rounded-xl bg-brand-100 flex items-center justify-center text-brand-600 mb-4"><i data-lucide="more-horizontal" class="w-5 h-5"></i></div>
+                <h3 class="font-black text-slate-900 mb-1">תפריט פעולות מהיר</h3>
+                <p class="text-sm text-slate-500">הצעת מחיר חדשה, שליחת דוח במייל, הוספת משימה או תשלום, עריכה, שכפול ומחיקה.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== PUNCHLINE ===== -->
+<section class="py-20 brand-gradient text-white">
+    <div class="container mx-auto px-4 max-w-3xl text-center reveal">
+        <i data-lucide="sparkles" class="w-10 h-10 text-brand-400 mx-auto mb-5"></i>
+        <h2 class="text-3xl md:text-4xl font-black tracking-tighter mb-5">כפתור אחד. הלקוח כבר בפנים.</h2>
+        <p class="text-lg text-slate-300 leading-relaxed">
+            פחות חיכוך, אפס לקוחות שנופלים בין הכיסאות, והכול נכנס לאותו מקום אחד —
+            מסונכרן עם הדשבורד, הכסף לגבייה, ניתוח המס והדוחות. הזנה אחת, שליטה מלאה.
+        </p>
+    </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4 max-w-4xl text-center">
+        <p class="text-slate-500 mb-6">רוצה לראות את כל הדרכים בפעולה?</p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
+            <a href="https://tacles.vercel.app/?demo=1" target="_blank" rel="noopener" class="bg-brand-500 hover:bg-brand-400 text-slate-900 px-8 py-4 rounded-xl font-black transition hover:scale-105 flex items-center gap-2 shadow-lg glow-green"><i data-lucide="play-circle" class="w-5 h-5"></i> ראה את זה חי — דמו חינמי</a>
+            <a href="features.html" class="bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 px-7 py-4 rounded-xl font-bold transition flex items-center gap-2 shadow"><i data-lucide="layers" class="w-5 h-5"></i> לכל הפיצ'רים</a>
+        </div>
+    </div>
+</section>
+
+<footer id="site-footer" class="bg-slate-900 text-white border-t border-slate-800"></footer>
+
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="bg-brand-600 hover:bg-brand-500 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg"><i data-lucide="arrow-up" class="w-5 h-5"></i></button>
+
+<script src="shared.js"></script>
+<script>
+    // reveal-on-scroll, lucide, navbar — מטופלים ב-shared.js. כאן רק back-to-top.
+    window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('scroll', () => {
+            document.getElementById('back-to-top').classList.toggle('show', window.scrollY > 400);
+        });
+    });
+</script>
+</body>
+</html>

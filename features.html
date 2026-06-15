@@ -329,13 +329,21 @@
         document.querySelectorAll('.ftab-panel').forEach(p => p.classList.toggle('active', p.dataset.panel == idx));
         if (window.lucide) lucide.createIcons();
     }
-    window.addEventListener('DOMContentLoaded', () => {
+    function openTabFromHash() {
         const m = location.hash.match(/tab-(\d+)/);
-        if (m) openFeatureTab(parseInt(m[1]));
+        if (m) {
+            openFeatureTab(parseInt(m[1]));
+            document.querySelector('.ftab-nav')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+        openTabFromHash();
         window.addEventListener('scroll', () => {
             document.getElementById('back-to-top').classList.toggle('show', window.scrollY > 400);
         });
     });
+    // כשכבר נמצאים ב-features ולוחצים קישור מהתפריט (#tab-X) — ה-hash משתנה אך העמוד לא נטען מחדש.
+    window.addEventListener('hashchange', openTabFromHash);
 </script>
 </body>
 </html>

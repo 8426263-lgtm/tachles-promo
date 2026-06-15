@@ -65,6 +65,11 @@ h1.tracking-tight, h2.tracking-tight, h3.tracking-tight { letter-spacing: normal
 .nav-dropdown:hover .nav-mega,
 .nav-dropdown:focus-within .nav-mega { opacity: 1; visibility: visible; transform: translateX(50%) translateY(0); }
 
+/* כפתור "פיצ'רים" — צבע בסיס בהיר (כפתורי HTML יורשים שחור מהדפדפן) */
+.nav-dropdown > button { color: #cbd5e1; background: transparent; border: 0; cursor: pointer; font: inherit; }
+.nav-dropdown:hover > button,
+.nav-dropdown:focus-within > button { color: #fff; }
+
 /* עמודת רשימת הפיצ'רים (ימין) */
 .nav-mega-list { padding: 18px; }
 .nav-mega-list .nm-eyebrow {
@@ -98,6 +103,13 @@ h1.tracking-tight, h2.tracking-tight, h3.tracking-tight { letter-spacing: normal
 .dd-c-rose   { background: #ffe4e6; color: #be123c; }
 .dd-c-cyan   { background: #cffafe; color: #0e7490; }
 .dd-c-orange { background: #ffedd5; color: #c2410c; }
+.dd-c-lime   { background: #84cc16; color: #fff; }
+
+/* פריט מודגש בראש ה-mega — מסך הגמישות */
+.nav-dd-feature {
+    background: #f7fee7; border-color: #d9f99d; margin-bottom: 4px;
+}
+.nav-dd-feature:hover { background: #ecfccb; border-color: #bef264; }
 
 .dd-new {
     background: #84cc16; color: #1a2e05; font-size: 0.58rem; font-weight: 800;
