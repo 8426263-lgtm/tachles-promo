@@ -38,6 +38,13 @@ h1.tracking-tight, h2.tracking-tight, h3.tracking-tight { letter-spacing: normal
 .glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.12); }
 .glow-green { box-shadow: 0 0 40px -10px rgba(132,204,22,0.4); }
 .stat-number { font-variant-numeric: tabular-nums; }
+
+/* CTA pulse — כפתור "מפגש זום חי" בתפריט (מוגדר כאן כדי שיעבוד בכל העמודים) */
+@keyframes ctaPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(132,204,22,0.45); }
+    50%      { box-shadow: 0 0 0 10px rgba(132,204,22,0); }
+}
+.cta-pulse { animation: ctaPulse 2.5s ease-in-out infinite; }
 .zoomable { cursor: zoom-in; transition: transform 0.3s ease; }
 .zoomable:hover { transform: scale(1.02); }
 

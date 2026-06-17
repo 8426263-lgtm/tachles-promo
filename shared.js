@@ -135,9 +135,17 @@ function navHTML() {
 
         <!-- CTA דסקטופ -->
         <div class="hidden md:flex items-center gap-3">
-            <a href="demo.html" class="text-slate-300 hover:text-white font-medium text-sm transition">מפגש זום חי</a>
+            <a href="demo.html"
+               class="group flex items-center gap-2 bg-brand-500 hover:bg-brand-400 text-navy-950 px-5 py-2 rounded-full font-extrabold transition text-sm shadow-lg shadow-brand-500/30 cta-pulse">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
+                </span>
+                <i data-lucide="video" class="w-4 h-4"></i>
+                מפגש זום חי — חינם
+            </a>
             <a href="pricing.html"
-                class="bg-brand-400 hover:bg-brand-300 text-navy-950 px-5 py-2 rounded-full font-extrabold transition text-sm shadow-lg shadow-brand-500/20">
+                class="bg-white/10 hover:bg-white/20 border border-white/20 text-white px-5 py-2 rounded-full font-extrabold transition text-sm">
                 התחילו עכשיו ←
             </a>
         </div>
@@ -154,7 +162,13 @@ function navHTML() {
         <a href="features.html" class="block text-slate-300 hover:text-white font-medium py-1">פיצ'רים</a>
         <a href="flexibility.html" class="block text-brand-400 hover:text-brand-300 font-medium py-1">✦ גמישות לכל עסק</a>
         <a href="pricing.html" class="block text-amber-300 font-bold py-1">מחירון</a>
-        <a href="demo.html" class="block text-slate-300 hover:text-white font-medium py-1">מפגש זום חי</a>
+        <a href="demo.html" class="flex items-center gap-2 bg-brand-500 hover:bg-brand-400 text-navy-950 font-extrabold py-2.5 px-3 rounded-lg my-2">
+            <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
+            </span>
+            <i data-lucide="video" class="w-4 h-4"></i> מפגש זום חי — חינם
+        </a>
         <a href="${DEMO_URL}" target="_blank" rel="noopener" class="block text-brand-400 font-bold py-1">▶ דמו חי</a>
         <a href="pricing.html" onclick="toggleMobileMenu();"
             class="block w-full text-center bg-brand-400 hover:bg-brand-300 text-navy-950 px-4 py-3 rounded-lg font-extrabold mt-2">התחילו עכשיו ←</a>
