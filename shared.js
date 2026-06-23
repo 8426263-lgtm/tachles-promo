@@ -9,13 +9,15 @@
 const PLANS = {
     desktop: {
         mode: 'pay',  // תשלום אוטומטי מיידי
-        buyUrl: 'https://app.upay.co.il/API6/clientsecure/redirectpage.php?msg=L2xGQVAxMFl1dTMzYXA4Y2tMSmZXR3BmWVVKMGh4YmZUMk1yci9ydVNnYkFpSHUxY05OeUNhMVJvbHh0bzJ6VktnYUJYUHhmTEFOaW14dHZZQ09vbWdEN0VON28zN1ZRQWlaVTlRTElNZGVvQ1FoZ0pLa0tCV2ZOR2VLcG9Hd1IvKzFuSW9sempiQ2I4TE53NHNvZWtQb3c5MzVyMTMyakRMQ2s2N21DOExCZ2tRQnNSaXJ1THNCT3ZzdnVjbWhBL3N3U1V1R0hkUEFWUmQ0OFFQWTdHQT09',
+        // לינק uPay — Desktop 850 ₪ (מחיר השקה, עודכן 2026-06-23)
+        buyUrl: 'https://app.upay.co.il/API6/s.php?m=MHBHd1hXNkNCYW95UnRHTVdTNElXUT09',
         licenseLine: 'הרכישה מקנה רישיון שימוש לכל החיים למחשב אחד, ללא דמי מנוי.',
         refundLine: 'המוצר הינו מוצר דיגיטלי. בהתאם לחוק, <strong>לא יינתן החזר כספי</strong> לאחר קבלת קוד הרישוי.',
     },
     web: {
         mode: 'pay',  // תשלום אוטומטי מיידי — גישה לאתר נפתחת מיד אחרי התשלום
-        buyUrl: 'https://app.upay.co.il/API6/s.php?m=TDA5Ulk3OFBGUThWOCtvWHptN0w5dz09',
+        // לינק uPay — Web 1030 ₪ (מחיר השקה, עודכן 2026-06-23)
+        buyUrl: 'https://app.upay.co.il/API6/s.php?m=VWkyY1RKOGlLT2hmRW9HMUd6Q3d6QT09',
         leadUrl: 'demo.html#zoom-form',
         licenseLine: 'הרכישה מקנה רישיון שימוש בגרסת הענן (Web), עם גישה מכל דפדפן ומכשיר וגיבוי ענן אוטומטי. הגישה לאתר נפתחת מיד עם השלמת התשלום, לפי כתובת המייל שאיתה תזדהו במערכת. מהשנה השנייה — 170 ₪/שנה דמי אחסון בענן בלבד.',
         refundLine: 'המוצר הינו מוצר דיגיטלי המאפשר גישה מיידית. בהתאם לחוק, <strong>לא יינתן החזר כספי</strong> לאחר פתיחת הגישה לאתר.',
