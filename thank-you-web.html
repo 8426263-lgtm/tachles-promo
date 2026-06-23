@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>תודה על הרכישה! — תכל'ס Web</title>
+    <link rel="icon" type="image/x-icon" href="תכלס.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="shared.css">
+    <script>
+        tailwind.config = { theme: { extend: { colors: { brand: {
+            50:'#f7fee7',100:'#ecfccb',200:'#d9f99d',300:'#bef264',400:'#a3e635',
+            500:'#84cc16',600:'#65a30d',700:'#4d7c0f',800:'#3f6212',900:'#365314',950:'#1a2e05' },
+            navy: {
+            50:'#eef0f3',100:'#dadde3',300:'#8c93a3',500:'#3f4654',700:'#2b303d',
+            800:'#202430',900:'#161c27',950:'#101721' } } } } }
+    </script>
+    <style>
+        @keyframes pop { 0%{transform:scale(0.6);opacity:0} 60%{transform:scale(1.08)} 100%{transform:scale(1);opacity:1} }
+        .pop { animation: pop .5s cubic-bezier(.22,1,.36,1) both; }
+        .step-num { width:2.5rem;height:2.5rem;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:9999px;font-weight:900; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+<header id="navbar" class="fixed w-full top-0 z-50 bg-slate-900/95 backdrop-blur border-b border-slate-800/60"></header>
+
+<main class="pt-28 pb-20 px-4">
+    <div class="max-w-2xl mx-auto">
+
+        <!-- כותרת הצלחה -->
+        <div class="text-center mb-10">
+            <div class="pop inline-flex items-center justify-center w-20 h-20 rounded-full bg-brand-100 text-brand-600 mb-5">
+                <i data-lucide="check" class="w-11 h-11" stroke-width="3"></i>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-3">התשלום התקבל — תודה רבה! 🎉</h1>
+            <p class="text-lg text-slate-600 leading-relaxed">
+                רכשת את <strong class="text-slate-900">תכל'ס Web</strong> — גישה מכל דפדפן, מכל מקום.<br>
+                הגישה שלך נפתחת ממש עכשיו.
+            </p>
+        </div>
+
+        <!-- בלוק המייל בדרך -->
+        <div class="bg-white rounded-2xl border border-brand-200 shadow-sm p-6 mb-8 flex items-start gap-4">
+            <div class="bg-brand-100 text-brand-600 rounded-xl w-12 h-12 flex items-center justify-center shrink-0">
+                <i data-lucide="mail-check" class="w-6 h-6"></i>
+            </div>
+            <div>
+                <h2 class="font-black text-slate-900 text-lg mb-1">מייל עם קישור כניסה בדרך אליך 📩</h2>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    תוך כמה דקות יגיע אליך מייל עם <strong>קישור לכניסה וקביעת סיסמה</strong>.
+                    אם הוא לא מופיע — <strong>בדוק בתיקיית הספאם / קידומי מכירות</strong>.
+                </p>
+            </div>
+        </div>
+
+        <!-- מה עכשיו — 3 צעדים -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-8 mb-8">
+            <h2 class="font-black text-slate-900 text-xl mb-6 flex items-center gap-2">
+                <i data-lucide="list-checks" class="w-6 h-6 text-brand-600"></i> מה עכשיו? 3 צעדים פשוטים
+            </h2>
+            <ol class="space-y-6">
+                <li class="flex items-start gap-4">
+                    <span class="step-num bg-brand-100 text-brand-700">1</span>
+                    <div>
+                        <p class="font-bold text-slate-900">פתח את המייל שקיבלת</p>
+                        <p class="text-slate-500 text-sm mt-0.5">חשוב: השתמש באותה כתובת מייל שאיתה שילמת — הגישה נפתחה לפיה.</p>
+                    </div>
+                </li>
+                <li class="flex items-start gap-4">
+                    <span class="step-num bg-brand-100 text-brand-700">2</span>
+                    <div>
+                        <p class="font-bold text-slate-900">לחץ על קישור הכניסה וקבע סיסמה</p>
+                        <p class="text-slate-500 text-sm mt-0.5">פעם אחת בלבד — אחרי זה אתה נכנס עם המייל והסיסמה שבחרת.</p>
+                    </div>
+                </li>
+                <li class="flex items-start gap-4">
+                    <span class="step-num bg-brand-100 text-brand-700">3</span>
+                    <div>
+                        <p class="font-bold text-slate-900">התחל לעבוד — מכל דפדפן, מכל מקום</p>
+                        <p class="text-slate-500 text-sm mt-0.5">הנתונים שלך בענן, מגובים אוטומטית. נכנסים מהמחשב, מהנייד, מכל מקום. ✅</p>
+                    </div>
+                </li>
+            </ol>
+            <a href="https://tacles.vercel.app/" target="_blank" rel="noopener"
+               class="mt-7 inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-400 text-navy-950 font-extrabold px-6 py-3.5 rounded-xl transition shadow-lg shadow-brand-500/30">
+                <i data-lucide="external-link" class="w-5 h-5"></i> לכניסה לתכל'ס Web ←
+            </a>
+        </div>
+
+        <!-- טופס גיבוי -->
+        <div id="backup-form" class="bg-slate-100 rounded-2xl border border-slate-200 p-6 mb-8">
+            <h2 class="font-bold text-slate-900 mb-1 flex items-center gap-2">
+                <i data-lucide="shield-check" class="w-5 h-5 text-slate-500"></i> רוצה לוודא שלא נפספס אותך?
+            </h2>
+            <p class="text-slate-500 text-sm mb-4">
+                השאר כאן את המייל שאיתו שילמת — כך נוודא שהגישה נפתחה גם אם משהו השתבש. <strong>זה לא חובה</strong>, הכל כבר עובד אוטומטית.
+            </p>
+            <form id="emailForm" class="flex flex-col sm:flex-row gap-3">
+                <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
+                <input id="emailInput" type="email" required placeholder="המייל שאיתו שילמת"
+                       class="flex-1 px-4 py-3 rounded-xl border border-slate-300 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none transition text-slate-800">
+                <button type="submit" id="submitBtn"
+                        class="bg-navy-900 hover:bg-navy-800 text-white font-bold px-6 py-3 rounded-xl transition flex items-center justify-center gap-2 whitespace-nowrap">
+                    <i data-lucide="send" class="w-4 h-4"></i> שלח
+                </button>
+            </form>
+            <p id="formMsg" class="text-sm mt-3 hidden"></p>
+        </div>
+
+        <!-- תמיכה -->
+        <div class="text-center text-slate-500 text-sm">
+            <p>נתקעת? נשמח לעזור —
+                <a href="mailto:tachles263@gmail.com" class="text-brand-700 hover:text-brand-600 font-bold">tachles263@gmail.com</a>
+                <span class="text-slate-400">(מענה תוך 24 שעות בימי עבודה)</span>
+            </p>
+        </div>
+
+    </div>
+</main>
+
+<footer id="site-footer" class="bg-slate-900 text-white border-t border-slate-800"></footer>
+
+<script src="shared.js"></script>
+<script>
+    const API_BASE = 'https://tacles.vercel.app';
+    const PRODUCT = 'web';
+
+    document.getElementById('emailForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('emailInput').value.trim();
+        const honeypot = e.target.website.value;
+        const btn = document.getElementById('submitBtn');
+        const msg = document.getElementById('formMsg');
+
+        btn.disabled = true;
+        btn.innerHTML = 'שולח...';
+
+        try {
+            const r = await fetch(`${API_BASE}/api/upay/collect-email`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, product: PRODUCT, website: honeypot }),
+            });
+            msg.classList.remove('hidden');
+            if (r.ok) {
+                msg.className = 'text-sm mt-3 text-brand-700 font-bold';
+                msg.innerHTML = '✅ קיבלנו! נוודא שהכל פתוח עבורך. אפשר להמשיך לפי הצעדים למעלה.';
+                document.getElementById('emailForm').style.display = 'none';
+            } else {
+                throw new Error('failed');
+            }
+        } catch (err) {
+            msg.classList.remove('hidden');
+            msg.className = 'text-sm mt-3 text-red-600';
+            msg.innerHTML = 'לא הצלחנו לשלוח. אפשר לכתוב לנו ישירות: tachles263@gmail.com';
+            btn.disabled = false;
+            btn.innerHTML = '<i data-lucide="send" class="w-4 h-4"></i> שלח';
+            if (window.lucide) lucide.createIcons();
+        }
+    });
+
+    if (window.lucide) lucide.createIcons();
+</script>
+</body>
+</html>
