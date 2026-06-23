@@ -36,19 +36,19 @@
         <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-8">אין חיוב חודשי, אין הפתעות. בוחרים גרסה, משלמים פעם אחת, עובדים.</p>
 
         <!-- טיימר מבצע השקה -->
-        <div id="promo-banner" class="inline-flex flex-col items-center gap-3 bg-red-600/95 backdrop-blur border border-red-400/40 rounded-2xl px-6 py-4 shadow-2xl shadow-red-900/40">
-            <div class="flex items-center gap-2 text-white font-black text-base md:text-lg">
+        <div id="promo-banner" class="inline-flex flex-col items-center gap-4 bg-navy-900/80 backdrop-blur-md border border-brand-400/30 rounded-2xl px-7 py-5 shadow-2xl shadow-navy-950/50">
+            <div class="flex items-center gap-2 text-brand-400 font-black text-base md:text-lg">
                 <i data-lucide="flame" class="w-5 h-5"></i>
-                <span>מבצע השקה חד-פעמי — נגמר ביום חמישי בשעה 18:00</span>
+                <span>מבצע מיוחד — נגמר ביום חמישי 18:00</span>
             </div>
             <div id="countdown" class="flex items-center gap-2 md:gap-3" dir="ltr">
-                <div class="bg-white/15 rounded-lg px-3 py-2 min-w-[60px]"><span id="cd-days" class="block text-2xl md:text-3xl font-black text-white tabular-nums">--</span><span class="block text-[10px] text-red-100 font-bold">ימים</span></div>
-                <span class="text-white font-black text-2xl">:</span>
-                <div class="bg-white/15 rounded-lg px-3 py-2 min-w-[60px]"><span id="cd-hours" class="block text-2xl md:text-3xl font-black text-white tabular-nums">--</span><span class="block text-[10px] text-red-100 font-bold">שעות</span></div>
-                <span class="text-white font-black text-2xl">:</span>
-                <div class="bg-white/15 rounded-lg px-3 py-2 min-w-[60px]"><span id="cd-mins" class="block text-2xl md:text-3xl font-black text-white tabular-nums">--</span><span class="block text-[10px] text-red-100 font-bold">דקות</span></div>
-                <span class="text-white font-black text-2xl">:</span>
-                <div class="bg-white/15 rounded-lg px-3 py-2 min-w-[60px]"><span id="cd-secs" class="block text-2xl md:text-3xl font-black text-white tabular-nums">--</span><span class="block text-[10px] text-red-100 font-bold">שניות</span></div>
+                <div class="bg-navy-950/60 border border-white/5 rounded-xl px-3.5 py-2.5 min-w-[64px]"><span id="cd-days" class="block text-3xl md:text-4xl font-black text-brand-400 tabular-nums leading-none">--</span><span class="block text-[10px] text-slate-400 font-bold mt-1.5">ימים</span></div>
+                <span class="text-brand-400/50 font-black text-2xl pb-4">:</span>
+                <div class="bg-navy-950/60 border border-white/5 rounded-xl px-3.5 py-2.5 min-w-[64px]"><span id="cd-hours" class="block text-3xl md:text-4xl font-black text-brand-400 tabular-nums leading-none">--</span><span class="block text-[10px] text-slate-400 font-bold mt-1.5">שעות</span></div>
+                <span class="text-brand-400/50 font-black text-2xl pb-4">:</span>
+                <div class="bg-navy-950/60 border border-white/5 rounded-xl px-3.5 py-2.5 min-w-[64px]"><span id="cd-mins" class="block text-3xl md:text-4xl font-black text-brand-400 tabular-nums leading-none">--</span><span class="block text-[10px] text-slate-400 font-bold mt-1.5">דקות</span></div>
+                <span class="text-brand-400/50 font-black text-2xl pb-4">:</span>
+                <div class="bg-navy-950/60 border border-white/5 rounded-xl px-3.5 py-2.5 min-w-[64px]"><span id="cd-secs" class="block text-3xl md:text-4xl font-black text-white tabular-nums leading-none">--</span><span class="block text-[10px] text-slate-400 font-bold mt-1.5">שניות</span></div>
             </div>
         </div>
     </div>
@@ -71,9 +71,16 @@
                 </div>
                 <p class="text-slate-600 text-sm leading-relaxed mb-6">מתקינים את התוכנה על המחשב, וכל הנתונים נשמרים אצלך מקומית. עובד גם בלי חיבור לאינטרנט. משלמים פעם אחת — שלך לתמיד, בלי תשלום חודשי.</p>
                 <div class="mb-6">
-                    <div class="flex items-center gap-2 mb-1"><span class="text-slate-400 line-through text-lg">930 ₪</span><span class="bg-red-100 text-red-700 text-xs font-extrabold px-2 py-0.5 rounded-full">מבצע השקה</span></div>
+                    <!-- 3 שלבי מחיר: מלא → השקה → מבצע מיוחד -->
+                    <div class="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2">
+                        <span class="text-slate-400 line-through text-base">מחיר מלא 1,250 ₪</span>
+                        <span class="text-slate-400 line-through text-base">השקה 930 ₪</span>
+                    </div>
+                    <div class="inline-flex items-center gap-2 bg-brand-100 text-brand-800 px-3 py-1 rounded-full text-xs font-extrabold mb-2">
+                        <i data-lucide="flame" class="w-3.5 h-3.5"></i> מבצע מיוחד — עד יום חמישי בלבד
+                    </div>
                     <div class="flex items-baseline gap-2"><span class="text-2xl font-bold text-slate-400">3 ×</span><span class="text-6xl font-extrabold text-slate-900 stat-number">283</span><span class="text-2xl font-bold text-slate-400">₪</span></div>
-                    <p class="text-brand-700 font-bold text-sm mt-1">רק 3 תשלומים <span class="text-slate-400 line-through font-normal">(850 ₪)</span> — ושלך לכל החיים. 0 ₪ חיוב חודשי.</p>
+                    <p class="text-brand-700 font-bold text-sm mt-1">סה״כ <span class="font-black">850 ₪</span> — 3 תשלומים, שלך לכל החיים. 0 ₪ חיוב חודשי.</p>
                 </div>
                 <ul class="space-y-3 mb-8 flex-1">
                     <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>כל המודולים — לקוחות, פרויקטים, כספים, מסים, לידים</li>
@@ -102,9 +109,16 @@
                 </div>
                 <p class="text-slate-600 text-sm leading-relaxed mb-6">עובדים מהדפדפן — מהמשרד, מהבית, מהנייד, מכל מחשב. אין מה להתקין. הנתונים שמורים בענן עם גיבוי אוטומטי, וכל עדכון מגיע אליך מאליו.</p>
                 <div class="mb-6">
-                    <div class="flex items-center gap-2 mb-1"><span class="text-slate-400 line-through text-lg">1,130 ₪</span><span class="bg-red-100 text-red-700 text-xs font-extrabold px-2 py-0.5 rounded-full">מבצע השקה</span></div>
+                    <!-- 3 שלבי מחיר: מלא → השקה → מבצע מיוחד -->
+                    <div class="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2">
+                        <span class="text-slate-400 line-through text-base">מחיר מלא 1,450 ₪</span>
+                        <span class="text-slate-400 line-through text-base">השקה 1,130 ₪</span>
+                    </div>
+                    <div class="inline-flex items-center gap-2 bg-brand-100 text-brand-800 px-3 py-1 rounded-full text-xs font-extrabold mb-2">
+                        <i data-lucide="flame" class="w-3.5 h-3.5"></i> מבצע מיוחד — עד יום חמישי בלבד
+                    </div>
                     <div class="flex items-baseline gap-2"><span class="text-2xl font-bold text-slate-400">4 ×</span><span class="text-6xl font-extrabold text-slate-900 stat-number">258</span><span class="text-2xl font-bold text-slate-400">₪</span><span class="text-brand-600 font-bold text-lg">*</span></div>
-                    <p class="text-slate-500 font-bold text-sm mt-1">רק 4 תשלומים <span class="text-slate-400 line-through font-normal">(1,030 ₪)</span> — התוכנה לכל החיים. <span class="text-slate-400">* מהשנה השנייה — 170 ₪/שנה דמי אחסון בענן בלבד.</span></p>
+                    <p class="text-slate-500 font-bold text-sm mt-1">סה״כ <span class="font-black text-slate-700">1,030 ₪</span> — 4 תשלומים, התוכנה לכל החיים. <span class="text-slate-400">* מהשנה השנייה — 170 ₪/שנה דמי אחסון בענן בלבד.</span></p>
                 </div>
                 <ul class="space-y-3 mb-8 flex-1">
                     <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-navy-500 shrink-0 mt-0.5"></i>כל המודולים — לקוחות, פרויקטים, כספים, מסים, לידים</li>
@@ -180,8 +194,8 @@
             if (diff <= 0) {
                 // המבצע הסתיים — מחליפים את הבאנר בהודעה
                 if (banner) banner.innerHTML =
-                    '<div class="flex items-center gap-2 text-white font-black text-base md:text-lg">' +
-                    '<i data-lucide="clock" class="w-5 h-5"></i><span>מבצע ההשקה הסתיים — אך עדיין אפשר לרכוש במחיר הנוכחי</span></div>';
+                    '<div class="flex items-center gap-2 text-brand-400 font-black text-base md:text-lg">' +
+                    '<i data-lucide="clock" class="w-5 h-5"></i><span>המבצע המיוחד הסתיים — אך עדיין אפשר לרכוש במחיר השקה</span></div>';
                 if (window.lucide) lucide.createIcons();
                 return false; // עוצר את הלולאה
             }
