@@ -309,7 +309,7 @@ function openPayModal(url) {
         document.body.appendChild(m);
     }
     m.innerHTML = `
-        <div class="bg-white rounded-2xl w-full max-w-md h-[88vh] max-h-[760px] overflow-hidden flex flex-col shadow-2xl">
+        <div class="bg-white rounded-2xl w-full max-w-2xl h-[94vh] max-h-[900px] overflow-hidden flex flex-col shadow-2xl">
             <div class="px-4 py-3 border-b flex justify-between items-center bg-slate-50 shrink-0">
                 <span class="text-sm font-bold text-slate-700 flex items-center gap-2">
                     <i data-lucide="lock" class="w-4 h-4 text-brand-600"></i> תשלום מאובטח — uPay
@@ -318,9 +318,9 @@ function openPayModal(url) {
             </div>
             <iframe src="${url}" class="flex-1 w-full border-0" title="תשלום מאובטח"
                     allow="payment" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            <div class="px-4 py-2.5 border-t bg-slate-50 text-center shrink-0">
-                <button onclick="openPayInWindow()" class="text-xs text-slate-500 hover:text-brand-700 transition underline">
-                    התשלום לא נטען? פתח בחלון מלא ←
+            <div class="px-4 py-3 border-t bg-slate-50 text-center shrink-0">
+                <button onclick="openPayInWindow()" class="inline-flex items-center gap-2 bg-brand-100 hover:bg-brand-200 text-brand-800 font-bold text-sm px-5 py-2.5 rounded-lg transition">
+                    <i data-lucide="external-link" class="w-4 h-4"></i> התשלום לא נטען? פתח בחלון מלא ←
                 </button>
             </div>
         </div>`;
