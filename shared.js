@@ -309,7 +309,7 @@ function openPayModal(url) {
         document.body.appendChild(m);
     }
     m.innerHTML = `
-        <div class="bg-white rounded-2xl w-[96vw] max-w-6xl h-[94vh] max-h-[900px] overflow-hidden flex flex-col shadow-2xl">
+        <div class="bg-white rounded-2xl w-full max-w-lg h-[94vh] max-h-[880px] overflow-hidden flex flex-col shadow-2xl">
             <div class="px-4 py-3 border-b flex justify-between items-center bg-slate-50 shrink-0">
                 <span class="text-sm font-bold text-slate-700 flex items-center gap-2">
                     <i data-lucide="lock" class="w-4 h-4 text-brand-600"></i> תשלום מאובטח — uPay
