@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>מחירון — תכל'ס | רכישה אחת, שימוש לנצח</title>
-    <meta name="description" content="מחירון תכל'ס — מבצע השקה: Desktop ב-3 תשלומים של 283₪ ו-Web ב-4 תשלומים של 258₪ — התוכנה לכל החיים, בלי מנוי חודשי. אותה מערכת, אתה בוחר איפה. ובקרוב גרסת פרימיום עם אחסון ענן.">
+    <meta name="description" content="מחירון תכל'ס — מחיר השקה: Desktop ב-3 תשלומים של 310₪ (930₪) ו-Web ב-1,130₪ עד 4 תשלומים — התוכנה לכל החיים, בלי מנוי חודשי. אותה מערכת, אתה בוחר איפה. ובקרוב גרסת פרימיום עם אחסון ענן.">
     <link rel="icon" type="image/x-icon" href="תכלס.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -35,21 +35,13 @@
         <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter mb-5">רכישה אחת.<br><span class="text-brand-400">שימוש לנצח.</span></h1>
         <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-8">אין חיוב חודשי, אין הפתעות. בוחרים גרסה, משלמים פעם אחת, עובדים.</p>
 
-        <!-- טיימר מבצע השקה -->
-        <div id="promo-banner" class="inline-flex flex-col items-center gap-4 bg-navy-900/80 backdrop-blur-md border border-brand-400/30 rounded-2xl px-7 py-5 shadow-2xl shadow-navy-950/50">
+        <!-- באנר מחיר השקה -->
+        <div id="promo-banner" class="inline-flex flex-col items-center gap-2 bg-navy-900/80 backdrop-blur-md border border-brand-400/30 rounded-2xl px-7 py-5 shadow-2xl shadow-navy-950/50">
             <div class="flex items-center gap-2 text-brand-400 font-black text-base md:text-lg">
-                <i data-lucide="flame" class="w-5 h-5"></i>
-                <span>מבצע מיוחד — נגמר ביום חמישי 18:00</span>
+                <i data-lucide="rocket" class="w-5 h-5"></i>
+                <span>מחיר השקה — לרוכשים הראשונים בלבד</span>
             </div>
-            <div id="countdown" class="flex items-center gap-2 md:gap-3" dir="ltr">
-                <div class="bg-navy-950/60 border border-white/5 rounded-xl px-3.5 py-2.5 min-w-[64px]"><span id="cd-days" class="block text-3xl md:text-4xl font-black text-brand-400 tabular-nums leading-none">--</span><span class="block text-[10px] text-slate-400 font-bold mt-1.5">ימים</span></div>
-                <span class="text-brand-400/50 font-black text-2xl pb-4">:</span>
-                <div class="bg-navy-950/60 border border-white/5 rounded-xl px-3.5 py-2.5 min-w-[64px]"><span id="cd-hours" class="block text-3xl md:text-4xl font-black text-brand-400 tabular-nums leading-none">--</span><span class="block text-[10px] text-slate-400 font-bold mt-1.5">שעות</span></div>
-                <span class="text-brand-400/50 font-black text-2xl pb-4">:</span>
-                <div class="bg-navy-950/60 border border-white/5 rounded-xl px-3.5 py-2.5 min-w-[64px]"><span id="cd-mins" class="block text-3xl md:text-4xl font-black text-brand-400 tabular-nums leading-none">--</span><span class="block text-[10px] text-slate-400 font-bold mt-1.5">דקות</span></div>
-                <span class="text-brand-400/50 font-black text-2xl pb-4">:</span>
-                <div class="bg-navy-950/60 border border-white/5 rounded-xl px-3.5 py-2.5 min-w-[64px]"><span id="cd-secs" class="block text-3xl md:text-4xl font-black text-white tabular-nums leading-none">--</span><span class="block text-[10px] text-slate-400 font-bold mt-1.5">שניות</span></div>
-            </div>
+            <p class="text-slate-300 text-sm">נועלים עכשיו את המחיר לנצח — כולל כל העדכונים העתידיים.</p>
         </div>
     </div>
 </section>
@@ -71,16 +63,15 @@
                 </div>
                 <p class="text-slate-600 text-sm leading-relaxed mb-6">מתקינים את התוכנה על המחשב, וכל הנתונים נשמרים אצלך מקומית. עובד גם בלי חיבור לאינטרנט. משלמים פעם אחת — שלך לתמיד, בלי תשלום חודשי.</p>
                 <div class="mb-6">
-                    <!-- 3 שלבי מחיר: מלא → השקה → מבצע מיוחד -->
+                    <!-- מחיר השקה: מלא → השקה -->
                     <div class="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2">
                         <span class="text-slate-400 line-through text-base">מחיר מלא 1,250 ₪</span>
-                        <span class="text-slate-400 line-through text-base">השקה 930 ₪</span>
                     </div>
                     <div class="inline-flex items-center gap-2 bg-brand-100 text-brand-800 px-3 py-1 rounded-full text-xs font-extrabold mb-2">
-                        <i data-lucide="flame" class="w-3.5 h-3.5"></i> מבצע מיוחד — עד יום חמישי בלבד
+                        <i data-lucide="rocket" class="w-3.5 h-3.5"></i> מחיר השקה
                     </div>
-                    <div class="flex items-baseline gap-2"><span class="text-2xl font-bold text-slate-400">3 ×</span><span class="text-6xl font-extrabold text-slate-900 stat-number">283</span><span class="text-2xl font-bold text-slate-400">₪</span></div>
-                    <p class="text-brand-700 font-bold text-sm mt-1">סה״כ <span class="font-black">850 ₪</span> — 3 תשלומים, שלך לכל החיים. 0 ₪ חיוב חודשי.</p>
+                    <div class="flex items-baseline gap-2"><span class="text-2xl font-bold text-slate-400">3 ×</span><span class="text-6xl font-extrabold text-slate-900 stat-number">310</span><span class="text-2xl font-bold text-slate-400">₪</span></div>
+                    <p class="text-brand-700 font-bold text-sm mt-1">סה״כ <span class="font-black">930 ₪</span> — 3 תשלומים, שלך לכל החיים. 0 ₪ חיוב חודשי.</p>
                 </div>
                 <ul class="space-y-3 mb-8 flex-1">
                     <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>כל המודולים — לקוחות, פרויקטים, כספים, מסים, לידים</li>
@@ -109,16 +100,15 @@
                 </div>
                 <p class="text-slate-600 text-sm leading-relaxed mb-6">עובדים מהדפדפן — מהמשרד, מהבית, מהנייד, מכל מחשב. אין מה להתקין. הנתונים שמורים בענן עם גיבוי אוטומטי, וכל עדכון מגיע אליך מאליו.</p>
                 <div class="mb-6">
-                    <!-- 3 שלבי מחיר: מלא → השקה → מבצע מיוחד -->
+                    <!-- מחיר השקה: מלא → השקה -->
                     <div class="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2">
                         <span class="text-slate-400 line-through text-base">מחיר מלא 1,450 ₪</span>
-                        <span class="text-slate-400 line-through text-base">השקה 1,130 ₪</span>
                     </div>
                     <div class="inline-flex items-center gap-2 bg-brand-100 text-brand-800 px-3 py-1 rounded-full text-xs font-extrabold mb-2">
-                        <i data-lucide="flame" class="w-3.5 h-3.5"></i> מבצע מיוחד — עד יום חמישי בלבד
+                        <i data-lucide="rocket" class="w-3.5 h-3.5"></i> מחיר השקה
                     </div>
-                    <div class="flex items-baseline gap-2"><span class="text-2xl font-bold text-slate-400">4 ×</span><span class="text-6xl font-extrabold text-slate-900 stat-number">258</span><span class="text-2xl font-bold text-slate-400">₪</span><span class="text-brand-600 font-bold text-lg">*</span></div>
-                    <p class="text-slate-500 font-bold text-sm mt-1">סה״כ <span class="font-black text-slate-700">1,030 ₪</span> — 4 תשלומים, התוכנה לכל החיים. <span class="text-slate-400">* מהשנה השנייה — 170 ₪/שנה דמי אחסון בענן בלבד.</span></p>
+                    <div class="flex items-baseline gap-2"><span class="text-6xl font-extrabold text-slate-900 stat-number">1,130</span><span class="text-2xl font-bold text-slate-400">₪</span><span class="text-brand-600 font-bold text-lg">*</span></div>
+                    <p class="text-slate-500 font-bold text-sm mt-1">עד <span class="font-black text-slate-700">4 תשלומים</span> — התוכנה לכל החיים. <span class="text-slate-400">* מהשנה השנייה — 170 ₪/שנה דמי אחסון בענן בלבד.</span></p>
                 </div>
                 <ul class="space-y-3 mb-8 flex-1">
                     <li class="flex items-start gap-2 text-slate-600 text-sm"><i data-lucide="check-circle" class="w-5 h-5 text-navy-500 shrink-0 mt-0.5"></i>כל המודולים — לקוחות, פרויקטים, כספים, מסים, לידים</li>
@@ -182,37 +172,6 @@
         window.addEventListener('scroll', () => {
             document.getElementById('back-to-top').classList.toggle('show', window.scrollY > 400);
         });
-
-        // טיימר מבצע השקה — נגמר יום חמישי 25/6/2026 בשעה 18:00 (שעון ישראל = UTC+3)
-        const DEADLINE = new Date('2026-06-25T18:00:00+03:00').getTime();
-        const banner = document.getElementById('promo-banner');
-        const el = id => document.getElementById(id);
-        const pad = n => String(n).padStart(2, '0');
-
-        function tick() {
-            const diff = DEADLINE - Date.now();
-            if (diff <= 0) {
-                // המבצע הסתיים — מחליפים את הבאנר בהודעה
-                if (banner) banner.innerHTML =
-                    '<div class="flex items-center gap-2 text-brand-400 font-black text-base md:text-lg">' +
-                    '<i data-lucide="clock" class="w-5 h-5"></i><span>המבצע המיוחד הסתיים — אך עדיין אפשר לרכוש במחיר השקה</span></div>';
-                if (window.lucide) lucide.createIcons();
-                return false; // עוצר את הלולאה
-            }
-            const d = Math.floor(diff / 86400000);
-            const h = Math.floor((diff % 86400000) / 3600000);
-            const m = Math.floor((diff % 3600000) / 60000);
-            const s = Math.floor((diff % 60000) / 1000);
-            if (el('cd-days')) el('cd-days').textContent = pad(d);
-            if (el('cd-hours')) el('cd-hours').textContent = pad(h);
-            if (el('cd-mins')) el('cd-mins').textContent = pad(m);
-            if (el('cd-secs')) el('cd-secs').textContent = pad(s);
-            return true;
-        }
-
-        if (tick()) {
-            const timer = setInterval(() => { if (!tick()) clearInterval(timer); }, 1000);
-        }
     });
 </script>
 </body>

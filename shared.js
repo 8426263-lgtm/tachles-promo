@@ -9,15 +9,15 @@
 const PLANS = {
     desktop: {
         mode: 'pay',  // תשלום אוטומטי מיידי
-        // לינק uPay — Desktop 850 ₪ (מחיר השקה, עודכן 2026-06-23)
-        buyUrl: 'https://app.upay.co.il/API6/s.php?m=MHBHd1hXNkNCYW95UnRHTVdTNElXUT09',
+        // לינק uPay — Desktop 930 ₪ (מחיר השקה, עודכן 2026-06-26 — סיום מבצע, קישור חדש)
+        buyUrl: 'https://app.upay.co.il/API6/s.php?m=aUZzRTZuNE0zT2pWeG8wdExKQlptZz09',
         licenseLine: 'הרכישה מקנה רישיון שימוש לכל החיים למחשב אחד, ללא דמי מנוי.',
         refundLine: 'המוצר הינו מוצר דיגיטלי. בהתאם לחוק, <strong>לא יינתן החזר כספי</strong> לאחר קבלת קוד הרישוי.',
     },
     web: {
         mode: 'pay',  // תשלום אוטומטי מיידי — גישה לאתר נפתחת מיד אחרי התשלום
-        // לינק uPay — Web 1030 ₪ (מחיר השקה, עודכן 2026-06-23)
-        buyUrl: 'https://app.upay.co.il/API6/s.php?m=VWkyY1RKOGlLT2hmRW9HMUd6Q3d6QT09',
+        // לינק uPay — Web 1130 ₪ (מחיר השקה, עודכן 2026-06-26 — סיום מבצע, קישור חדש)
+        buyUrl: 'https://app.upay.co.il/API6/s.php?m=c2NmZ2dIcytXTEptOWNDdVcrYWR1dz09',
         leadUrl: 'demo.html#zoom-form',
         licenseLine: 'הרכישה מקנה רישיון שימוש בגרסת הענן (Web), עם גישה מכל דפדפן ומכשיר וגיבוי ענן אוטומטי. הגישה לאתר נפתחת מיד עם השלמת התשלום, לפי כתובת המייל שאיתה תזדהו במערכת. מהשנה השנייה — 170 ₪/שנה דמי אחסון בענן בלבד.',
         refundLine: 'המוצר הינו מוצר דיגיטלי המאפשר גישה מיידית. בהתאם לחוק, <strong>לא יינתן החזר כספי</strong> לאחר פתיחת הגישה לאתר.',
@@ -288,12 +288,56 @@ function proceedToBuy() {
     closeTerms();
     const plan = PLANS[selectedPlan] || PLANS.desktop;
     if (plan.mode === 'pay' && plan.buyUrl) {
-        window.open(plan.buyUrl, '_blank');
+        openPayModal(plan.buyUrl);  // תשלום מוטמע בתוך הדף (iframe), בלי חלון קופץ
     } else {
         window.location.href = plan.leadUrl;  // נפילה בטוחה — בלי חלון uPay ריק
     }
 }
 function approveAndPay() { proceedToBuy(); }
+
+/* ---------- מודאל תשלום מוטמע (iframe uPay) ---------- */
+// פותח את עמוד התשלום של uPay בתוך חלון על-גבי הדף, בלי טאב/חלון נפרד.
+// רשת ביטחון: כפתור "פתח בחלון מלא" נופל ל-window.open אם דף הסליקה הסופי חוסם iframe.
+let _payUrl = '';
+function openPayModal(url) {
+    _payUrl = url;
+    let m = document.getElementById('pay-modal');
+    if (!m) {
+        m = document.createElement('div');
+        m.id = 'pay-modal';
+        m.className = 'modal-overlay hidden';
+        document.body.appendChild(m);
+    }
+    m.innerHTML = `
+        <div class="bg-white rounded-2xl w-full max-w-md h-[88vh] max-h-[760px] overflow-hidden flex flex-col shadow-2xl">
+            <div class="px-4 py-3 border-b flex justify-between items-center bg-slate-50 shrink-0">
+                <span class="text-sm font-bold text-slate-700 flex items-center gap-2">
+                    <i data-lucide="lock" class="w-4 h-4 text-brand-600"></i> תשלום מאובטח — uPay
+                </span>
+                <button onclick="closePayModal()" class="text-slate-400 hover:text-slate-600 bg-slate-200 rounded-full p-1.5" aria-label="סגור"><i data-lucide="x" class="w-4 h-4"></i></button>
+            </div>
+            <iframe src="${url}" class="flex-1 w-full border-0" title="תשלום מאובטח"
+                    allow="payment" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="px-4 py-2.5 border-t bg-slate-50 text-center shrink-0">
+                <button onclick="openPayInWindow()" class="text-xs text-slate-500 hover:text-brand-700 transition underline">
+                    התשלום לא נטען? פתח בחלון מלא ←
+                </button>
+            </div>
+        </div>`;
+    if (window.lucide) lucide.createIcons();
+    m.classList.remove('hidden'); m.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+function closePayModal() {
+    const m = document.getElementById('pay-modal');
+    if (!m) return;
+    m.classList.add('hidden'); m.classList.remove('open');
+    m.innerHTML = '';  // עוצר את ה-iframe (מפסיק טעינה/תשלום ברקע)
+    document.body.style.overflow = '';
+}
+function openPayInWindow() {
+    if (_payUrl) window.open(_payUrl, '_blank');
+}
 
 // לייטבוקס
 function openLightbox(src) {
@@ -347,6 +391,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ESC סוגר מודלים
     document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') { closeTerms(); closeLightbox(); }
+        if (e.key === 'Escape') { closeTerms(); closeLightbox(); closePayModal(); }
     });
 });
