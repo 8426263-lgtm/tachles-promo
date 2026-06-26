@@ -95,14 +95,18 @@
             <p class="text-slate-500 text-sm mb-4">
                 השאר כאן את המייל שאיתו שילמת — כך נוודא שהגישה נפתחה גם אם משהו השתבש. <strong>זה לא חובה</strong>, הכל כבר עובד אוטומטית.
             </p>
-            <form id="emailForm" class="flex flex-col sm:flex-row gap-3">
+            <form id="emailForm" class="flex flex-col gap-3">
                 <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
+                <input id="nameInput" type="text" placeholder="השם שלך (לחשבונית ולתמיכה)"
+                       class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none transition text-slate-800">
+                <div class="flex flex-col sm:flex-row gap-3">
                 <input id="emailInput" type="email" required placeholder="המייל שאיתו שילמת"
                        class="flex-1 px-4 py-3 rounded-xl border border-slate-300 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none transition text-slate-800">
                 <button type="submit" id="submitBtn"
                         class="bg-navy-900 hover:bg-navy-800 text-white font-bold px-6 py-3 rounded-xl transition flex items-center justify-center gap-2 whitespace-nowrap">
                     <i data-lucide="send" class="w-4 h-4"></i> שלח
                 </button>
+                </div>
             </form>
             <p id="formMsg" class="text-sm mt-3 hidden"></p>
         </div>
@@ -129,6 +133,7 @@
     document.getElementById('emailForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const email = document.getElementById('emailInput').value.trim();
+        const fullName = document.getElementById('nameInput').value.trim();
         const honeypot = e.target.website.value;
         const btn = document.getElementById('submitBtn');
         const msg = document.getElementById('formMsg');
@@ -140,7 +145,7 @@
             const r = await fetch(`${API_BASE}/api/upay/collect-email`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, product: PRODUCT, website: honeypot }),
+                body: JSON.stringify({ email, fullName, product: PRODUCT, website: honeypot }),
             });
             msg.classList.remove('hidden');
             if (r.ok) {
