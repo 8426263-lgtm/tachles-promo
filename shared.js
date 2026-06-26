@@ -288,56 +288,12 @@ function proceedToBuy() {
     closeTerms();
     const plan = PLANS[selectedPlan] || PLANS.desktop;
     if (plan.mode === 'pay' && plan.buyUrl) {
-        openPayModal(plan.buyUrl);  // תשלום מוטמע בתוך הדף (iframe), בלי חלון קופץ
+        window.open(plan.buyUrl, '_blank');
     } else {
         window.location.href = plan.leadUrl;  // נפילה בטוחה — בלי חלון uPay ריק
     }
 }
 function approveAndPay() { proceedToBuy(); }
-
-/* ---------- מודאל תשלום מוטמע (iframe uPay) ---------- */
-// פותח את עמוד התשלום של uPay בתוך חלון על-גבי הדף, בלי טאב/חלון נפרד.
-// רשת ביטחון: כפתור "פתח בחלון מלא" נופל ל-window.open אם דף הסליקה הסופי חוסם iframe.
-let _payUrl = '';
-function openPayModal(url) {
-    _payUrl = url;
-    let m = document.getElementById('pay-modal');
-    if (!m) {
-        m = document.createElement('div');
-        m.id = 'pay-modal';
-        m.className = 'modal-overlay hidden';
-        document.body.appendChild(m);
-    }
-    m.innerHTML = `
-        <div class="bg-white rounded-2xl w-full max-w-lg h-[94vh] max-h-[880px] overflow-hidden flex flex-col shadow-2xl">
-            <div class="px-4 py-3 border-b flex justify-between items-center bg-slate-50 shrink-0">
-                <span class="text-sm font-bold text-slate-700 flex items-center gap-2">
-                    <i data-lucide="lock" class="w-4 h-4 text-brand-600"></i> תשלום מאובטח — uPay
-                </span>
-                <button onclick="closePayModal()" class="text-slate-400 hover:text-slate-600 bg-slate-200 rounded-full p-1.5" aria-label="סגור"><i data-lucide="x" class="w-4 h-4"></i></button>
-            </div>
-            <iframe src="${url}" class="flex-1 w-full border-0" title="תשלום מאובטח"
-                    allow="payment" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            <div class="px-4 py-3 border-t bg-slate-50 text-center shrink-0">
-                <button onclick="openPayInWindow()" class="inline-flex items-center gap-2 bg-brand-100 hover:bg-brand-200 text-brand-800 font-bold text-sm px-5 py-2.5 rounded-lg transition">
-                    <i data-lucide="external-link" class="w-4 h-4"></i> התשלום לא נטען? פתח בחלון מלא ←
-                </button>
-            </div>
-        </div>`;
-    if (window.lucide) lucide.createIcons();
-    m.classList.remove('hidden'); m.classList.add('open');
-    document.body.style.overflow = 'hidden';
-}
-function closePayModal() {
-    const m = document.getElementById('pay-modal');
-    if (!m) return;
-    m.classList.add('hidden'); m.classList.remove('open');
-    m.innerHTML = '';  // עוצר את ה-iframe (מפסיק טעינה/תשלום ברקע)
-    document.body.style.overflow = '';
-}
-function openPayInWindow() {
-    if (_payUrl) window.open(_payUrl, '_blank');
-}
 
 // לייטבוקס
 function openLightbox(src) {
@@ -391,6 +347,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ESC סוגר מודלים
     document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') { closeTerms(); closeLightbox(); closePayModal(); }
+        if (e.key === 'Escape') { closeTerms(); closeLightbox(); }
     });
 });
