@@ -42,7 +42,17 @@
             </div>
         </div>
 
-        <!-- הטבה: מחירי ההשקה של תכל׳ס (מחירון pricing.html). בלי תאריך סיום, כי לא נקבע -->
+        <!-- הסרטון הארוך על תכל׳ס, בנגן מלא. ממלאים LONG_VIDEO_ID למטה; ריק = הקטע מוסתר -->
+        <section id="long-video" class="hidden mt-12">
+            <h2 class="text-2xl font-black text-slate-900 mb-1">רוצים לראות את תכל׳ס בפעולה?</h2>
+            <p class="text-slate-600 text-sm mb-4">סרטון ארוך יותר על התוכנה</p>
+            <div class="bg-navy-950 rounded-2xl overflow-hidden shadow-xl aspect-video relative">
+                <iframe id="long-video-frame" class="absolute inset-0 w-full h-full" title="תכל׳ס בפעולה" loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <!-- הטבה: מחירי ההשקה של תכל׳ס (מחירון pricing.html), מתחת לסרטון הארוך -->
         <div class="mt-10 bg-white rounded-3xl border border-brand-200 shadow-sm p-6 md:p-8">
             <span class="inline-flex items-center gap-1.5 bg-brand-100 text-brand-800 text-xs font-bold px-3 py-1 rounded-full mb-3">
                 <i data-lucide="rocket" class="w-3.5 h-3.5"></i> מחירי השקה
@@ -76,12 +86,6 @@
             </div>
         </div>
 
-        <!-- הסרטון הארוך על תכל׳ס. ממלאים LONG_VIDEO_URL למטה; ריק = הכרטיס מוסתר -->
-        <a id="long-video" href="#" target="_blank" rel="noopener" class="hidden mt-6 bg-navy-950 hover:bg-navy-900 rounded-2xl p-5 transition items-center gap-4 text-white">
-            <i data-lucide="play-circle" class="w-10 h-10 text-brand-400 shrink-0"></i>
-            <span><strong class="block text-lg">רוצים לראות את תכל׳ס בפעולה?</strong><span class="text-sm text-slate-300">סרטון ארוך יותר על התוכנה</span></span>
-        </a>
-
         <!-- קישורים -->
         <h2 class="text-xl font-black text-slate-900 mt-10 mb-4">כל מה שקשור להדרכה</h2>
         <div class="grid sm:grid-cols-2 gap-4">
@@ -111,13 +115,11 @@
 <script>
     // מזהה הסרטון ביוטיוב (לא רשום), למשל 'dQw4w9WgXcQ'. ריק = מוצג "הסרטון בדרך"
     const VIDEO_ID = '';
-    // קישור לסרטון הארוך על תכל׳ס (יוטיוב לא רשום). ריק = הכרטיס מוסתר
-    const LONG_VIDEO_URL = 'https://youtu.be/z8eL7p2flRs';
-    if (LONG_VIDEO_URL) {
-        const a = document.getElementById('long-video');
-        a.href = LONG_VIDEO_URL;
-        a.classList.remove('hidden');
-        a.classList.add('flex');
+    // מזהה הסרטון הארוך על תכל׳ס ביוטיוב (לא רשום). ריק = הקטע מוסתר
+    const LONG_VIDEO_ID = 'z8eL7p2flRs';
+    if (LONG_VIDEO_ID) {
+        document.getElementById('long-video-frame').src = 'https://www.youtube.com/embed/' + LONG_VIDEO_ID + '?rel=0';
+        document.getElementById('long-video').classList.remove('hidden');
     }
     // אחרי תאריך הסיום (סוף היום, שעון ישראל) שורת התוקף מוסתרת כדי לא להציג תאריך שחלף
     if (Date.now() > new Date('2026-11-05T23:59:59+02:00').getTime()) {
