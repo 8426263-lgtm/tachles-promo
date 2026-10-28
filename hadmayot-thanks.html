@@ -49,6 +49,9 @@
             </span>
             <h2 class="text-2xl font-black text-slate-900 mb-1">ואם בא לכם לנהל גם את העסק בתכל׳ס</h2>
             <p class="text-slate-600 text-sm mb-6">תוכנת ניהול לעצמאים ולמשרדים: לקוחות, פרויקטים, כספים, מע"מ ושעות עבודה. כרגע במחירי השקה, ובסיומם המחירים יעלו. מי שרוכש עכשיו נועל את המחיר לכל החיים, כולל כל העדכונים העתידיים.</p>
+            <p id="deadline" class="flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-800 font-bold text-sm rounded-xl px-4 py-2.5 mb-6">
+                <i data-lucide="clock" class="w-4 h-4 shrink-0"></i> ההטבה בתוקף עד יום חמישי, 5.11.2026
+            </p>
             <div class="grid sm:grid-cols-2 gap-4">
                 <div class="rounded-2xl border border-brand-300 p-5">
                     <p class="font-black text-slate-900 text-lg">Desktop</p>
@@ -72,6 +75,12 @@
                 </a>
             </div>
         </div>
+
+        <!-- הסרטון הארוך על תכל׳ס. ממלאים LONG_VIDEO_URL למטה; ריק = הכרטיס מוסתר -->
+        <a id="long-video" href="#" target="_blank" rel="noopener" class="hidden mt-6 bg-navy-950 hover:bg-navy-900 rounded-2xl p-5 transition items-center gap-4 text-white">
+            <i data-lucide="play-circle" class="w-10 h-10 text-brand-400 shrink-0"></i>
+            <span><strong class="block text-lg">רוצים לראות את תכל׳ס בפעולה?</strong><span class="text-sm text-slate-300">סרטון ארוך יותר על התוכנה</span></span>
+        </a>
 
         <!-- קישורים -->
         <h2 class="text-xl font-black text-slate-900 mt-10 mb-4">כל מה שקשור להדרכה</h2>
@@ -102,6 +111,18 @@
 <script>
     // מזהה הסרטון ביוטיוב (לא רשום), למשל 'dQw4w9WgXcQ'. ריק = מוצג "הסרטון בדרך"
     const VIDEO_ID = '';
+    // קישור לסרטון הארוך על תכל׳ס (יוטיוב לא רשום). ריק = הכרטיס מוסתר
+    const LONG_VIDEO_URL = '';
+    if (LONG_VIDEO_URL) {
+        const a = document.getElementById('long-video');
+        a.href = LONG_VIDEO_URL;
+        a.classList.remove('hidden');
+        a.classList.add('flex');
+    }
+    // אחרי תאריך הסיום (סוף היום, שעון ישראל) שורת התוקף מוסתרת כדי לא להציג תאריך שחלף
+    if (Date.now() > new Date('2026-11-05T23:59:59+02:00').getTime()) {
+        document.getElementById('deadline').classList.add('hidden');
+    }
     if (VIDEO_ID) {
         const f = document.getElementById('video-frame');
         f.src = 'https://www.youtube.com/embed/' + VIDEO_ID + '?rel=0';
