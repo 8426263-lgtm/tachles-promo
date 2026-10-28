@@ -201,6 +201,18 @@
 <script>
     lucide.createIcons();
 
+    // מילוי מראש מקישור במייל: ?n=<שם פרטי>&e=<מייל>. בלי רווחי כיווניות נסתרים, ורק אם נראה כמו מייל
+    (function prefillFromLink() {
+        try {
+            const q = new URLSearchParams(window.location.search);
+            const clean = s => (s || '').replace(/[‎‏‪-‮]/g, '').trim();
+            const name = clean(q.get('n'));
+            const email = clean(q.get('e'));
+            if (name && !/[{}<>]/.test(name)) document.getElementById('f-name').value = name;
+            if (/^[^\s@{}<>]+@[^\s@{}<>]+\.[^\s@{}<>]+$/.test(email)) document.getElementById('f-email').value = email;
+        } catch { /* מילוי מראש הוא נוחות בלבד, שגיאה לא תעצור את הדף */ }
+    })();
+
     // ===== הרשמה → מערכת הלידים של דייטש, ואז מעבר לדף התודה עם הסרטון =====
     const LEADS_API   = 'https://office.daitsh.com/api/subscribe';
     const RECAPTCHA   = '6LcXzhMtAAAADSQZT7N-PaVJcNv4F6Okhtyyxve';
