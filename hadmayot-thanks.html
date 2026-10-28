@@ -24,11 +24,25 @@
 
 <header id="navbar" class="fixed w-full top-0 z-50 bg-slate-900/95 backdrop-blur border-b border-slate-800/60"></header>
 
-<main class="pt-28 pb-20 px-4">
+<style>
+    /* כניסה עדינה של אלמנטים בגלילה. בלי JS (או בלי תנועה מועדפת) הכל פשוט מוצג */
+    .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .js .reveal.in { opacity: 1; transform: none; }
+    .check-pop { animation: pop .6s cubic-bezier(.2,1.6,.4,1) both; }
+    @keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
+    @media (prefers-reduced-motion: reduce) {
+        .js .reveal { opacity: 1; transform: none; transition: none; }
+        .check-pop { animation: none; }
+    }
+</style>
+<main class="pt-28 pb-10 px-4">
     <div class="max-w-3xl mx-auto">
 
         <div class="text-center mb-8">
-            <h1 class="text-3xl md:text-4xl font-black text-slate-900 mb-3">תודה שנרשמתם, ההדרכה כאן</h1>
+            <span class="check-pop inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-400 text-navy-950 shadow-lg shadow-brand-500/40 mb-4">
+                <i data-lucide="check" class="w-9 h-9" stroke-width="3"></i>
+            </span>
+            <h1 class="text-3xl md:text-5xl font-black text-slate-900 mb-3">תודה שנרשמתם, ההדרכה כאן</h1>
             <p class="text-lg text-slate-600">כ-12 דקות. כדאי לצפות עם ChatGPT פתוח ליד. קישור לעמוד הזה נשלח גם למייל.</p>
         </div>
 
@@ -45,7 +59,7 @@
 
         <!-- קישורים: מעל הסרטון הארוך על תכל׳ס -->
         <h2 class="text-xl font-black text-slate-900 mt-10 mb-4">כל מה שקשור להדרכה</h2>
-        <div class="grid sm:grid-cols-2 gap-4">
+        <div class="grid sm:grid-cols-2 gap-4 reveal">
             <a href="hadmayot-guide.html" target="_blank" rel="noopener" class="bg-white rounded-2xl border border-slate-200 hover:border-brand-400 p-5 transition flex items-start gap-3">
                 <i data-lucide="book-open" class="w-6 h-6 text-brand-600 shrink-0"></i>
                 <span><strong class="block text-slate-900">מדריך ההדמיות</strong><span class="text-sm text-slate-500">מצגת שלב אחרי שלב, עם הפרומפטים</span></span>
@@ -57,7 +71,7 @@
         </div>
 
         <!-- סיום ההדרכה: פנייה לצופים, ואחריה הפרדה לפני המעבר לתכל׳ס -->
-        <div class="mt-16 text-center">
+        <div class="mt-16 text-center reveal">
             <p class="text-4xl md:text-5xl font-black text-slate-900 mb-4">נהניתם? הצלחתם? 🙌</p>
             <p class="text-xl md:text-2xl text-slate-700 leading-relaxed">שתפו את ההדרכה עם עוד מי שיכול להרוויח ממנה, ואל תשכחו לשתף גם אותנו בתוצאות שלכם. נשמח לראות!</p>
             <p class="text-2xl md:text-3xl text-slate-900 font-black mt-4">בהצלחה רבה!</p>
@@ -72,29 +86,47 @@
             </div>
         </div>
 
+    </div>
+</main>
+
+<!-- ===== מכאן והלאה: תכל׳ס. אזור כהה ברוחב מלא, מופרד מההדרכה בגל ירוק ===== -->
+<div class="bg-slate-50 leading-[0]" aria-hidden="true">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none" class="w-full h-16 md:h-24 block">
+        <path d="M0,50 C240,100 480,0 720,40 C960,80 1200,10 1440,50 L1440,90 L0,90 Z" fill="#101721"/>
+        <path d="M0,50 C240,100 480,0 720,40 C960,80 1200,10 1440,50" fill="none" stroke="#a3e635" stroke-width="5"/>
+    </svg>
+</div>
+<section id="tachles-zone" class="bg-navy-950 text-white px-4 pt-6 pb-20 relative overflow-hidden">
+    <div class="absolute -top-10 right-10 w-80 h-80 bg-brand-400 rounded-full blur-3xl opacity-10" aria-hidden="true"></div>
+    <div class="absolute bottom-10 left-0 w-96 h-96 bg-brand-500 rounded-full blur-3xl opacity-10" aria-hidden="true"></div>
+    <div class="max-w-3xl mx-auto relative">
+
+        <div class="text-center mb-8 reveal">
+            <img src="logo-full.png" alt="תכל׳ס" class="h-24 md:h-28 mx-auto mb-4 drop-shadow-lg">
+        </div>
+
         <!-- הסרטון הארוך על תכל׳ס, בנגן מלא. ממלאים LONG_VIDEO_ID למטה; ריק = הקטע מוסתר -->
-        <section id="long-video" class="hidden mt-12">
-            <div class="h-1.5 rounded-full bg-gradient-to-l from-brand-400 via-brand-500 to-brand-400 mb-12" aria-hidden="true"></div>
-            <h2 class="text-2xl font-black text-slate-900 mb-1">רוצים לראות את תכל׳ס בפעולה?</h2>
-            <p class="text-slate-600 text-sm mb-4">סרטון ארוך יותר על התוכנה</p>
-            <div class="bg-navy-950 rounded-2xl overflow-hidden shadow-xl aspect-video relative">
+        <section id="long-video" class="hidden reveal">
+            <h2 class="text-3xl md:text-4xl font-black text-white mb-1 text-center">רוצים לראות את תכל׳ס בפעולה?</h2>
+            <p class="text-slate-300 text-base mb-5 text-center">סרטון ארוך יותר על התוכנה</p>
+            <div class="bg-black rounded-2xl overflow-hidden shadow-2xl ring-2 ring-brand-400/60 aspect-video relative">
                 <iframe id="long-video-frame" class="absolute inset-0 w-full h-full" title="תכל׳ס בפעולה" loading="lazy"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </section>
 
         <!-- פנייה אישית אחרי הסרטון על התוכנה -->
-        <div class="mt-10 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8 text-center">
-            <p class="text-2xl md:text-3xl font-black text-slate-900 mb-2">רוצים לברר פרטים? יש לכם שאלות?</p>
-            <p class="text-lg text-slate-600 mb-5">כתבו לי, אני קורא כל הודעה בעז״ה.</p>
+        <div class="mt-10 bg-navy-900 rounded-3xl border border-brand-500/40 p-6 md:p-8 text-center reveal">
+            <p class="text-2xl md:text-3xl font-black text-white mb-2">רוצים לברר פרטים? יש לכם שאלות?</p>
+            <p class="text-lg text-slate-300 mb-5">כתבו לי, אני קורא כל הודעה בעז״ה.</p>
             <a href="mailto:tachles263@gmail.com?subject=%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%91%D7%A8%D7%A8%20%D7%A2%D7%9C%20%D7%AA%D7%9B%D7%9C%D7%B3%D7%A1" class="inline-flex items-center gap-2 bg-brand-400 hover:bg-brand-300 text-navy-950 font-extrabold py-3 px-7 rounded-xl text-lg transition">
                 <i data-lucide="mail" class="w-5 h-5"></i> כתבו לי במייל
             </a>
-            <p class="text-sm text-slate-500 mt-3">או ישירות לכתובת <span dir="ltr" class="font-bold text-slate-700">tachles263@gmail.com</span></p>
+            <p class="text-sm text-slate-400 mt-3">או ישירות לכתובת <span dir="ltr" class="font-bold text-brand-300">tachles263@gmail.com</span></p>
         </div>
 
         <!-- הטבה: מחירי ההשקה של תכל׳ס (מחירון pricing.html), מתחת לסרטון הארוך -->
-        <div class="mt-10 bg-white rounded-3xl border border-brand-200 shadow-sm p-6 md:p-8">
+        <div class="mt-10 bg-white text-slate-800 rounded-3xl border border-brand-200 shadow-xl p-6 md:p-8 reveal">
             <span class="inline-flex items-center gap-1.5 bg-brand-100 text-brand-800 text-xs font-bold px-3 py-1 rounded-full mb-3">
                 <i data-lucide="rocket" class="w-3.5 h-3.5"></i> מחירי השקה
             </span>
@@ -128,7 +160,7 @@
         </div>
 
         <!-- הצטרפות לרשימת התפוצה. source נפרד מההרשמה להדרכה, כדי להבדיל בלידים מי הצטרף מכאן -->
-        <div id="list-box" class="mt-10 bg-navy-900 rounded-3xl p-6 md:p-8 text-center text-white">
+        <div id="list-box" class="mt-10 bg-navy-800 border border-brand-500/30 rounded-3xl p-6 md:p-8 text-center text-white reveal">
             <i data-lucide="mail-plus" class="w-10 h-10 text-brand-400 mx-auto mb-3"></i>
             <h2 class="text-2xl md:text-3xl font-black mb-2">רוצים לקבל עוד טיפים כאלה?</h2>
             <p class="text-slate-300 mb-5">הצטרפו לרשימת התפוצה של תכל׳ס ותקבלו הדרכות, טיפים ועדכונים ישר למייל.</p>
@@ -148,10 +180,11 @@
         </div>
 
     </div>
-</main>
+</section>
 
 <footer id="site-footer" class="bg-slate-900 text-white border-t border-slate-800"></footer>
 
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 <script src="shared.js"></script>
 <script>
     // מזהה הסרטון ביוטיוב (לא רשום), למשל 'dQw4w9WgXcQ'. ריק = מוצג "הסרטון בדרך"
@@ -165,6 +198,20 @@
     // אחרי תאריך הסיום (סוף היום, שעון ישראל) שורת התוקף מוסתרת כדי לא להציג תאריך שחלף
     if (Date.now() > new Date('2026-11-05T23:59:59+02:00').getTime()) {
         document.getElementById('deadline').classList.add('hidden');
+    }
+    // כניסה בגלילה + קונפטי קצר בטעינה. כל כשל (חסימת רשת/נטפרי) לא פוגע בדף
+    try {
+        document.documentElement.classList.add('js');
+        const io = new IntersectionObserver(es => es.forEach(e => {
+            if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        }), { threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    } catch { document.documentElement.classList.remove('js'); }
+    if (window.confetti && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const colors = ['#a3e635', '#84cc16', '#101721', '#ecfccb'];
+        confetti({ particleCount: 90, spread: 80, origin: { y: 0.25 }, colors });
+        setTimeout(() => confetti({ particleCount: 50, spread: 100, origin: { y: 0.25, x: 0.2 }, colors }), 250);
+        setTimeout(() => confetti({ particleCount: 50, spread: 100, origin: { y: 0.25, x: 0.8 }, colors }), 400);
     }
     // שיתוף: קישור ההרשמה (לא דף התודה), כדי שכל חבר שנכנס יירשם ויעניק לנו את המייל שלו
     const SIGNUP_URL = 'https://tachles-promo.pages.dev/hadmayot';
