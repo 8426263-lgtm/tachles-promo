@@ -177,6 +177,11 @@
             <h2 class="text-3xl md:text-4xl font-black text-white mb-3">לאן לשלוח לכם את ההדרכה?</h2>
             <p class="text-slate-300">אחרי ההרשמה תעברו ישר לסרטון, והקישור יגיע גם למייל.</p>
         </div>
+        <!-- מוצג רק למי שהועבר לכאן מדף ההדרכה (?r=1): נרשם ממכשיר אחר, או קיבל קישור מחבר -->
+        <div id="from-thanks" class="hidden mb-6 bg-brand-100 border border-brand-300 text-navy-950 rounded-2xl p-5 text-center">
+            <p class="font-black text-lg mb-1">ההדרכה פתוחה לנרשמים</p>
+            <p class="text-sm leading-relaxed">נרשמתם כבר ממכשיר אחר? מלאו כאן שוב את אותה כתובת מייל ותעברו ישר לסרטון, בלי כפילות. קיבלתם את הקישור מחבר? מלאו את הפרטים שלכם, זה לוקח דקה.</p>
+        </div>
         <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-10">
             <form id="lead-form" class="space-y-4">
                 <!-- honeypot אנטי-בוט -->
@@ -218,6 +223,7 @@
     (function prefillFromLink() {
         try {
             const q = new URLSearchParams(window.location.search);
+            if (q.get('r') === '1') document.getElementById('from-thanks').classList.remove('hidden');
             const clean = s => (s || '').replace(/[‎‏‪-‮]/g, '').trim();
             const name = clean(q.get('n'));
             const email = clean(q.get('e'));
