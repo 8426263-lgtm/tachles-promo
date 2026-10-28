@@ -35,19 +35,20 @@
         .check-pop { animation: none; }
     }
 </style>
-<main class="pt-28 pb-10 px-4">
-    <div class="max-w-3xl mx-auto">
+<!-- אזור עליון כהה: כותרת + סרטון ההדרכה, ואז גל אל האזור הבהיר -->
+<section class="relative overflow-hidden px-4 pt-28 pb-6 text-white" style="background: radial-gradient(ellipse at 80% 0%, rgba(132,204,22,.28), transparent 55%), radial-gradient(ellipse at 10% 100%, rgba(163,230,53,.14), transparent 50%), linear-gradient(180deg, #101721 0%, #161c27 100%);">
+    <div class="max-w-3xl mx-auto relative">
 
         <div class="text-center mb-8">
             <span class="check-pop inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-400 text-navy-950 shadow-lg shadow-brand-500/40 mb-4">
                 <i data-lucide="check" class="w-9 h-9" stroke-width="3"></i>
             </span>
-            <h1 class="text-3xl md:text-5xl font-black text-slate-900 mb-3">תודה שנרשמתם, ההדרכה כאן</h1>
-            <p class="text-lg text-slate-600">כ-12 דקות. כדאי לצפות עם ChatGPT פתוח ליד. קישור לעמוד הזה נשלח גם למייל.</p>
+            <h1 class="text-3xl md:text-5xl font-black text-white mb-3">תודה שנרשמתם, ההדרכה כאן</h1>
+            <p class="text-lg text-slate-300">כ-12 דקות. כדאי לצפות עם ChatGPT פתוח ליד. קישור לעמוד הזה נשלח גם למייל.</p>
         </div>
 
         <!-- הסרטון. כשיש מזהה יוטיוב, ממלאים אותו ב-VIDEO_ID למטה -->
-        <div class="bg-navy-950 rounded-2xl overflow-hidden shadow-xl mb-4 aspect-video relative">
+        <div class="bg-black rounded-2xl overflow-hidden shadow-2xl ring-2 ring-brand-400/50 aspect-video relative">
             <iframe id="video-frame" class="hidden absolute inset-0 w-full h-full" title="הדמיות עקביות ב-ChatGPT"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <div id="video-pending" class="absolute inset-0 flex flex-col items-center justify-center text-center text-slate-300 p-6">
@@ -56,9 +57,19 @@
                 <p class="text-sm mt-1">עוד רגע הוא יעלה לכאן.</p>
             </div>
         </div>
+    </div>
+</section>
+<div class="bg-[#161c27] leading-[0]" aria-hidden="true">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none" class="w-full h-12 md:h-20 block">
+        <path d="M0,50 C240,0 480,90 720,45 C960,0 1200,80 1440,40 L1440,90 L0,90 Z" fill="#f8fafc"/>
+    </svg>
+</div>
+
+<main class="pb-10 px-4">
+    <div class="max-w-3xl mx-auto">
 
         <!-- קישורים: מעל הסרטון הארוך על תכל׳ס -->
-        <h2 class="text-xl font-black text-slate-900 mt-10 mb-4">כל מה שקשור להדרכה</h2>
+        <h2 class="text-xl font-black text-slate-900 mt-4 mb-4">כל מה שקשור להדרכה</h2>
         <div class="grid sm:grid-cols-2 gap-4 reveal">
             <a href="hadmayot-guide.html" target="_blank" rel="noopener" class="bg-white rounded-2xl border border-slate-200 hover:border-brand-400 p-5 transition flex items-start gap-3">
                 <i data-lucide="book-open" class="w-6 h-6 text-brand-600 shrink-0"></i>
