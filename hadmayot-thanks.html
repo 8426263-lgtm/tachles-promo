@@ -10,7 +10,7 @@
          רץ בראש הדף, לפני שהתוכן נצבע, כדי שלא יהיה הבהוב. בלי JS נשאר חסום -->
     <style>
         html:not(.gate-ok) body > :not(#gate-screen):not(script) { display: none !important; }
-        html.gate-ok #gate-screen { display: none; }
+        html.gate-ok #gate-screen, html.gate-redirect #gate-screen { display: none; }
     </style>
     <script>
         (function () {
@@ -29,6 +29,11 @@
             if (!ok) { try { ok = localStorage.getItem('hadmayot_ok') === '1'; } catch (x) {} }
             window.__gateOk = ok;
             if (ok) document.documentElement.classList.add('gate-ok');
+            else {
+                // לא נרשם: מעבירים ישר לדף ההרשמה, בלי להציג מסך חסימה. replace = "חזור" לא מחזיר ללולאה
+                document.documentElement.classList.add('gate-redirect');
+                location.replace('hadmayot.html');
+            }
         })();
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -47,7 +52,7 @@
 </head>
 <body class="bg-slate-50 text-slate-800">
 
-<!-- מסך חסימה: מוצג רק למי שלא נרשם (ראו שער ההרשמה בראש הדף) -->
+<!-- מסך חסימה: רק גיבוי למי שה-JS שלו כבוי. כשיש JS, מי שלא נרשם מועבר ישר לדף ההרשמה (ראו שער בראש הדף) -->
 <div id="gate-screen" class="min-h-screen flex items-center justify-center px-4 bg-slate-50 text-center">
     <div class="max-w-md">
         <img src="logo-full.png" alt="תכל׳ס" class="h-20 mx-auto mb-6">
