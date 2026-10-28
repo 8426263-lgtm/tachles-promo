@@ -127,7 +127,8 @@
     }
     if (VIDEO_ID) {
         const f = document.getElementById('video-frame');
-        f.src = 'https://www.youtube.com/embed/' + VIDEO_ID + '?rel=0';
+        // כתוביות כבר צרובות בסרטון, לכן cc_load_policy=0 (בלי כתוביות אוטומטיות)
+        f.src = 'https://www.youtube.com/embed/' + VIDEO_ID + '?rel=0&modestbranding=1&cc_load_policy=0';
         f.classList.remove('hidden');
         document.getElementById('video-pending').classList.add('hidden');
     }
