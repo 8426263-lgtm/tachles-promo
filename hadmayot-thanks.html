@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>ההדרכה שלכם: הדמיות עקביות | תכל׳ס</title>
+    <link rel="icon" type="image/x-icon" href="תכלס.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="shared.css">
+    <script>
+        tailwind.config = { theme: { extend: { colors: { brand: {
+            50:'#f7fee7',100:'#ecfccb',200:'#d9f99d',300:'#bef264',400:'#a3e635',
+            500:'#84cc16',600:'#65a30d',700:'#4d7c0f',800:'#3f6212',900:'#365314',950:'#1a2e05' },
+            navy: {
+            50:'#eef0f3',100:'#dadde3',300:'#8c93a3',500:'#3f4654',700:'#2b303d',
+            800:'#202430',900:'#161c27',950:'#101721' } } } } }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+<header id="navbar" class="fixed w-full top-0 z-50 bg-slate-900/95 backdrop-blur border-b border-slate-800/60"></header>
+
+<main class="pt-28 pb-20 px-4">
+    <div class="max-w-3xl mx-auto">
+
+        <div class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-black text-slate-900 mb-3">תודה שנרשמתם, ההדרכה כאן</h1>
+            <p class="text-lg text-slate-600">כ-12 דקות. כדאי לצפות עם ChatGPT פתוח ליד. קישור לעמוד הזה נשלח גם למייל.</p>
+        </div>
+
+        <!-- הסרטון. כשיש מזהה יוטיוב, ממלאים אותו ב-VIDEO_ID למטה -->
+        <div class="bg-navy-950 rounded-2xl overflow-hidden shadow-xl mb-4 aspect-video relative">
+            <iframe id="video-frame" class="hidden absolute inset-0 w-full h-full" title="הדמיות עקביות ב-ChatGPT"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div id="video-pending" class="absolute inset-0 flex flex-col items-center justify-center text-center text-slate-300 p-6">
+                <i data-lucide="clapperboard" class="w-12 h-12 text-brand-400 mb-3"></i>
+                <p class="font-bold text-white text-lg">הסרטון בדרך</p>
+                <p class="text-sm mt-1">עוד רגע הוא יעלה לכאן.</p>
+            </div>
+        </div>
+
+        <!-- הטבה: מחירי ההשקה של תכל׳ס (מחירון pricing.html). בלי תאריך סיום, כי לא נקבע -->
+        <div class="mt-10 bg-white rounded-3xl border border-brand-200 shadow-sm p-6 md:p-8">
+            <span class="inline-flex items-center gap-1.5 bg-brand-100 text-brand-800 text-xs font-bold px-3 py-1 rounded-full mb-3">
+                <i data-lucide="rocket" class="w-3.5 h-3.5"></i> מחירי השקה
+            </span>
+            <h2 class="text-2xl font-black text-slate-900 mb-1">ואם בא לכם לנהל גם את העסק בתכל׳ס</h2>
+            <p class="text-slate-600 text-sm mb-6">תוכנת ניהול לעצמאים ולמשרדים: לקוחות, פרויקטים, כספים, מע"מ ושעות עבודה. כרגע במחירי השקה, ובסיומם המחירים יעלו. מי שרוכש עכשיו נועל את המחיר לכל החיים, כולל כל העדכונים העתידיים.</p>
+            <div class="grid sm:grid-cols-2 gap-4">
+                <div class="rounded-2xl border border-brand-300 p-5">
+                    <p class="font-black text-slate-900 text-lg">Desktop</p>
+                    <p class="text-slate-400 line-through text-sm">מחיר מלא 1,250 ₪</p>
+                    <p class="mt-1"><span class="text-slate-400 font-bold">3 ×</span> <span class="text-4xl font-black text-slate-900">310</span> <span class="text-slate-400 font-bold">₪</span></p>
+                    <p class="text-brand-700 font-bold text-sm mt-1">סה״כ 930 ₪, שלך לכל החיים</p>
+                </div>
+                <div class="rounded-2xl border border-slate-200 p-5">
+                    <p class="font-black text-slate-900 text-lg">Web</p>
+                    <p class="text-slate-400 line-through text-sm">מחיר מלא 1,450 ₪</p>
+                    <p class="mt-1"><span class="text-4xl font-black text-slate-900">1,130</span> <span class="text-slate-400 font-bold">₪</span></p>
+                    <p class="text-brand-700 font-bold text-sm mt-1">עד 4 תשלומים. מהשנה השנייה 170 ₪ לשנה לאחסון בענן</p>
+                </div>
+            </div>
+            <div class="flex flex-wrap gap-3 mt-6">
+                <a href="pricing.html" class="inline-flex items-center gap-2 bg-brand-400 hover:bg-brand-300 text-navy-950 font-extrabold py-3 px-6 rounded-xl transition">
+                    <i data-lucide="tag" class="w-5 h-5"></i> למחירון המלא ולרכישה
+                </a>
+                <a href="https://tacles.vercel.app/?demo=1" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-white border-2 border-slate-200 hover:border-brand-400 text-slate-800 font-bold py-3 px-6 rounded-xl transition">
+                    <i data-lucide="play-circle" class="w-5 h-5 text-brand-600"></i> לנסות דמו, בלי הרשמה
+                </a>
+            </div>
+        </div>
+
+        <!-- קישורים -->
+        <h2 class="text-xl font-black text-slate-900 mt-10 mb-4">כל מה שקשור להדרכה</h2>
+        <div class="grid sm:grid-cols-2 gap-4">
+            <a href="hadmayot-guide.html" target="_blank" rel="noopener" class="bg-white rounded-2xl border border-slate-200 hover:border-brand-400 p-5 transition flex items-start gap-3">
+                <i data-lucide="book-open" class="w-6 h-6 text-brand-600 shrink-0"></i>
+                <span><strong class="block text-slate-900">מדריך ההדמיות</strong><span class="text-sm text-slate-500">מצגת שלב אחרי שלב, עם הפרומפטים</span></span>
+            </a>
+            <a href="hadmayot-prompts.html" target="_blank" rel="noopener" class="bg-white rounded-2xl border border-slate-200 hover:border-brand-400 p-5 transition flex items-start gap-3">
+                <i data-lucide="copy" class="w-6 h-6 text-brand-600 shrink-0"></i>
+                <span><strong class="block text-slate-900">פרומפטים להעתקה</strong><span class="text-sm text-slate-500">דף אחד, מוכן להדבקה ב-ChatGPT</span></span>
+            </a>
+            <a href="https://tacles.vercel.app/guide.html" target="_blank" rel="noopener" class="bg-white rounded-2xl border border-slate-200 hover:border-brand-400 p-5 transition flex items-start gap-3">
+                <i data-lucide="graduation-cap" class="w-6 h-6 text-brand-600 shrink-0"></i>
+                <span><strong class="block text-slate-900">מדריך תכל׳ס</strong><span class="text-sm text-slate-500">איך עובדים עם התוכנה</span></span>
+            </a>
+            <a href="pricing.html" class="bg-white rounded-2xl border border-slate-200 hover:border-brand-400 p-5 transition flex items-start gap-3">
+                <i data-lucide="shopping-cart" class="w-6 h-6 text-brand-600 shrink-0"></i>
+                <span><strong class="block text-slate-900">רכישה</strong><span class="text-sm text-slate-500">מחירון ומחירי השקה</span></span>
+            </a>
+        </div>
+    </div>
+</main>
+
+<footer id="site-footer" class="bg-slate-900 text-white border-t border-slate-800"></footer>
+
+<script src="shared.js"></script>
+<script>
+    // מזהה הסרטון ביוטיוב (לא רשום), למשל 'dQw4w9WgXcQ'. ריק = מוצג "הסרטון בדרך"
+    const VIDEO_ID = '';
+    if (VIDEO_ID) {
+        const f = document.getElementById('video-frame');
+        f.src = 'https://www.youtube.com/embed/' + VIDEO_ID + '?rel=0';
+        f.classList.remove('hidden');
+        document.getElementById('video-pending').classList.add('hidden');
+    }
+</script>
+</body>
+</html>
