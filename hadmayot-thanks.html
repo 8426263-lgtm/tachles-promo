@@ -6,6 +6,31 @@
     <meta name="robots" content="noindex">
     <title>ההדרכה שלכם: הדמיות עקביות | תכל׳ס</title>
     <link rel="icon" type="image/x-icon" href="תכלס.ico">
+    <!-- שער הרשמה (חסימה "מנומסת", לא אבטחה): עד שהבדיקה עברה (html.gate-ok) מוצג רק מסך ההרשמה.
+         רץ בראש הדף, לפני שהתוכן נצבע, כדי שלא יהיה הבהוב. בלי JS נשאר חסום -->
+    <style>
+        html:not(.gate-ok) body > :not(#gate-screen):not(script) { display: none !important; }
+        html.gate-ok #gate-screen { display: none; }
+    </style>
+    <script>
+        (function () {
+            var ok = false;
+            try {
+                // ?e=<מייל> מגיע מהקישור במייל ומההפניה אחרי ההרשמה. קוראים את המחרוזת הגולמית כדי ש-+ במייל לא יהפוך לרווח
+                var m = location.search.match(/[?&]e=([^&#]*)/);
+                var e = m ? decodeURIComponent(m[1]).replace(/[‎‏‪-‮]/g, '').trim() : '';
+                if (/^[^\s@{}<>]+@[^\s@{}<>]+\.[^\s@{}<>]+$/.test(e)) {
+                    ok = true;
+                    // שומרים סימון ומסירים את המייל מהכתובת (שלא יועתק הלאה). אם האחסון חסום, המייל נשאר בכתובת
+                    try { localStorage.setItem('hadmayot_ok', '1'); history.replaceState(null, '', location.pathname + location.hash); } catch (x) {}
+                }
+            } catch (x) {}
+            // אחסון חסום או ריק = חסום (נכשלים לכיוון חסימה)
+            if (!ok) { try { ok = localStorage.getItem('hadmayot_ok') === '1'; } catch (x) {} }
+            window.__gateOk = ok;
+            if (ok) document.documentElement.classList.add('gate-ok');
+        })();
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -21,6 +46,16 @@
     </script>
 </head>
 <body class="bg-slate-50 text-slate-800">
+
+<!-- מסך חסימה: מוצג רק למי שלא נרשם (ראו שער ההרשמה בראש הדף) -->
+<div id="gate-screen" class="min-h-screen flex items-center justify-center px-4 bg-slate-50 text-center">
+    <div class="max-w-md">
+        <img src="logo-full.png" alt="תכל׳ס" class="h-20 mx-auto mb-6">
+        <h1 class="text-3xl md:text-4xl font-black text-slate-900 mb-3">ההדרכה פתוחה לנרשמים</h1>
+        <p class="text-lg text-slate-600 mb-7">נרשמים כאן, זה לוקח דקה.</p>
+        <a href="hadmayot.html" class="inline-flex items-center gap-2 bg-brand-400 hover:bg-brand-300 text-navy-950 font-extrabold py-3.5 px-8 rounded-xl text-lg transition">להרשמה ולצפייה בהדרכה</a>
+    </div>
+</div>
 
 <header id="navbar" class="fixed w-full top-0 z-50 bg-slate-900/95 backdrop-blur border-b border-slate-800/60"></header>
 
@@ -202,7 +237,9 @@
     const VIDEO_ID = 'REE14VpZL_4';
     // מזהה הסרטון הארוך על תכל׳ס ביוטיוב (לא רשום). ריק = הקטע מוסתר
     const LONG_VIDEO_ID = 'LP1jkDsa_Dc';
-    if (LONG_VIDEO_ID) {
+    // הסרטונים נטענים רק אחרי שבדיקת ההרשמה (בראש הדף) עברה
+    const GATE_OK = !!window.__gateOk;
+    if (LONG_VIDEO_ID && GATE_OK) {
         document.getElementById('long-video-frame').src = 'https://www.youtube.com/embed/' + LONG_VIDEO_ID + '?rel=0';
         document.getElementById('long-video').classList.remove('hidden');
     }
@@ -218,7 +255,7 @@
         }), { threshold: 0.12 });
         document.querySelectorAll('.reveal').forEach(el => io.observe(el));
     } catch { document.documentElement.classList.remove('js'); }
-    if (window.confetti && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (GATE_OK && window.confetti && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
         const colors = ['#a3e635', '#84cc16', '#101721', '#ecfccb'];
         confetti({ particleCount: 90, spread: 80, origin: { y: 0.25 }, colors });
         setTimeout(() => confetti({ particleCount: 50, spread: 100, origin: { y: 0.25, x: 0.2 }, colors }), 250);
@@ -299,7 +336,7 @@
             btn.textContent = 'הצטרפו לרשימת התפוצה'; btn.disabled = false;
         }
     });
-    if (VIDEO_ID) {
+    if (VIDEO_ID && GATE_OK) {
         const f = document.getElementById('video-frame');
         // כתוביות כבר צרובות בסרטון, לכן cc_load_policy=0 (בלי כתוביות אוטומטיות)
         f.src = 'https://www.youtube.com/embed/' + VIDEO_ID + '?rel=0&modestbranding=1&cc_load_policy=0';

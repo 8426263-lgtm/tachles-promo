@@ -276,7 +276,9 @@
                 }),
             });
             if (res.ok) {
-                window.location.href = THANKS_URL;
+                // סימון "נרשם" לדף התודה (חסום בגלישה פרטית: אז המייל בכתובת הוא שפותח את הדף)
+                try { localStorage.setItem('hadmayot_ok', '1'); } catch { /* ממשיכים */ }
+                window.location.href = THANKS_URL + '?e=' + encodeURIComponent(document.getElementById('f-email').value.trim());
             } else {
                 const d = await res.json().catch(() => ({}));
                 errEl.textContent = d.error || 'משהו השתבש, נסו שוב.';
