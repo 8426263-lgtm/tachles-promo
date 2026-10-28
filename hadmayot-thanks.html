@@ -119,7 +119,7 @@
         <div class="mt-10 bg-navy-900 rounded-3xl border border-brand-500/40 p-6 md:p-8 text-center reveal">
             <p class="text-2xl md:text-3xl font-black text-white mb-2">רוצים לברר פרטים? יש לכם שאלות?</p>
             <p class="text-lg text-slate-300 mb-5">כתבו לי, אני קורא כל הודעה בעז״ה.</p>
-            <a href="mailto:tachles263@gmail.com?subject=%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%91%D7%A8%D7%A8%20%D7%A2%D7%9C%20%D7%AA%D7%9B%D7%9C%D7%B3%D7%A1" class="inline-flex items-center gap-2 bg-brand-400 hover:bg-brand-300 text-navy-950 font-extrabold py-3 px-7 rounded-xl text-lg transition">
+            <a id="contact-mail" href="mailto:tachles263@gmail.com?subject=%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%91%D7%A8%D7%A8%20%D7%A2%D7%9C%20%D7%AA%D7%9B%D7%9C%D7%B3%D7%A1" class="inline-flex items-center gap-2 bg-brand-400 hover:bg-brand-300 text-navy-950 font-extrabold py-3 px-7 rounded-xl text-lg transition">
                 <i data-lucide="mail" class="w-5 h-5"></i> כתבו לי במייל
             </a>
             <p class="text-sm text-slate-400 mt-3">או ישירות לכתובת <span dir="ltr" class="font-bold text-brand-300">tachles263@gmail.com</span></p>
@@ -216,8 +216,18 @@
     // שיתוף: קישור ההרשמה (לא דף התודה), כדי שכל חבר שנכנס יירשם ויעניק לנו את המייל שלו
     const SIGNUP_URL = 'https://tachles-promo.pages.dev/hadmayot';
     const SHARE_TEXT = 'ההדרכה הזו על הדמיות עקביות ב-ChatGPT שווה צפייה. נרשמים כאן וההדרכה מגיעה למייל: ';
-    document.getElementById('share-mail').href = 'mailto:?subject=' + encodeURIComponent('הדרכה על הדמיות עקביות ב-ChatGPT')
-        + '&body=' + encodeURIComponent(SHARE_TEXT + SIGNUP_URL);
+    // mailto לבדו לא עושה כלום במחשב בלי תוכנת מייל מוגדרת. במחשב פותחים כתיבה ב-Gmail בדפדפן, בנייד mailto (יש שם אפליקציית מייל)
+    const IS_MOBILE = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    function mailHref(to, subject, body) {
+        if (IS_MOBILE) return 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        return 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(to)
+            + '&su=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    }
+    const shareMail = document.getElementById('share-mail');
+    shareMail.href = mailHref('', 'הדרכה על הדמיות עקביות ב-ChatGPT', SHARE_TEXT + SIGNUP_URL);
+    const contactMail = document.getElementById('contact-mail');
+    contactMail.href = mailHref('tachles263@gmail.com', 'רוצה לברר על תכל׳ס', '');
+    if (!IS_MOBILE) { shareMail.target = '_blank'; contactMail.target = '_blank'; shareMail.rel = contactMail.rel = 'noopener'; }
     document.getElementById('share-copy').addEventListener('click', async () => {
         const label = document.getElementById('share-copy-label');
         try {
