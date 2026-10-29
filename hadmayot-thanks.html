@@ -244,6 +244,10 @@
     const LONG_VIDEO_ID = 'LP1jkDsa_Dc';
     // הסרטונים נטענים רק אחרי שבדיקת ההרשמה (בראש הדף) עברה
     const GATE_OK = !!window.__gateOk;
+    // מדריך ופרומפטים חסומים באותו שער. אם ה-?e= עדיין בכתובת (אחסון חסום), מעבירים אותו הלאה כדי שהקישורים יפתחו
+    if (GATE_OK && location.search) {
+        document.querySelectorAll('a[href="hadmayot-guide.html"], a[href="hadmayot-prompts.html"]').forEach(a => { a.setAttribute('href', a.getAttribute('href') + location.search); });
+    }
     if (LONG_VIDEO_ID && GATE_OK) {
         document.getElementById('long-video-frame').src = 'https://www.youtube.com/embed/' + LONG_VIDEO_ID + '?rel=0';
         document.getElementById('long-video').classList.remove('hidden');
