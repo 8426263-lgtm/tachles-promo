@@ -90,6 +90,12 @@ footer{margin:60px 0 30px;text-align:center;color:var(--muted);font-size:15px}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .pb{break-before:page}
 }
+
+.cpbtn{font:600 13px 'Rubik',Arial,sans-serif;margin-inline-start:8px;border:1.5px solid var(--green2);background:var(--mint);color:var(--green);border-radius:8px;padding:2px 11px;cursor:pointer;vertical-align:middle}
+.cpbtn:hover{filter:brightness(.97)}
+.cpbtn:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+.cpbtn.ok{background:var(--green);color:#fff;border-color:var(--green)}
+@media print{.cpbtn{display:none}}
 </style>
 </head>
 <body>
@@ -132,19 +138,19 @@ footer{margin:60px 0 30px;text-align:center;color:var(--muted);font-size:15px}
   <div class="g3" style="margin-top:14px">
     <div class="card"><h3>1 · הג׳ימייל שלך</h3><p>זה שאת רגילה לעבוד בו, פתוח במחשב.</p></div>
     <div class="card"><h3>2 · הכתובת שלך</h3><p>כתובת המשרד שהוקצתה לך (ברשימה למטה).</p></div>
-    <div class="card"><h3>3 · סיסמת האפליקציה</h3><p>16 אותיות שתקבלי ממשה או משני <b>בנפרד</b>. לא מעבירים הלאה.</p></div>
+    <div class="card"><h3>3 · סיסמת האפליקציה</h3><p>16 אותיות שתקבלי <b>ממנהלת המשרד</b> בנפרד. לא מעבירים הלאה.</p></div>
   </div>
   <div class="card" style="margin-top:18px">
     <h3>הכתובות במשרד</h3>
     <table class="names">
       <tr><th>שם</th><th>הכתובת שלה</th></tr>
-      <tr><td>יוכבד</td><td><span class="addr">yocheved@kolitz.co.il</span></td></tr>
-      <tr><td>הדסה</td><td><span class="addr">hadassa@kolitz.co.il</span></td></tr>
-      <tr><td>ציפי</td><td><span class="addr">zipi@kolitz.co.il</span></td></tr>
-      <tr><td>חני</td><td><span class="addr">chani@kolitz.co.il</span></td></tr>
-      <tr><td>איילה</td><td><span class="addr">ayala@kolitz.co.il</span></td></tr>
-      <tr><td>משרד</td><td><span class="addr">office@kolitz.co.il</span></td></tr>
-      <tr><td>שני</td><td><span class="addr">shani@kolitz.co.il</span></td></tr>
+      <tr><td>יוכבד</td><td><span class="addr cp">yocheved@kolitz.co.il</span></td></tr>
+      <tr><td>הדסה</td><td><span class="addr cp">hadassa@kolitz.co.il</span></td></tr>
+      <tr><td>ציפי</td><td><span class="addr cp">zipi@kolitz.co.il</span></td></tr>
+      <tr><td>חני</td><td><span class="addr cp">chani@kolitz.co.il</span></td></tr>
+      <tr><td>איילה</td><td><span class="addr cp">ayala@kolitz.co.il</span></td></tr>
+      <tr><td>משרד</td><td><span class="addr cp">office@kolitz.co.il</span></td></tr>
+      <tr><td>שני</td><td><span class="addr cp">shani@kolitz.co.il</span></td></tr>
     </table>
   </div>
   <div class="warn"><b>שימי לב:</b> בצילומי המסך למטה הדוגמה היא כתובת בשם "ניסוי קוליץ" (<span class="addr">nisuy@kolitz.co.il</span>). אצלך תכתבי את השם והכתובת <b>שלך</b> מהרשימה.</div>
@@ -212,10 +218,10 @@ footer{margin:60px 0 30px;text-align:center;color:var(--muted);font-size:15px}
       <div class="pair">
         <div>
           <table class="fill">
-            <tr><td><span class="num" style="min-width:28px;height:28px;line-height:28px;font-size:14px;display:inline-block">7</span> שרת SMTP</td><td class="val">smtp-relay.gmail.com</td></tr>
-            <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; יציאה</td><td class="val">587</td></tr>
-            <tr><td><span class="num" style="min-width:28px;height:28px;line-height:28px;font-size:14px;display:inline-block">8</span> שם משתמש</td><td class="val">info@kolitz.co.il</td></tr>
-            <tr><td><span class="num" style="min-width:28px;height:28px;line-height:28px;font-size:14px;display:inline-block">9</span> סיסמה</td><td>סיסמת האפליקציה (16 אותיות, <b>בלי רווחים</b>)</td></tr>
+            <tr><td><span class="num" style="min-width:28px;height:28px;line-height:28px;font-size:14px;display:inline-block">7</span> שרת SMTP</td><td><span class="addr cp">smtp-relay.gmail.com</span><br><small style="color:var(--muted)">כותבים <b>בדיוק</b> כך — בלי לשנות</small></td></tr>
+            <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; יציאה</td><td><span class="addr cp">587</span></td></tr>
+            <tr><td><span class="num" style="min-width:28px;height:28px;line-height:28px;font-size:14px;display:inline-block">8</span> שם משתמש</td><td><span class="addr cp">info@kolitz.co.il</span><br><b>כותבים בדיוק את הכתובת הזו</b> — <b>לא</b> את הכתובת האישית שלך ולא את הכתובת שלך במשרד.</td></tr>
+            <tr><td><span class="num" style="min-width:28px;height:28px;line-height:28px;font-size:14px;display:inline-block">9</span> סיסמה</td><td><b>מבקשים ממנהלת המשרד.</b> זו סיסמה מיוחדת של 16 אותיות, בלי רווחים. <b>לא</b> הסיסמה של הג׳ימייל שלך, ואין לנחש אותה.</td></tr>
             <tr><td><span class="num" style="min-width:28px;height:28px;line-height:28px;font-size:14px;display:inline-block">10</span> חיבור</td><td>TLS (מומלץ) — מסומן</td></tr>
           </table>
           <p><span class="num" style="display:inline-block;min-width:34px;height:34px;line-height:34px;font-size:17px">11</span> לוחצת <b>"הוספת חשבון »"</b>.</p>
@@ -229,7 +235,7 @@ footer{margin:60px 0 30px;text-align:center;color:var(--muted);font-size:15px}
         <h3>🔑 איך מקבלים את הסיסמה (שלב 9)?</h3>
         <p>זו <b>לא</b> הסיסמה של הג׳ימייל שלך — זו סיסמה מיוחדת של 16 אותיות, שהמשרד מנפיק במיוחד בשבילך.</p>
         <ol style="margin:.2em 0 .6em;padding-inline-start:24px">
-          <li>פני למשה (או לשני) ובקשי: <b>"סיסמת אפליקציה למייל המשרד"</b>.</li>
+          <li>פני <b>למנהלת המשרד</b> ובקשי: <b>"סיסמת אפליקציה למייל המשרד"</b>.</li>
           <li>היא תגיע אלייך בהודעה פרטית (למשל בוואטסאפ): 16 אותיות קטנות, לדוגמה <span class="addr">abcd efgh ijkl mnop</span>.</li>
           <li>מעתיקות אותה (Ctrl+C), ומדביקות (Ctrl+V) בשדה <b>"סיסמה"</b>. <b>בלי הרווחים</b> בין הקבוצות.</li>
           <li>אחרי שהחיבור הצליח — מוחקים את ההודעה שבה קיבלת את הסיסמה.</li>
@@ -238,9 +244,9 @@ footer{margin:60px 0 30px;text-align:center;color:var(--muted);font-size:15px}
       </div>
 
       <div class="card" style="margin-top:14px">
-        <h3>🛠️ למי שמנפיקה את הסיסמה (משה / שני)</h3>
+        <h3>🛠️ למנהלת המשרד: איך מנפיקים את הסיסמה</h3>
         <ol style="margin:.2em 0 .4em;padding-inline-start:24px">
-          <li>נכנסים לגוגל עם <span class="addr">info@kolitz.co.il</span> ופותחים את הדף: <span class="addr">myaccount.google.com/apppasswords</span></li>
+          <li>נכנסים לגוגל עם <span class="addr cp">info@kolitz.co.il</span> ופותחים את הדף: <span class="addr cp">myaccount.google.com/apppasswords</span></li>
           <li>בשדה <b>"שם האפליקציה"</b> כותבים את שם העובדת (למשל <b>יוכבד</b>) — כדי לדעת אחר כך של מי כל סיסמה.</li>
           <li>לוחצים <b>"יצירת סיסמה"</b>. מופיע חלון עם <b>16 אותיות</b> — <b>זו ההזדמנות היחידה לראות אותן</b>. מעתיקים מיד.</li>
           <li>שולחים לעובדת בהודעה פרטית. אל תשלחו אותה לאף אחד אחר.</li>
@@ -334,10 +340,10 @@ footer{margin:60px 0 30px;text-align:center;color:var(--muted);font-size:15px}
 
 <section>
   <h2>משהו לא עובד?</h2>
-  <div class="faq"><b>מופיעה הודעת שגיאה בשלב הסיסמה.</b><br>בדקי שהסיסמה הוקלדה בלי רווחים, ושבשם המשתמש כתוב <span class="addr">info@kolitz.co.il</span> (ולא הכתובת האישית שלך). אם עדיין לא — פני למשה לקבלת סיסמה חדשה.</div>
-  <div class="faq"><b>מייל האישור לא מגיע.</b><br>חכי כמה דקות ובדקי ספאם. אם לא הגיע — לחצי "שליחה חוזרת" בחלון ההגדרה, או פני למשה.</div>
+  <div class="faq"><b>מופיעה הודעת שגיאה בשלב הסיסמה.</b><br>בדקי שהסיסמה הוקלדה בלי רווחים, ושבשם המשתמש כתוב <span class="addr">info@kolitz.co.il</span> (ולא הכתובת האישית שלך). אם עדיין לא — פני למנהלת המשרד לקבלת סיסמה חדשה.</div>
+  <div class="faq"><b>מייל האישור לא מגיע.</b><br>חכי כמה דקות ובדקי ספאם. אם לא הגיע — לחצי "שליחה חוזרת" בחלון ההגדרה, או פני למנהלת המשרד.</div>
   <div class="faq"><b>הלקוח רואה כתובת אחרת מזו שבחרתי.</b><br>ודאי שבחרת את הכתובת הנכונה בשורת "מאת" לפני השליחה.</div>
-  <div class="faq"><b>פתאום המייל לא נשלח, ומגיעה הודעה "ההודעה לא נמסרה".</b><br>כנראה הוחלפה הסיסמה הראשית של המשרד, ולכן סיסמת האפליקציה שלך הפסיקה לעבוד. פני למשה לקבלת סיסמה חדשה, ואז: הגדרות ← "חשבונות וייבוא" ← "עריכת פרטים" ליד כתובת המשרד שלך ← הזיני את הסיסמה החדשה. המיילים הנכנסים לא מושפעים.</div>
+  <div class="faq"><b>פתאום המייל לא נשלח, ומגיעה הודעה "ההודעה לא נמסרה".</b><br>כנראה הוחלפה הסיסמה הראשית של המשרד, ולכן סיסמת האפליקציה שלך הפסיקה לעבוד. פני למנהלת המשרד לקבלת סיסמה חדשה, ואז: הגדרות ← "חשבונות וייבוא" ← "עריכת פרטים" ליד כתובת המשרד שלך ← הזיני את הסיסמה החדשה. המיילים הנכנסים לא מושפעים.</div>
   <div class="faq"><b>הלקוח עונה — לאן זה מגיע?</b><br>התשובה מגיעה לג׳ימייל הרגיל שלך, כמו כל מייל אחר.</div>
 </section>
 
@@ -347,7 +353,7 @@ footer{margin:60px 0 30px;text-align:center;color:var(--muted);font-size:15px}
     <ul style="margin:.3em 0 0;padding-inline-start:22px">
       <li>מיילים שאת שולחת בשם המשרד נשמרים <b>רק בג׳ימייל שלך</b> — לא בתיבה הראשית של המשרד.</li>
       <li>סיסמת האפליקציה היא <b>מפתח</b> — לא מעבירים אותה ולא מצלמים אותה.</li>
-      <li>שאלה בזמן ההגדרה? פני למשה לפני שאת לוחצת "הוספת חשבון".</li>
+      <li>שאלה בזמן ההגדרה? פני למנהלת המשרד לפני שאת לוחצת "הוספת חשבון".</li>
     </ul>
   </div>
 </section>
@@ -356,5 +362,26 @@ footer{margin:60px 0 30px;text-align:center;color:var(--muted);font-size:15px}
 <footer>קוליץ אדריכלות · הוראות הגדרת מייל</footer>
 </main>
 <div class="cr-fixed">© כל הזכויות שמורות למשה דייטש</div>
+<script>
+(function(){
+  var els=document.querySelectorAll('.cp');
+  Array.prototype.forEach.call(els,function(el){
+    var b=document.createElement('button');
+    b.type='button';b.className='cpbtn';b.textContent='העתק';
+    b.setAttribute('aria-label','העתקה: '+el.textContent.trim());
+    b.addEventListener('click',function(){
+      var t=(el.getAttribute('data-copy')||el.textContent).trim();
+      function done(){b.textContent='הועתק ✓';b.classList.add('ok');setTimeout(function(){b.textContent='העתק';b.classList.remove('ok');},1600);}
+      function fb(){
+        try{var r=document.createRange();r.selectNodeContents(el);var s=window.getSelection();s.removeAllRanges();s.addRange(r);
+          if(document.execCommand('copy')){done();return;}}catch(e){}
+        b.textContent='סמני והעתיקי';
+      }
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,fb);}else{fb();}
+    });
+    el.insertAdjacentElement('afterend',b);
+  });
+})();
+</script>
 </body>
 </html>
