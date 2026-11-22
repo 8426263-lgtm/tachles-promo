@@ -42,6 +42,8 @@ p{margin:0 0 1em}
 .wrap{width:min(1080px,100% - 40px);margin-inline:auto}
 .kicker{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:99px;background:rgba(132,204,22,.18);color:var(--lime-d);font-size:12.5px;font-weight:700}
 .kicker.dark{background:rgba(132,204,22,.16);color:var(--lime)}
+.kicker.big{font-size:18px;padding:9px 22px;gap:10px}
+.kicker.big i{width:8px;height:8px}
 .kicker i{width:6px;height:6px;background:currentColor;border-radius:50%}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;border-radius:12px;padding:12px 22px;text-decoration:none;font-size:15px;font-weight:700;line-height:1.5;transition:transform .18s,box-shadow .18s}
 .btn:hover{transform:translateY(-2px)}
@@ -192,17 +194,17 @@ footer a{font-weight:600;text-underline-offset:4px}
       <div class="step-body">
         <div class="step-heading"><span class="sn" aria-hidden="true">3</span><div><span class="step-label">שלב 3</span><h3 id="step-3-title">מכינים דף לשיתוף עם הלקוח</h3></div></div>
         <p>אפשר פשוט לבקש:</p>
-        <div class="request-row"><blockquote id="share-prompt">אני רוצה לשתף את הלקוח, תכין לי דף לשיתוף.</blockquote><button class="copy" type="button" data-kc="copy-share-prompt" aria-controls="share-prompt" aria-live="polite">העתקה</button></div>
-        <p>בקשו גם הסבר איך להעביר ללקוח את הדף או לתת לו קישור. המטרה היא שהוא יוכל לפתוח את המודל ולהסתובב בו בעצמו. לא בדקתי מה לקוח צריך כדי לפתוח קישור כזה (למשל חשבון), ולכן כדאי לנסות קודם בעצמכם.</p>
+        <div class="request-row"><blockquote id="share-prompt">אני רוצה לשתף את הלקוח, תכין לי דף לשיתוף.</blockquote></div>
+        <p>בקשו גם הסבר איך להעביר ללקוח את הדף או לתת לו קישור. המטרה היא שהוא יוכל לפתוח את המודל ולהסתובב בו בעצמו.</p>
       </div>
     </article>
 
-    <p class="note">את הדוגמה הזאת הכנתי ב־<bdi>Claude Code</bdi>. לאורך העבודה בדקתי את המודל מול התוכנית ותיקנתי לפי הצורך. מצב הרינדור ה״קולנועי״ היה אצלי איטי ורועש, ואת הנוסחים האלה טרם בדקתי ב־<bdi>ChatGPT</bdi>.</p>
+    <p class="note">את הדוגמה הזאת הכנתי ב־<bdi>Claude Code</bdi>. לאורך העבודה בדקתי את המודל מול התוכנית ותיקנתי לפי הצורך.</p>
     <div class="resources"><p>רוצים לחזור לנוסחים ולהתחיל מתוכנית משלכם?</p><a href="hadmayot-prompts.html" data-kc="cta-prompts-kit">לנוסחים של ההדרכה הקודמת ←</a></div>
   </div></section>
 
   <section id="ask" class="feedback-section" aria-labelledby="ask-title"><div class="wrap feedback">
-    <span class="kicker dark">עזרו לי להכין את ההמשך</span>
+    <span class="kicker dark big">עזרו לי להכין את ההמשך</span>
     <h2 id="ask-title">איך הלך לכם בהדרכה הקודמת?</h2>
     <p>כדי שאדע מה צריך להסביר יותר בהמשך, אשמח שתסמנו איפה אתם עומדים.</p>
     <div class="opts">
@@ -220,7 +222,7 @@ footer a{font-weight:600;text-underline-offset:4px}
 (function () {
   var button = document.querySelector('.copy');
   var prompt = document.getElementById('share-prompt');
-  button.addEventListener('click', function () {
+  if (button && prompt) button.addEventListener('click', function () {
     var text = prompt.innerText;
     function done() { button.textContent = 'הועתק'; setTimeout(function () { button.textContent = 'העתקה'; }, 1800); }
     function fallback() {
