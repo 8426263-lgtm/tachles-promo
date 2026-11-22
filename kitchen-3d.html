@@ -9142,7 +9142,7 @@ woodTex.anisotropy = renderer.capabilities.getMaxAnisotropy();
 const P = o => new T.MeshPhysicalMaterial(o);
 const SPECM = {
   sahara: () => P({ color: 0xe3e0d5, roughness: 0.58, clearcoat: 0.06, clearcoatRoughness: 0.55, bumpMap: grain, bumpScale: 0.12 }),   // SOFT 3156 סהרה (מט רך)
-  wood: () => P({ color: 0xffffff, map: woodTex, roughness: 0.5, clearcoat: 0.15, clearcoatRoughness: 0.4 }),                       // ABET 395W
+  wood: () => P({ color: 0xffffff, map: woodTex, emissive: 0x4a3b2d, emissiveIntensity: 0.45, roughness: 0.5, clearcoat: 0.15, clearcoatRoughness: 0.4 }),                       // ABET 395W
   black: () => P({ color: 0x1b1b1c, roughness: 0.42, clearcoat: 0.1 }),                                                             // ABET 421B
   counter: () => P({ color: 0xcfcac0, roughness: 0.24, clearcoat: 0.55, clearcoatRoughness: 0.12 }),                                 // לא נקבע במפרט
   fridgeBody: () => P({ color: 0x0b0c0e, roughness: 0.7 }),
