@@ -6,7 +6,27 @@
 <title>מהמודל למטבח שאפשר להציג ללקוח</title>
 <meta name="robots" content="noindex">
 <!-- שער הרשמה (אותו שער כמו hadmayot-thanks.html): חסימה "מנומסת", לא אבטחה -->
-<style>html:not(.gate-ok) body{display:none!important}</style>
+<style>html:not(.gate-ok) body{display:none!important}
+.live-section{padding:44px 0 6px}
+.live-section h2{margin:12px 0 6px;font-size:clamp(26px,4vw,38px);line-height:1.25;font-weight:700}
+.live-sub{margin:0 0 20px;color:var(--mute);max-width:720px}
+.live-frame{position:relative;width:100%;height:clamp(440px,72vh,700px);border-radius:22px;overflow:hidden;background:#14161a;border:1px solid var(--line);box-shadow:0 18px 50px rgba(16,23,33,.18)}
+.live-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:#14161a}
+.live-start{position:absolute;inset:0;width:100%;height:100%;border:0;padding:0;background:#14161a;cursor:pointer;color:#fff;font:inherit}
+.live-start img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.78;transition:opacity .25s,transform .4s}
+.live-start::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,23,33,.08),rgba(16,23,33,.55))}
+.live-start:hover img{opacity:.92;transform:scale(1.015)}
+.live-play{position:absolute;z-index:2;inset-inline:0;top:50%;margin:-30px auto 0;width:max-content;display:inline-flex;align-items:center;gap:12px;background:var(--lime);color:var(--ink);padding:16px 34px;border-radius:99px;font-size:22px;font-weight:700;box-shadow:0 14px 40px rgba(132,204,22,.38)}
+.live-play b{font-size:18px}
+.live-start small{position:absolute;z-index:2;inset-inline:0;top:50%;margin-top:44px;text-align:center;font-size:14px;color:#dfe8e2}
+.live-tools{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin:14px 0 0}
+.live-tools button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:7px 18px;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
+.live-tools button:hover{border-color:var(--lime)}
+.live-tools a{color:var(--ink);font-size:14px;font-weight:700}
+.live-touch{display:none;margin:8px 0 0;color:var(--mute);font-size:13px}
+@media(hover:none){.live-touch{display:block}}
+@media(max-width:760px){.live-frame{height:clamp(420px,66vh,560px);border-radius:16px}.live-play{font-size:19px;padding:14px 26px}}
+</style>
 <script>
 (function () {
     var ok = false;
@@ -143,7 +163,7 @@ footer a{font-weight:600;text-underline-offset:4px}
       <h1>המודל כבר בנוי.<br>עכשיו מכינים אותו<br><em>ללקוח.</em></h1>
       <p class="intro">הפעם לקחתי תוכנית נגרות של מטבח, בניתי ממנה מודל והוספתי לו חומרים, תאורה וריהוט. התוצאה: מטבח שהלקוח יכול לפתוח בדפדפן ולהסתובב בתוכו.</p>
       <div class="hero-actions">
-        <a class="btn lime" href="kitchen-3d.html" target="_blank" rel="noopener" data-kc="cta-open-model">להסתובב במטבח <span aria-hidden="true">↗</span></a>
+        <a class="btn lime" href="#live" data-kc="cta-open-model" data-live-start="1">להסתובב במטבח <span aria-hidden="true">↓</span></a>
         <a class="text-link" href="#steps" data-kc="nav-steps">איך הכנתי אותו</a>
       </div>
       <p class="hint">גררו כדי להסתובב, או לחצו על ״סיור אוטומטי״. מומלץ לפתוח במחשב.</p>
@@ -157,6 +177,20 @@ footer a{font-weight:600;text-underline-offset:4px}
   </div>
 </header>
 <main>
+  <section id="live" class="live-section" aria-labelledby="live-title"><div class="wrap">
+    <span class="kicker"><i aria-hidden="true"></i>המודל החי</span>
+    <h2 id="live-title">הסתובבו במטבח, בלי לצאת מהדף</h2>
+    <p class="live-sub">גררו כדי להסתובב, גלגלת לזום. אפשר לבחור מבט, להחליף בין יום לערב, ולשמור תמונה מכל זווית.</p>
+    <div class="live-frame" id="live-frame">
+      <button class="live-start" id="live-start" type="button" data-kc="model-embed-start" aria-label="הפעלת המטבח התלת-ממדי">
+        <img src="hadmayot-kitchen-1.jpg" width="1000" height="643" alt="">
+        <span class="live-play"><b aria-hidden="true">▶</b> הפעלת המטבח</span>
+        <small>נטען בכמה שניות</small>
+      </button>
+    </div>
+    <p class="live-tools"><button type="button" id="live-full" data-kc="model-embed-fullscreen">מסך מלא</button><a href="kitchen-3d.html" target="_blank" rel="noopener" data-kc="model-open-tab">פתיחה בלשונית נפרדת ↗</a></p>
+    <p class="live-touch">בטלפון: גררו באצבע אחת בתוך המסגרת כדי להסתובב. כדי להמשיך לגלול את הדף, גללו מחוץ למסגרת.</p>
+  </div></section>
   <section id="model" class="proof-section" aria-labelledby="model-title"><div class="wrap proof">
     <div>
       <span class="kicker">התוצאה</span>
@@ -246,6 +280,53 @@ footer a{font-weight:600;text-underline-offset:4px}
   });
   dialog.querySelector('.close-dialog').addEventListener('click', function () { dialog.close(); });
   dialog.addEventListener('click', function (event) { if (event.target === dialog) dialog.close(); });
+})();
+</script>
+
+<script>
+(function () {
+  var frame = document.getElementById('live-frame');
+  var start = document.getElementById('live-start');
+  var started = false;
+  function foldPanel(fr) {
+    var tries = 0;
+    var timer = setInterval(function () {
+      tries++;
+      try {
+        var d = fr.contentDocument, p = d && d.getElementById('panel'), b = d && d.getElementById('fold');
+        if (p && b) { if (p.classList.contains('off')) { clearInterval(timer); return; } b.click(); }
+      } catch (e) { clearInterval(timer); }
+      if (tries > 50) clearInterval(timer);
+    }, 400);
+  }
+  function launch() {
+    if (started || !frame) return;
+    started = true;
+    var fr = document.createElement('iframe');
+    fr.src = 'kitchen-3d.html';
+    fr.title = 'מטבח תלת-ממדי אינטראקטיבי';
+    fr.setAttribute('allow', 'fullscreen');
+    fr.setAttribute('allowfullscreen', '');
+    if (start) start.remove();
+    frame.appendChild(fr);
+    if (frame.clientWidth < 700) fr.addEventListener('load', function () { foldPanel(fr); });
+  }
+  if (start) start.addEventListener('click', launch);
+  document.querySelectorAll('[data-live-start]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      var sec = document.getElementById('live');
+      if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      launch();
+    });
+  });
+  var full = document.getElementById('live-full');
+  if (full) full.addEventListener('click', function () {
+    launch();
+    var el = frame;
+    var req = el && (el.requestFullscreen || el.webkitRequestFullscreen);
+    if (req) { try { req.call(el); } catch (e) {} }
+  });
 })();
 </script>
 </body>
