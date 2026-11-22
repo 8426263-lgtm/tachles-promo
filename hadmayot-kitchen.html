@@ -26,6 +26,16 @@
 .live-touch{display:none;margin:8px 0 0;color:var(--mute);font-size:13px}
 @media(hover:none){.live-touch{display:block}}
 @media(max-width:760px){.live-frame{height:clamp(420px,66vh,560px);border-radius:16px}.live-play{font-size:19px;padding:14px 26px}}
+
+.proof-wide{grid-column:1/-1}
+.proof-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:8px 0 0}
+.tile{position:relative;padding:0;border:3px solid #fff;border-radius:18px;overflow:hidden;background:#e3e5df;cursor:zoom-in;box-shadow:0 14px 36px rgba(16,23,33,.16);aspect-ratio:1000/643}
+.tile img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .35s}
+.tile:hover img{transform:scale(1.03)}
+.tile span{position:absolute;inset-inline-start:12px;bottom:12px;background:rgba(16,23,33,.82);color:#fff;padding:5px 13px;border-radius:99px;font-size:13px;font-weight:700}
+.tile.eve span{background:var(--lime);color:var(--ink)}
+.proof-cap{margin:14px 0 0!important;font-size:14px!important}
+@media(max-width:560px){.proof-gallery{grid-template-columns:1fr}}
 </style>
 <script>
 (function () {
@@ -198,6 +208,8 @@ footer a{font-weight:600;text-underline-offset:4px}
       <p>בחרתי מבט ושמרתי תמונה. התמונות לא עברו בכלי יצירת תמונות — כל מה שרואים כאן נמצא במודל עצמו.</p>
     </div>
     <div class="proof-note"><strong>בוחרים עוד זווית. מצלמים שוב.</strong><span>אפשר גם לשלוח ללקוח את המודל, כדי שיסתכל בעצמו.</span></div>
+    <div class="proof-wide"><div class="proof-gallery" aria-label="צילומים מתוך המודל: אותו מבט ביום ובערב"><button class="tile" type="button" data-zoom="hadmayot-kitchen-1.jpg" aria-label="הגדלת צילום: מהכניסה · יום"><img src="hadmayot-kitchen-1.jpg" width="1000" height="643" loading="lazy" alt="צילום מתוך המודל, מהכניסה, בתאורת יום"><span>מהכניסה · יום</span></button><button class="tile eve" type="button" data-zoom="hadmayot-kitchen-1-evening.jpg" aria-label="הגדלת צילום: מהכניסה · ערב"><img src="hadmayot-kitchen-1-evening.jpg" width="1000" height="643" loading="lazy" alt="אותו מבט מהכניסה בתאורת ערב, עם ספוטים דולקים"><span>מהכניסה · ערב</span></button><button class="tile" type="button" data-zoom="hadmayot-kitchen-2.jpg" aria-label="הגדלת צילום: לכיוון המקרר · יום"><img src="hadmayot-kitchen-2.jpg" width="1000" height="643" loading="lazy" alt="צילום מתוך המודל, לכיוון המקרר, בתאורת יום"><span>לכיוון המקרר · יום</span></button><button class="tile eve" type="button" data-zoom="hadmayot-kitchen-2-evening.jpg" aria-label="הגדלת צילום: לכיוון המקרר · ערב"><img src="hadmayot-kitchen-2-evening.jpg" width="1000" height="643" loading="lazy" alt="אותו מבט לכיוון המקרר בתאורת ערב"><span>לכיוון המקרר · ערב</span></button></div>
+    <p class="proof-cap">אותו מבט, שתי תאורות. הכול נשמר מתוך המודל.</p></div>
   </div></section>
 
   <section id="steps" class="steps-section" aria-labelledby="steps-title"><div class="wrap">
