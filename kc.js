@@ -6,14 +6,21 @@
   if (!/^https?:$/.test(location.protocol)) return;
   var prefix = '/e/' + (window.KC_AREA || 'kitchen');
   var last = {};
+  /* הכתובת האמיתית נשמרת פעם אחת, ואף פעם לא מתעדכנת מכתובת וירטואלית (/e/...) */
+  var real = location.pathname + location.search + location.hash;
+  function realUrl() {
+    if (location.pathname.indexOf('/e/') !== 0) real = location.pathname + location.search + location.hash;
+    return real;
+  }
+  window.addEventListener('hashchange', realUrl);
   function ev(name) {
     try {
       var now = Date.now();
       if (last[name] && now - last[name] < 800) return;
       last[name] = now;
-      var orig = location.pathname + location.search + location.hash;
+      var orig = realUrl();
       history.pushState(null, '', prefix + '/' + name);
-      setTimeout(function () { try { history.replaceState(null, '', orig); } catch (x) {} }, 400);
+      setTimeout(function () { try { history.replaceState(null, '', real); } catch (x) {} }, 400);
     } catch (x) {}
   }
   window.kcEvent = ev;
