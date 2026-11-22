@@ -56,7 +56,7 @@
   <div class="lbl">תאורה</div>
   <div class="seg" id="light"><button data-l="day">יום</button><button data-l="eve">ערב</button></div>
   <div class="lbl">איכות</div>
-  <div class="seg" id="q"><button data-q="fast">מהיר</button><button data-q="high">גבוה</button><button data-q="cinema">קולנועי</button></div>
+  <div class="seg" id="q"><button data-q="fast">מהיר</button><button data-q="high">גבוה</button></div>
   <div class="hint" id="qhint"></div>
   <div class="seg" id="ptmode" style="display:none;margin-top:6px"><button data-p="fast">טיוטה</button><button data-p="full">סופי (איטי)</button></div>
   <div class="lbl">הצג</div>
@@ -9681,7 +9681,7 @@ function resize() {
 addEventListener('resize', resize);
 
 /* ---------- הפעלה ---------- */
-applyVis(); setWalls(true); markRefl(); applyLight('day'); setQuality(/q=fast/.test(location.search) ? 'fast' : /q=cinema/.test(location.search) ? 'cinema' : 'high'); goCam(0, true);
+applyVis(); setWalls(true); markRefl(); applyLight('day'); setQuality(/q=fast/.test(location.search) ? 'fast' : 'high'); goCam(0, true);
 const st = $('status');
 (function loop(now) {
   ctl.update(); tweenStep(now); tourStep(now);
