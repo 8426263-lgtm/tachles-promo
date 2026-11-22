@@ -9453,8 +9453,14 @@ function loadModel(id) {
     for (const part of MODEL_DATA[id].parts) {
       const geo = new T.BufferGeometry(); geo.setAttribute('position', new T.Float32BufferAttribute(part.pos, 3)); geo.setAttribute('uv', new T.Float32BufferAttribute(part.uv, 2)); geo.setIndex(part.idx);
       if (part.nor.length) geo.setAttribute('normal', new T.Float32BufferAttribute(part.nor, 3)); else geo.computeVertexNormals();
-      const mr = await modelTex(part.mat.mr, false);
-      g.add(new T.Mesh(geo, new T.MeshStandardMaterial({ color: new T.Color(...part.mat.color), roughness: part.mat.rough, metalness: mr ? part.mat.metal : Math.min(part.mat.metal, 0.15), map: await modelTex(part.mat.map, true), roughnessMap: mr, metalnessMap: mr, normalMap: await modelTex(part.mat.nor, false) })));
+      const mat = new T.MeshStandardMaterial({ color: new T.Color(...part.mat.color), roughness: part.mat.rough, metalness: Math.min(part.mat.metal, 0.15) });
+      g.add(new T.Mesh(geo, mat));
+      /* הטקסטורות נטענות ברקע: המטבח מוצג מיד, והצבעים מתווספים כשהתמונות מגיעות (אם נחסמו, נשאר חומר פשוט) */
+      Promise.all([modelTex(part.mat.mr, false), modelTex(part.mat.map, true), modelTex(part.mat.nor, false)]).then(([mr, map, nor]) => {
+        if (map) mat.map = map; if (nor) mat.normalMap = nor;
+        if (mr) { mat.roughnessMap = mr; mat.metalnessMap = mr; mat.metalness = part.mat.metal; }
+        mat.needsUpdate = true;
+      });
     }
     return g;
   })());
