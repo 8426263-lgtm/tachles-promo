@@ -46,7 +46,11 @@
   /* כל אלמנט עם data-kc="שם" נספר בלחיצה */
   document.addEventListener('click', function (e) {
     var t = e.target.closest ? e.target.closest('[data-kc]') : null;
-    if (t) ev(t.getAttribute('data-kc'));
+    if (!t) return;
+    /* חשוב: קישור יחסי מתפרש מול כתובת הדף ברגע הניווט. אם נשנה את הכתובת (pushState) לפני כן,
+       הקישור יוביל לנתיב שבור. לכן הופכים אותו לכתובת מלאה לפני הדיווח. */
+    if (t.tagName === 'A') { try { t.href = t.href; } catch (x) {} }
+    ev(t.getAttribute('data-kc'));
   }, true);
 
   /* מציג המטבח התלת-ממדי: כל כפתור בפאנל */
