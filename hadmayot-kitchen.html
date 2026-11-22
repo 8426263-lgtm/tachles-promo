@@ -23,6 +23,9 @@
     else location.replace('hadmayot.html?r=1#signup');
 })();
 </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "83092bfbb5b149bfb9d965017494f5b2", "spa": true}'></script>
+<script>window.KC_AREA='kitchen-page';</script>
+<script defer src="kc.js"></script>
 <style>
 :root{--navy:#101721;--lime:#84cc16;--lime-l:#a3e635;--ink:#1e293b;--mut:#475569;--line:#e2e8f0}
 *{box-sizing:border-box}
@@ -32,17 +35,29 @@ body{margin:0;background:#eef1f5;color:var(--ink);font-family:'Assistant','Heebo
 h1{margin:20px auto 0;max-width:720px;font-size:clamp(28px,5vw,42px);line-height:1.3;font-weight:900}
 h1 span{color:var(--lime-l)}
 .hero p{margin:16px auto 0;max-width:620px;color:#cbd5e1}
-.wrap{max-width:760px;margin:0 auto;padding:28px 18px 56px}
+.wrap{max-width:780px;margin:0 auto;padding:28px 18px 56px}
 .card{background:#fff;border-radius:16px;padding:26px 24px;margin:0 0 20px}
-h2{margin:0 0 10px;font-size:24px;font-weight:900;color:var(--navy)}
+h2{margin:0 0 10px;font-size:25px;font-weight:900;color:var(--navy)}
 .shots{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 20px}
 .shots img{width:100%;height:auto;display:block;border-radius:12px}
 @media (max-width:560px){.shots{grid-template-columns:1fr}}
 .btn{display:block;text-align:center;background:var(--lime);color:var(--navy);text-decoration:none;font-weight:900;font-size:22px;padding:18px 12px;border-radius:14px}
 .btn:hover{background:var(--lime-l)}
+.btn.dark{background:var(--navy);color:#fff;font-size:18px;padding:15px 12px}
 ul{margin:8px 0 0;padding:0 22px 0 0}
 li{margin:0 0 8px}
 .note{color:var(--mut);font-size:16px}
+.step{display:flex;gap:14px;background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:16px 16px 6px;margin:0 0 14px}
+.num{flex:none;width:32px;height:32px;line-height:32px;border-radius:50%;background:var(--lime);color:var(--navy);text-align:center;font-weight:900}
+.step h3{margin:2px 0 6px;font-size:20px;color:var(--navy)}
+.step p{margin:0 0 10px;font-size:17px;line-height:1.65}
+.step strong{color:#3f6212}
+.ask{background:#fff;border:1px solid var(--line);border-radius:8px;padding:2px 8px}
+.poll{margin:0 0 22px}
+.poll .q{margin:0 0 8px;font-weight:900;font-size:19px;color:var(--navy)}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts a{display:inline-block;border:2px solid var(--lime);border-radius:999px;padding:8px 18px;font-weight:700;font-size:16px;color:var(--navy);text-decoration:none;background:#fff}
+.opts a:hover{background:#f0fbd8}
 .mail a{color:var(--navy);font-weight:700}
 </style>
 </head>
@@ -60,7 +75,7 @@ li{margin:0 0 8px}
   </div>
 
   <div class="card">
-    <a class="btn" href="kitchen-3d.html">כניסה למטבח התלת-ממדי</a>
+    <a class="btn" href="kitchen-3d.html" data-kc="cta-open-model">כניסה למטבח התלת-ממדי</a>
     <p class="note" style="margin:14px 0 0;text-align:center">עובד הכי טוב במחשב. הטעינה לוקחת כמה שניות.</p>
   </div>
 
@@ -75,19 +90,87 @@ li{margin:0 0 8px}
     </ul>
   </div>
 
+  <div class="card" id="guide">
+    <h2>איך עושים את זה, צעד אחר צעד</h2>
+    <p style="margin:0 0 16px">ההדרכה נתנה את הבסיס: קודם חלל מאושר, ורק אחר כך תמונות. כאן אותו בסיס, מותאם לנגרות ולמטבח. במקום תמונה מתוך שיחה, בונים מודל שאפשר לפתוח, לסובב ולצלם ממנו שוב ושוב.</p>
+
+    <div class="step">
+      <div class="num">1</div>
+      <div class="body">
+        <h3>מכינים את החומר וקוראים את התוכניות</h3>
+        <p><strong>מעלים:</strong> מבט-על ופריסות (חזיתות) של הנגרות כ-PDF, מפרט חומרים, ותמונות של פריטים שבחרתם (כיסא, ברז, בר מים).</p>
+        <p><strong>מבקשים:</strong> <span class="ask">&quot;קרא את התוכניות בלבד. הצג טבלה: פריט | מידה | מקור (גיליון) | ודאי / חסר / הנחה. רשום סתירות בין גיליונות, ואל תפתור אותן בשקט.&quot;</span></p>
+        <p><strong>מקבלים:</strong> טבלת מידות, שאלות על מה שחסר, ורשימת סתירות. עונים לשאלות לפני שבונים.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="num">2</div>
+      <div class="body">
+        <h3>בונים מודל בלי עיצוב</h3>
+        <p><strong>מעלים:</strong> כלום חדש, באותה שיחה.</p>
+        <p><strong>מבקשים:</strong> <span class="ask">&quot;בנה כל יחידה כקופסה לפי המידות. סמן כל רכיב &quot;ודאי&quot; או &quot;הנחה&quot;. הפק קובץ HTML עצמאי עם סיבוב, הסתרת שכבות, ולחיצה על רכיב להצגת מידותיו ומקורו.&quot;</span></p>
+        <p><strong>מקבלים:</strong> קובץ אחד (MODEL_v01) שנפתח בדפדפן, בלי אינטרנט.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="num">3</div>
+      <div class="body">
+        <h3>בודקים מול התוכנית ומאשרים</h3>
+        <p><strong>מעלים:</strong> כלום חדש.</p>
+        <p><strong>מבקשים:</strong> <span class="ask">&quot;בדוק את המודל מול התוכנית: סכום המידות לאורך כל קיר, פתחים, מיקום מכשירים. בצע רק את התיקונים האלה: [רשימה]. שמור גרסה חדשה.&quot;</span></p>
+        <p><strong>מקבלים:</strong> גרסה מתוקנת ורשימת שינויים. כשמרוצים כותבים: &quot;אני מאשר את MODEL_v02 כבסיס להדמיה&quot;.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="num">4</div>
+      <div class="body">
+        <h3>מלבישים חומרים ומוסיפים ריהוט</h3>
+        <p><strong>מעלים:</strong> מפרט החומרים ותמונות הפריטים (לחומרים וסגנון בלבד).</p>
+        <p><strong>מבקשים:</strong> <span class="ask">&quot;החל חומרים לפי המפרט בלבד. מה שלא נקבע, כתוב &quot;לא נקבע&quot; והצג כהנחה ניטרלית. אל תמציא חומר.&quot;</span></p>
+        <p><strong>מקבלים:</strong> מודל עם חומרים, וגם רשימת סטיות. כך רואים מה נקבע בתוכנית ומה נוסף רק להמחשה.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="num">5</div>
+      <div class="body">
+        <h3>מצלמים, וכשצריך משנים דבר אחד</h3>
+        <p><strong>מעלים:</strong> מבט-על עם עיגול איפה עומדים וקו לאן מסתכלים.</p>
+        <p><strong>מבקשים:</strong> <span class="ask">&quot;צור מצלמה בנקודה ובכיוון שסימנתי. אחר כך: &quot;השינוי היחיד: [יחידה], למידה או חומר [ערך]. עדכן קודם את המודל ושמור גרסה חדשה&quot;.&quot;</span></p>
+        <p><strong>מקבלים:</strong> תמונה מכל זווית שרוצים, והמטבח לא משתנה בין תמונה לתמונה.</p>
+      </div>
+    </div>
+    <p class="note" style="margin:16px 0 12px">הפרומפטים המלאים לכל שלב, כולל מסלול הנגרות, נמצאים בערכת הפרומפטים שכבר קיבלתם.</p>
+    <a class="btn dark" href="hadmayot-prompts.html" data-kc="cta-prompts-kit">לערכת הפרומפטים (מסלול נגרות)</a>
+  </div>
+
   <div class="card">
     <h2>למה זה שונה מהדמיה רגילה</h2>
-    <p style="margin:0">בהדרכה הקודמת למדנו איך לא לאבד את החלל כשמשנים דבר אחד. כאן הרעיון הפוך: קודם בונים את החלל פעם אחת, במידות, ואז כל תמונה נלקחת ממנו. החלל לא יכול להתהפך, כי הוא לא נוצר מחדש בכל תמונה.</p>
+    <p style="margin:0">בהדרכה למדנו איך לא לאבד את החלל כשמשנים דבר אחד. כאן הרעיון הפוך: בונים את החלל פעם אחת, במידות, וכל תמונה נלקחת ממנו. החלל לא יכול להתהפך, כי הוא לא נוצר מחדש בכל תמונה.</p>
   </div>
 
   <div class="card mail">
     <h2>ועכשיו אני רוצה לשמוע מכם</h2>
-    <ul>
-      <li>איך הייתה ההדרכה הקודמת? יצאו לכם הדמיות טובות?</li>
-      <li>מה הייתם רוצים לשמוע על AI בעולם האדריכלות?</li>
-      <li>מה אתם כבר יודעים ומשתמשים בו, ומה חסר לכם?</li>
-    </ul>
-    <p style="margin:14px 0 0">שורה אחת מספיקה. <a href="mailto:tachles263@gmail.com?subject=%D7%AA%D7%92%D7%95%D7%91%D7%94%20%D7%9E%D7%94%D7%93%D7%A3%20%D7%A9%D7%9C%20%D7%94%D7%9E%D7%98%D7%91%D7%97">כתבו לי כאן</a>.</p>
+    <p class="note" style="margin:0 0 18px">שלוש שאלות, כל אחת בלחיצה אחת. התשובות קובעות מה אכין לכם במייל הבא.</p>
+
+    <div class="poll">
+      <p class="q">איך הלך עם ההדרכה הקודמת?</p>
+      <div class="opts"><a href="https://office.daitsh.com/poll/0ebd8480-6122-454c-b440-7e78839f304e?o=0" target="_blank" rel="noopener" data-kc="poll-training-1">ניסיתי, וזה עבד</a><a href="https://office.daitsh.com/poll/0ebd8480-6122-454c-b440-7e78839f304e?o=1" target="_blank" rel="noopener" data-kc="poll-training-2">ניסיתי, ונתקעתי</a><a href="https://office.daitsh.com/poll/0ebd8480-6122-454c-b440-7e78839f304e?o=2" target="_blank" rel="noopener" data-kc="poll-training-3">עוד לא הספקתי</a></div>
+    </div>
+
+    <div class="poll">
+      <p class="q">מה הכי הייתם רוצים לשמוע על AI באדריכלות?</p>
+      <div class="opts"><a href="https://office.daitsh.com/poll/6a616c19-9420-4088-814c-ad0b8378a62e?o=0" target="_blank" rel="noopener" data-kc="poll-hear-1">הדמיות ומודלים תלת-ממדיים</a><a href="https://office.daitsh.com/poll/6a616c19-9420-4088-814c-ad0b8378a62e?o=1" target="_blank" rel="noopener" data-kc="poll-hear-2">קריאת תוכניות וכתבי כמויות</a><a href="https://office.daitsh.com/poll/6a616c19-9420-4088-814c-ad0b8378a62e?o=2" target="_blank" rel="noopener" data-kc="poll-hear-3">רישוי: מכתבים, טפסים ותיאומים</a><a href="https://office.daitsh.com/poll/6a616c19-9420-4088-814c-ad0b8378a62e?o=3" target="_blank" rel="noopener" data-kc="poll-hear-4">הצעות מחיר וניהול המשרד</a><a href="https://office.daitsh.com/poll/6a616c19-9420-4088-814c-ad0b8378a62e?o=4" target="_blank" rel="noopener" data-kc="poll-hear-5">מצגות ללקוחות</a><a href="https://office.daitsh.com/poll/6a616c19-9420-4088-814c-ad0b8378a62e?o=5" target="_blank" rel="noopener" data-kc="poll-hear-6">משהו אחר, אכתוב בתשובה</a></div>
+    </div>
+
+    <div class="poll">
+      <p class="q">באיזו מידה אתם משתמשים היום ב-AI בעבודה?</p>
+      <div class="opts"><a href="https://office.daitsh.com/poll/9354ae5c-cb5b-4513-9cca-ad62e475f2b1?o=0" target="_blank" rel="noopener" data-kc="poll-usage-1">עדיין לא</a><a href="https://office.daitsh.com/poll/9354ae5c-cb5b-4513-9cca-ad62e475f2b1?o=1" target="_blank" rel="noopener" data-kc="poll-usage-2">מדי פעם, בשאלות כלליות</a><a href="https://office.daitsh.com/poll/9354ae5c-cb5b-4513-9cca-ad62e475f2b1?o=2" target="_blank" rel="noopener" data-kc="poll-usage-3">באופן קבוע בחלק מהמשימות</a><a href="https://office.daitsh.com/poll/9354ae5c-cb5b-4513-9cca-ad62e475f2b1?o=3" target="_blank" rel="noopener" data-kc="poll-usage-4">כמעט בכל משימה</a></div>
+    </div>
+    <p style="margin:6px 0 0"><strong>ומה חסר לכם?</strong> משימה שחוזרת כל שבוע, או כלי שעוד לא מצאתם. <a href="mailto:tachles263@gmail.com?subject=%D7%AA%D7%92%D7%95%D7%91%D7%94%20%D7%9E%D7%93%D7%A3%20%D7%94%D7%9E%D7%98%D7%91%D7%97" data-kc="mail-reply">כתבו לי כאן</a>, גם שורה אחת מספיקה.</p>
   </div>
 </div>
 </body>
