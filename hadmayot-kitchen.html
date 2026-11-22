@@ -286,7 +286,7 @@ footer a{font-weight:600;text-underline-offset:4px}
   var image = dialog.querySelector('img');
   document.querySelectorAll('[data-zoom]').forEach(function (trigger) {
     trigger.addEventListener('click', function () {
-      var z = trigger.getAttribute('data-zoom'); image.src = /^(data:|https?:|/)/.test(z) ? z : '/' + z; image.alt = trigger.querySelector('img').alt;
+      var z = trigger.getAttribute('data-zoom'); image.src = (z.indexOf('data:') === 0 || z.indexOf('http') === 0 || z.charAt(0) === '/') ? z : '/' + z; image.alt = trigger.querySelector('img').alt;
       dialog.showModal();
     });
   });
