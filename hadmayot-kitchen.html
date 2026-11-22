@@ -274,7 +274,7 @@ footer a{font-weight:600;text-underline-offset:4px}
   var image = dialog.querySelector('img');
   document.querySelectorAll('[data-zoom]').forEach(function (trigger) {
     trigger.addEventListener('click', function () {
-      image.src = trigger.getAttribute('data-zoom'); image.alt = trigger.querySelector('img').alt;
+      image.src = '/' + trigger.getAttribute('data-zoom'); image.alt = trigger.querySelector('img').alt;
       dialog.showModal();
     });
   });
@@ -303,7 +303,7 @@ footer a{font-weight:600;text-underline-offset:4px}
     if (started || !frame) return;
     started = true;
     var fr = document.createElement('iframe');
-    fr.src = 'kitchen-3d.html';
+    fr.src = '/kitchen-3d.html'; /* נתיב מוחלט: בזמן אירוע ספירה הכתובת הנוכחית זמנית (/e/...) */
     fr.title = 'מטבח תלת-ממדי אינטראקטיבי';
     fr.setAttribute('allow', 'fullscreen');
     fr.setAttribute('allowfullscreen', '');
