@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>מטבח שנבנה כמודל תלת-ממדי</title>
+<meta name="robots" content="noindex">
+<!-- שער הרשמה (אותו שער כמו hadmayot-thanks.html): חסימה "מנומסת", לא אבטחה -->
+<style>html:not(.gate-ok) body{display:none!important}</style>
+<script>
+(function () {
+    var ok = false;
+    try {
+        var m = location.search.match(/[?&]e=([^&#]*)/);
+        var e = m ? decodeURIComponent(m[1]).replace(/[‎‏‪-‮]/g, '').trim() : '';
+        if (/^[^\s@{}<>]+@[^\s@{}<>]+\.[^\s@{}<>]+$/.test(e)) {
+            ok = true;
+            try { localStorage.setItem('hadmayot_ok', '1'); history.replaceState(null, '', location.pathname + location.hash); } catch (x) {}
+        }
+    } catch (x) {}
+    if (!ok) { try { ok = localStorage.getItem('hadmayot_ok') === '1'; } catch (x) {} }
+    if (ok) document.documentElement.classList.add('gate-ok');
+    else location.replace('hadmayot.html?r=1#signup');
+})();
+</script>
+<style>
+:root{--navy:#101721;--lime:#84cc16;--lime-l:#a3e635;--ink:#1e293b;--mut:#475569;--line:#e2e8f0}
+*{box-sizing:border-box}
+body{margin:0;background:#eef1f5;color:var(--ink);font-family:'Assistant','Heebo','Segoe UI',Arial,sans-serif;font-size:18px;line-height:1.75}
+.hero{background:var(--navy);color:#fff;text-align:center;padding:48px 20px 40px}
+.pill{display:inline-block;border:1px solid #3f6212;background:#1b2635;color:var(--lime-l);border-radius:999px;padding:6px 18px;font-weight:700;font-size:15px}
+h1{margin:20px auto 0;max-width:720px;font-size:clamp(28px,5vw,42px);line-height:1.3;font-weight:900}
+h1 span{color:var(--lime-l)}
+.hero p{margin:16px auto 0;max-width:620px;color:#cbd5e1}
+.wrap{max-width:760px;margin:0 auto;padding:28px 18px 56px}
+.card{background:#fff;border-radius:16px;padding:26px 24px;margin:0 0 20px}
+h2{margin:0 0 10px;font-size:24px;font-weight:900;color:var(--navy)}
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 20px}
+.shots img{width:100%;height:auto;display:block;border-radius:12px}
+@media (max-width:560px){.shots{grid-template-columns:1fr}}
+.btn{display:block;text-align:center;background:var(--lime);color:var(--navy);text-decoration:none;font-weight:900;font-size:22px;padding:18px 12px;border-radius:14px}
+.btn:hover{background:var(--lime-l)}
+ul{margin:8px 0 0;padding:0 22px 0 0}
+li{margin:0 0 8px}
+.note{color:var(--mut);font-size:16px}
+.mail a{color:var(--navy);font-weight:700}
+</style>
+</head>
+<body>
+<div class="hero">
+  <span class="pill">המשך להדרכה · הדמיות עקביות</span>
+  <h1>המטבח קודם נבנה,<br><span>ורק אחר כך צולם</span></h1>
+  <p>מטבח שבניתי כמודל תלת-ממדי ב-Claude Code. אפשר להיכנס אליו, להסתובב בו ולבחור זווית בעצמכם.</p>
+</div>
+
+<div class="wrap">
+  <div class="shots">
+    <img src="hadmayot-kitchen-1.jpg" alt="תמונה מתוך המודל התלת-ממדי של המטבח: קיר הכיורים והארונות העליונים">
+    <img src="hadmayot-kitchen-2.jpg" alt="תמונה נוספת מתוך המודל: קו הארונות, כיריים ומקרר">
+  </div>
+
+  <div class="card">
+    <a class="btn" href="kitchen-3d.html">כניסה למטבח התלת-ממדי</a>
+    <p class="note" style="margin:14px 0 0;text-align:center">עובד הכי טוב במחשב. הטעינה לוקחת כמה שניות.</p>
+  </div>
+
+  <div class="card">
+    <h2>מה עושים שם</h2>
+    <ul>
+      <li><strong>מסתובבים במטבח:</strong> גרירה בעכבר לסיבוב, גלגלת לזום, קליק ימני להזזה.</li>
+      <li><strong>בוחרים מבט:</strong> מהכניסה, מפינת האוכל, מבט-על ועוד.</li>
+      <li><strong>סיור אוטומטי:</strong> המודל עובר לבד בין כל המבטים.</li>
+      <li><strong>מחליפים תאורה:</strong> יום וערב.</li>
+      <li><strong>שומרים תמונה</strong> מכל זווית שתרצו.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>למה זה שונה מהדמיה רגילה</h2>
+    <p style="margin:0">בהדרכה הקודמת למדנו איך לא לאבד את החלל כשמשנים דבר אחד. כאן הרעיון הפוך: קודם בונים את החלל פעם אחת, במידות, ואז כל תמונה נלקחת ממנו. החלל לא יכול להתהפך, כי הוא לא נוצר מחדש בכל תמונה.</p>
+  </div>
+
+  <div class="card mail">
+    <h2>ועכשיו אני רוצה לשמוע מכם</h2>
+    <ul>
+      <li>איך הייתה ההדרכה הקודמת? יצאו לכם הדמיות טובות?</li>
+      <li>מה הייתם רוצים לשמוע על AI בעולם האדריכלות?</li>
+      <li>מה אתם כבר יודעים ומשתמשים בו, ומה חסר לכם?</li>
+    </ul>
+    <p style="margin:14px 0 0">שורה אחת מספיקה. <a href="mailto:tachles263@gmail.com?subject=%D7%AA%D7%92%D7%95%D7%91%D7%94%20%D7%9E%D7%94%D7%93%D7%A3%20%D7%A9%D7%9C%20%D7%94%D7%9E%D7%98%D7%91%D7%97">כתבו לי כאן</a>.</p>
+  </div>
+</div>
+</body>
+</html>
