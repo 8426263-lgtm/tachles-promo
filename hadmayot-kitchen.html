@@ -12,7 +12,7 @@
 .live-sub{margin:0 0 20px;color:var(--mute);max-width:720px}
 .live-frame{position:relative;width:100%;height:clamp(440px,72vh,700px);border-radius:22px;overflow:hidden;background:#14161a;border:1px solid var(--line);box-shadow:0 18px 50px rgba(16,23,33,.18)}
 .live-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:#14161a}
-.live-start{position:absolute;inset:0;width:100%;height:100%;border:0;padding:0;background:#14161a;cursor:pointer;color:#fff;font:inherit}
+.live-start{display:block;text-decoration:none;position:absolute;inset:0;width:100%;height:100%;border:0;padding:0;background:#14161a;cursor:pointer;color:#fff;font:inherit}
 .live-start img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.78;transition:opacity .25s,transform .4s}
 .live-start::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,23,33,.08),rgba(16,23,33,.55))}
 .live-start:hover img{opacity:.92;transform:scale(1.015)}
@@ -173,7 +173,7 @@ footer a{font-weight:600;text-underline-offset:4px}
       <h1>המודל כבר בנוי.<br>עכשיו מכינים אותו<br><em>ללקוח.</em></h1>
       <p class="intro">הפעם לקחתי תוכנית נגרות של מטבח, בניתי ממנה מודל והוספתי לו חומרים, תאורה וריהוט. התוצאה: מטבח שהלקוח יכול לפתוח בדפדפן ולהסתובב בתוכו.</p>
       <div class="hero-actions">
-        <a class="btn lime" href="#live" data-kc="cta-open-model" data-live-start="1">להסתובב במטבח <span aria-hidden="true">↓</span></a>
+        <a class="btn lime" href="https://claude.ai/artifact/GMP8meJw4BsB5qVGUGMLgS" target="_blank" rel="noopener" data-kc="cta-open-model">להסתובב במטבח <span aria-hidden="true">↗</span></a>
         <a class="text-link" href="#steps" data-kc="nav-steps">איך הכנתי אותו</a>
       </div>
       <p class="hint">גררו כדי להסתובב, או לחצו על ״סיור אוטומטי״. מומלץ לפתוח במחשב.</p>
@@ -189,17 +189,16 @@ footer a{font-weight:600;text-underline-offset:4px}
 <main>
   <section id="live" class="live-section" aria-labelledby="live-title"><div class="wrap">
     <span class="kicker"><i aria-hidden="true"></i>המודל החי</span>
-    <h2 id="live-title">הסתובבו במטבח, בלי לצאת מהדף</h2>
-    <p class="live-sub">גררו כדי להסתובב, גלגלת לזום. אפשר לבחור מבט, להחליף בין יום לערב, ולשמור תמונה מכל זווית.</p>
+    <h2 id="live-title">הסתובבו במטבח</h2>
+    <p class="live-sub">אפשר לבחור מבט, להחליף בין יום לערב, ולשמור תמונה מכל זווית.</p>
     <div class="live-frame" id="live-frame">
-      <button class="live-start" id="live-start" type="button" data-kc="model-embed-start" aria-label="הפעלת המטבח התלת-ממדי">
+      <a class="live-start" id="live-start" href="https://claude.ai/artifact/GMP8meJw4BsB5qVGUGMLgS" target="_blank" rel="noopener" data-kc="model-open-claude" aria-label="פתיחת המטבח התלת-ממדי בחלון של Claude">
         <img src="hadmayot-kitchen-1.jpg" width="1000" height="643" alt="">
         <span class="live-play"><b aria-hidden="true">▶</b> הפעלת המטבח</span>
-        <small>נטען בכמה שניות</small>
-      </button>
+        <small>נפתח בחלון של Claude</small>
+      </a>
     </div>
-    <p class="live-tools"><button type="button" id="live-full" data-kc="model-embed-fullscreen">מסך מלא</button><a href="kitchen-3d.html" target="_blank" rel="noopener" data-kc="model-open-tab">פתיחה בלשונית נפרדת ↗</a></p>
-    <p class="live-touch">בטלפון: גררו באצבע אחת בתוך המסגרת כדי להסתובב. כדי להמשיך לגלול את הדף, גללו מחוץ למסגרת.</p>
+    <p class="live-sub" style="margin:14px 0 0;font-size:14px">גררו כדי להסתובב, גלגלת לזום. המטבח נפתח בלשונית חדשה. עובד הכי טוב במחשב.</p>
   </div></section>
   <section id="model" class="proof-section" aria-labelledby="model-title"><div class="wrap proof">
     <div>
@@ -295,51 +294,6 @@ footer a{font-weight:600;text-underline-offset:4px}
 })();
 </script>
 
-<script>
-(function () {
-  var frame = document.getElementById('live-frame');
-  var start = document.getElementById('live-start');
-  var started = false;
-  function foldPanel(fr) {
-    var tries = 0;
-    var timer = setInterval(function () {
-      tries++;
-      try {
-        var d = fr.contentDocument, p = d && d.getElementById('panel'), b = d && d.getElementById('fold');
-        if (p && b) { if (p.classList.contains('off')) { clearInterval(timer); return; } b.click(); }
-      } catch (e) { clearInterval(timer); }
-      if (tries > 50) clearInterval(timer);
-    }, 400);
-  }
-  function launch() {
-    if (started || !frame) return;
-    started = true;
-    var fr = document.createElement('iframe');
-    fr.src = '/kitchen-3d.html'; /* נתיב מוחלט: בזמן אירוע ספירה הכתובת הנוכחית זמנית (/e/...) */
-    fr.title = 'מטבח תלת-ממדי אינטראקטיבי';
-    fr.setAttribute('allow', 'fullscreen');
-    fr.setAttribute('allowfullscreen', '');
-    if (start) start.remove();
-    frame.appendChild(fr);
-    if (frame.clientWidth < 700) fr.addEventListener('load', function () { foldPanel(fr); });
-  }
-  if (start) start.addEventListener('click', launch);
-  document.querySelectorAll('[data-live-start]').forEach(function (a) {
-    a.addEventListener('click', function (e) {
-      e.preventDefault();
-      var sec = document.getElementById('live');
-      if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      launch();
-    });
-  });
-  var full = document.getElementById('live-full');
-  if (full) full.addEventListener('click', function () {
-    launch();
-    var el = frame;
-    var req = el && (el.requestFullscreen || el.webkitRequestFullscreen);
-    if (req) { try { req.call(el); } catch (e) {} }
-  });
-})();
-</script>
+
 </body>
 </html>
