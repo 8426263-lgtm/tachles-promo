@@ -9761,8 +9761,12 @@ const ray = new T.Raycaster(), mouse = new T.Vector2(), tip = $('tip');
 function pick(ev) { const r = renderer.domElement.getBoundingClientRect(); mouse.set(((ev.clientX - r.left) / r.width) * 2 - 1, -((ev.clientY - r.top) / r.height) * 2 + 1); ray.setFromCamera(mouse, cam);
   const hit = ray.intersectObjects(pickable.filter(m => m.visible), true)[0]; if (!hit) return null;
   let o = hit.object; while (o && !(o.userData && o.userData.b)) o = o.parent; return o; }
-renderer.domElement.addEventListener('click', ev => { const o = pick(ev), chip = $('chip');
+/* לחיצה אמיתית בלבד: אחרי גרירה (סיבוב) לא מציגים מידות ולא סופרים לחיצה על רכיב */
+let downAt = null;
+renderer.domElement.addEventListener('pointerdown', ev => { downAt = [ev.clientX, ev.clientY]; });
+renderer.domElement.addEventListener('click', ev => { if (downAt && Math.hypot(ev.clientX - downAt[0], ev.clientY - downAt[1]) > 6) return; const o = pick(ev), chip = $('chip');
   if (!o) { chip.style.display = 'none'; return; } const b = o.userData.b, [x0, x1, y0, y1, z0, z1] = b.b, sideways = b.face === 'x';
+  if (window.kcEvent) window.kcEvent('component-info');   // ספירה: לחיצה על רכיב לראות מידות
   chip.innerHTML = '<b>' + b.name + '</b><br>' + 'רוחב ' + Math.round(Math.max(x1 - x0, z1 - z0)) + ' · עומק ' + Math.round(Math.min(x1 - x0, z1 - z0)) + ' · גובה ' + Math.round(y1 - y0) + ' ס״מ · ' + (b.status === 'ok' ? 'מידה מהתוכנית' : 'הנחה') + '<br><span style="color:var(--dim)">' + b.src + '</span>'; chip.style.display = 'block'; });
 renderer.domElement.addEventListener('mousemove', ev => { if (ev.buttons) { tip.style.display = 'none'; return; } const o = pick(ev); if (o) { tip.style.display = 'block'; tip.textContent = o.userData.b.name; tip.style.left = (ev.clientX + 14) + 'px'; tip.style.top = (ev.clientY + 14) + 'px'; } else tip.style.display = 'none'; });
 
@@ -9898,6 +9902,9 @@ window.startTour = startTour; window.stopTour = stopTour;
         if (b.dataset.q) return ev('quality-' + b.dataset.q);
         if (b.dataset.p) return ev('pathtrace-' + b.dataset.p);
       }
+      /* כל אפשרות ב"הצג" נספרת בנפרד: layer-<מספר>-on/off לפי הסדר בתפריט */
+      var tl = b.closest ? b.closest('#toggles label') : null;
+      if (tl) { var ti = Array.prototype.indexOf.call(document.getElementById('toggles').children, tl) + 1; return ev('layer-' + ti + (b.checked ? '-on' : '-off')); }
       if (p && p.closest && p.closest('#toggles')) return ev('layer-toggle');
     }, true);
   }
