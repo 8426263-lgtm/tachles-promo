@@ -35,6 +35,14 @@
 .tile span{position:absolute;inset-inline-start:12px;bottom:12px;background:rgba(16,23,33,.82);color:#fff;padding:5px 13px;border-radius:99px;font-size:13px;font-weight:700}
 .tile.eve span{background:var(--lime);color:var(--ink)}
 .proof-cap{margin:14px 0 0!important;font-size:14px!important}
+.plans-section{padding:0 0 52px}
+.plans{display:grid;grid-template-columns:minmax(0,1.76fr) minmax(0,1fr);gap:14px;align-items:start}
+.plan{margin:0;display:flex;flex-direction:column;gap:8px;min-width:0}
+.plan-wide{grid-column:1/-1}
+.plan button{display:block;width:100%;padding:0;border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden;cursor:zoom-in}
+.plan img{display:block;width:100%;height:auto}
+.plan figcaption{font-size:13.5px;font-weight:700;color:var(--mute)}
+@media(max-width:560px){.plans{grid-template-columns:1fr}}
 @media(max-width:560px){.proof-gallery{grid-template-columns:1fr}}
 </style>
 <script>
@@ -180,8 +188,8 @@ footer a{font-weight:600;text-underline-offset:4px}
     </div>
     <div class="collage" aria-label="שני צילומים ישירות מתוך מודל המטבח">
       <span class="capture-badge">צולם ישירות מתוך המודל</span>
-      <button class="photo primary" type="button" data-zoom="hadmayot-kitchen-1.jpg" aria-label="הגדלת הצילום של קיר הכיורים"><img src="hadmayot-kitchen-1.jpg" width="1000" height="643" alt="צילום ישיר מתוך המודל: קיר הכיורים והארונות העליונים"></button>
-      <button class="photo secondary" type="button" data-zoom="hadmayot-kitchen-2.jpg" aria-label="הגדלת הצילום לכיוון המקרר"><img src="hadmayot-kitchen-2.jpg" width="1000" height="643" alt="צילום מזווית נוספת של אותו מודל: הכיורים והמקרר"></button>
+      <button class="photo primary" type="button" data-zoom="hadmayot-kitchen-window.jpg" aria-label="הגדלת הצילום מבעד לחלון"><img src="hadmayot-kitchen-window.jpg" width="1000" height="643" alt="צילום ישיר מתוך המודל: מבט מבחוץ, מבעד לחלון, אל הכיורים והתנורים"></button>
+      <button class="photo secondary" type="button" data-zoom="hadmayot-kitchen-room.jpg" aria-label="הגדלת הצילום מהסלון"><img src="hadmayot-kitchen-room.jpg" width="1000" height="643" alt="צילום מזווית נוספת של אותו מודל: מהסלון אל הבר והכיורים"></button>
       <span class="image-caption">כמה מבטים.<br>אותו מטבח.</span>
     </div>
   </div>
@@ -193,7 +201,7 @@ footer a{font-weight:600;text-underline-offset:4px}
     <p class="live-sub">גררו כדי להסתובב, גלגלת לזום. אפשר לבחור מבט, להחליף בין יום לערב, ולשמור תמונה מכל זווית.</p>
     <div class="live-frame" id="live-frame">
       <button class="live-start" id="live-start" type="button" data-kc="model-embed-start" aria-label="הפעלת המטבח התלת-ממדי">
-        <img src="hadmayot-kitchen-1.jpg" width="1000" height="643" alt="">
+        <img src="hadmayot-kitchen-window.jpg" width="1000" height="643" alt="">
         <span class="live-play"><b aria-hidden="true">▶</b> הפעלת המטבח</span>
         <small>נטען בכמה שניות</small>
       </button>
@@ -208,8 +216,21 @@ footer a{font-weight:600;text-underline-offset:4px}
       <p>בחרתי מבט ושמרתי תמונה. התמונות לא עברו בכלי יצירת תמונות — כל מה שרואים כאן נמצא במודל עצמו.</p>
     </div>
     <div class="proof-note"><strong>בוחרים עוד זווית. מצלמים שוב.</strong><span>אפשר גם לשלוח ללקוח את המודל, כדי שיסתכל בעצמו.</span></div>
-    <div class="proof-wide"><div class="proof-gallery" aria-label="צילומים מתוך המודל: אותו מבט ביום ובערב"><button class="tile" type="button" data-zoom="hadmayot-kitchen-1.jpg" aria-label="הגדלת צילום: מהכניסה · יום"><img src="hadmayot-kitchen-1.jpg" width="1000" height="643" loading="lazy" alt="צילום מתוך המודל, מהכניסה, בתאורת יום"><span>מהכניסה · יום</span></button><button class="tile eve" type="button" data-zoom="hadmayot-kitchen-1-evening.jpg" aria-label="הגדלת צילום: מהכניסה · ערב"><img src="hadmayot-kitchen-1-evening.jpg" width="1000" height="643" loading="lazy" alt="אותו מבט מהכניסה בתאורת ערב, עם ספוטים דולקים"><span>מהכניסה · ערב</span></button><button class="tile" type="button" data-zoom="hadmayot-kitchen-2.jpg" aria-label="הגדלת צילום: לכיוון המקרר · יום"><img src="hadmayot-kitchen-2.jpg" width="1000" height="643" loading="lazy" alt="צילום מתוך המודל, לכיוון המקרר, בתאורת יום"><span>לכיוון המקרר · יום</span></button><button class="tile eve" type="button" data-zoom="hadmayot-kitchen-2-evening.jpg" aria-label="הגדלת צילום: לכיוון המקרר · ערב"><img src="hadmayot-kitchen-2-evening.jpg" width="1000" height="643" loading="lazy" alt="אותו מבט לכיוון המקרר בתאורת ערב"><span>לכיוון המקרר · ערב</span></button></div>
+    <div class="proof-wide"><div class="proof-gallery" aria-label="צילומים מתוך המודל: אותו מבט ביום ובערב"><button class="tile" type="button" data-zoom="hadmayot-kitchen-window.jpg" aria-label="הגדלת צילום: מבעד לחלון · יום"><img src="hadmayot-kitchen-window.jpg" width="1000" height="643" loading="lazy" alt="צילום מתוך המודל, מבחוץ מבעד לחלון, בתאורת יום"><span>מבעד לחלון · יום</span></button><button class="tile eve" type="button" data-zoom="hadmayot-kitchen-window-evening.jpg" aria-label="הגדלת צילום: מבעד לחלון · ערב"><img src="hadmayot-kitchen-window-evening.jpg" width="1000" height="643" loading="lazy" alt="אותו מבט מבעד לחלון בתאורת ערב, עם ספוטים ולד דולקים"><span>מבעד לחלון · ערב</span></button><button class="tile" type="button" data-zoom="hadmayot-kitchen-room.jpg" aria-label="הגדלת צילום: מהסלון · יום"><img src="hadmayot-kitchen-room.jpg" width="1000" height="643" loading="lazy" alt="צילום מתוך המודל, מהסלון אל הבר והכיורים, בתאורת יום"><span>מהסלון · יום</span></button><button class="tile eve" type="button" data-zoom="hadmayot-kitchen-room-evening.jpg" aria-label="הגדלת צילום: מהסלון · ערב"><img src="hadmayot-kitchen-room-evening.jpg" width="1000" height="643" loading="lazy" alt="אותו מבט מהסלון בתאורת ערב, עם המנורות מעל הבר"><span>מהסלון · ערב</span></button></div>
     <p class="proof-cap">אותו מבט, שתי תאורות. הכול נשמר מתוך המודל.</p></div>
+  </div></section>
+
+  <section id="plans" class="plans-section" aria-labelledby="plans-title"><div class="wrap">
+    <div class="section-head">
+      <span class="kicker">נקודת ההתחלה</span>
+      <h2 id="plans-title">התוכניות שצירפתי ל־<bdi>Claude</bdi></h2>
+      <p>אלה התוכניות הבסיסיות שצירפתי ל־<bdi>Claude</bdi>: מבט על ופריסות של קירות המטבח, יחד עם מפרט החומרים. מהן נבנה המודל, עם המידות שכתובות בתוכנית. כאן מבט העל ושתיים מהפריסות.</p>
+    </div>
+    <div class="plans">
+      <figure class="plan plan-wide"><button type="button" data-zoom="hadmayot-plan-top.jpg" data-kc="plan-top" aria-label="הגדלת התוכנית: מבט על"><img src="hadmayot-plan-top.jpg" width="1800" height="1182" loading="lazy" alt="תוכנית המטבח במבט על, עם מידות"></button><figcaption>מבט על</figcaption></figure>
+      <figure class="plan"><button type="button" data-zoom="hadmayot-plan-sinks.jpg" data-kc="plan-sinks" aria-label="הגדלת התוכנית: פריסת קיר הכיורים"><img src="hadmayot-plan-sinks.jpg" width="1800" height="1093" loading="lazy" alt="פריסה של קיר הכיורים: ארונות תחתונים, עליונים וחיפוי שיש"></button><figcaption>פריסה 2 · קיר הכיורים</figcaption></figure>
+      <figure class="plan"><button type="button" data-zoom="hadmayot-plan-ovens.jpg" data-kc="plan-ovens" aria-label="הגדלת התוכנית: פריסת קיר התנורים"><img src="hadmayot-plan-ovens.jpg" width="1153" height="1233" loading="lazy" alt="פריסה של קיר התנורים והמקרר"></button><figcaption>פריסה 1 · תנורים ומקרר</figcaption></figure>
+    </div>
   </div></section>
 
   <section id="steps" class="steps-section" aria-labelledby="steps-title"><div class="wrap">
@@ -263,7 +284,7 @@ footer a{font-weight:600;text-underline-offset:4px}
   </div></section>
 </main>
 <footer><div class="wrap"><p>מכירים קולגות שהתוכן יכול לעזור להם? אפשר להעביר להם את <a href="hadmayot.html" data-kc="share-signup">הקישור להרשמה ולהדרכה הקודמת</a>.</p><span>משה דייטש · מבית תכל׳ס</span></div></footer>
-<dialog class="image-dialog" id="image-dialog" aria-label="צילום מתוך מודל המטבח בהגדלה"><button class="close-dialog" type="button" aria-label="סגירת התמונה">×</button><img src="hadmayot-kitchen-1.jpg" alt="צילום מתוך מודל המטבח"></dialog>
+<dialog class="image-dialog" id="image-dialog" aria-label="צילום מתוך מודל המטבח בהגדלה"><button class="close-dialog" type="button" aria-label="סגירת התמונה">×</button><img src="hadmayot-kitchen-window.jpg" alt="צילום מתוך מודל המטבח"></dialog>
 <script>
 (function () {
   var button = document.querySelector('.copy');
