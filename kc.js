@@ -16,12 +16,13 @@
   function ev(name) {
     try {
       var now = Date.now();
-      if (last[name] && now - last[name] < 800) return;
+      if (last[name] && now - last[name] < 800) return false;
       last[name] = now;
       var orig = realUrl();
       history.pushState(null, '', prefix + '/' + name);
       setTimeout(function () { try { history.replaceState(null, '', real); } catch (x) {} }, 400);
-    } catch (x) {}
+      return true;
+    } catch (x) { return false; }
   }
   window.kcEvent = ev;
 
@@ -50,7 +51,19 @@
     /* חשוב: קישור יחסי מתפרש מול כתובת הדף ברגע הניווט. אם נשנה את הכתובת (pushState) לפני כן,
        הקישור יוביל לנתיב שבור. לכן הופכים אותו לכתובת מלאה לפני הדיווח. */
     if (t.tagName === 'A') { try { t.href = t.href; } catch (x) {} }
-    ev(t.getAttribute('data-kc'));
+    /* קישור שעוזב את הדף באותה לשונית: ה-pushState משאיר "כתובת רפאים" /e/... בהיסטוריה, וכפתור "חזור" מנחית עליה
+       (ושם מוצג דף הבית בלי שום הסבר). לכן מדווחים, חוזרים צעד אחד אחורה (הכתובת הוירטואלית נזרקת), ורק אז עוברים. */
+    var leaves = t.tagName === 'A' && e.button === 0 && !e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey &&
+      (!t.target || t.target === '_self') && !t.hasAttribute('download') && /^https?:$/.test(t.protocol) &&
+      t.href.split('#')[0] !== (location.origin + realUrl()).split('#')[0];
+    var pushed = ev(t.getAttribute('data-kc'));
+    if (!leaves || !pushed) return;
+    e.preventDefault();
+    var dest = t.href, gone = false;
+    function go() { if (gone) return; gone = true; window.removeEventListener('popstate', go); location.href = dest; }
+    window.addEventListener('popstate', go);
+    setTimeout(function () { try { history.back(); } catch (x) { go(); } }, 150);
+    setTimeout(go, 700);
   }, true);
 
   /* מציג המטבח התלת-ממדי: כל כפתור בפאנל */
