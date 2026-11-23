@@ -9550,7 +9550,7 @@ async function placeModel(id, o) {
       placeModel('lemon', { x: 345, y: TOP, z: 40, h: 6, rz: Math.PI / 2, name: 'לימון' }),
       placeModel('lemon', { x: 351, y: TOP, z: 44, h: 6, rz: Math.PI / 2, ry: 1, name: 'לימון' }),
     ]);
-    markRefl(); applyVis(); window.__decorReady = true;
+    markRefl(); if (typeof buildUnits === 'function') buildUnits(); applyVis(); window.__decorReady = true;
   } catch (e) { console.error('decor failed', e); window.__decorError = String(e); }
 })();
 
@@ -9624,7 +9624,7 @@ function setQuality(q) {
 }
 
 /* ---------- תצוגה ---------- */
-const state = { ceil: true, upper: true, furn: true, decor: true, walls: true };
+const state = { ceil: true, upper: true, furn: true, decor: true, walls: true, autohide: true };
 function currentWallsMode() { return !state.walls ? 'none' : state.ceil ? 'full' : 'open'; }
 function syncWallsUI() {
   const m = currentWallsMode(); document.querySelectorAll('#walls button').forEach(bt => bt.classList.toggle('on', bt.dataset.w === m));
@@ -9635,11 +9635,64 @@ function setWalls(v) {
   if (m === 'full') state.ceil = true; if (m === 'open') state.ceil = false;
   syncWallsUI(); applyVis();
 }
+/* ---------- קיר שמסתיר נעלם לבד ----------
+   בכל פריים בודקים קרניים מנקודת המבט (היעד של המצלמה) אל המצלמה. כל קיר, תקרה, רצפה, חיפוי או עמוד
+   שהקרן נכנסת אליו בדרך מוסתר, וחוזר כשהוא כבר לא מסתיר. מספיק להתרחק אחורה והקיר שמאחור פשוט נעלם.
+   אלמנט שהיעד עצמו נמצא בתוכו או על פניו (למשל חיפוי הקיר שמסתכלים עליו) לא נחשב חוסם. */
+const OCC = [...(groups.shell || []), ceil, floor, ...(groups.clad || [])].map(m => {
+  m.geometry.computeBoundingBox(); m.userData.box = m.geometry.boundingBox.clone().translate(m.position); m.userData.boxX = m.userData.box.clone().expandByScalar(3); m.userData.baseVis = true; return m;
+});
+function rayEnter(o, d, box, maxT) {   // בדיקת קרן מול קופסה מיושרת לצירים: מחזירה את מרחק הכניסה, או null
+  let t0 = -Infinity, t1 = Infinity;
+  for (const k of ['x', 'y', 'z']) {
+    const lo = box.min[k], hi = box.max[k], ok = o[k], dk = d[k];
+    if (Math.abs(dk) < 1e-9) { if (ok < lo || ok > hi) return null; continue; }
+    const a = (lo - ok) / dk, b = (hi - ok) / dk; t0 = Math.max(t0, Math.min(a, b)); t1 = Math.min(t1, Math.max(a, b)); if (t0 > t1) return null;
+  }
+  return t0 > 0.5 && t0 < maxT ? t0 : null;
+}
+/* גושי ארונות: כשגוש עומד בין המצלמה לנקודת המבט (למשל כשמתרחקים אחורה דרך עמודת התנורים) הוא נעלם כולו,
+   כולל ידיות, מכשירים ואביזרים שעליו. ההסתרה בשכבה נפרדת (layers), כך שהבחירה "הצג" בתפריט לא נפגעת */
+const UNITS = [
+  { name: 'עמודת התנורים', box: [460, 530, 0, 262, 0, 285], member: c => c.x > 455 && c.z > -1 && c.z < 286 },
+  { name: 'ריצת הכיורים', box: [0, 460, 0, 90, 0, 60], member: c => c.z < 62 && c.x > -1 && c.x < 461 && c.y < 132 },
+  { name: 'עליונים', box: [35, 425, 139, 262, 0, 30], member: c => c.z < 32 && c.x > 30 && c.x < 430 && c.y > 135 },
+  { name: 'ריצת החלון', box: [0, 60, 0, 90, 60, 285], member: c => c.x > -1 && c.x < 62 && c.z > 58 && c.z < 286 && c.y < 132 },
+  { name: 'מזווה', box: [265, 305, 0, 262, 225, 295], member: c => c.x > 264 && c.x < 309 && c.z > 224 && c.z < 296 },
+].map(u => { const b3 = new T.Box3(new T.Vector3(u.box[0], u.box[2], u.box[4]), new T.Vector3(u.box[1], u.box[3], u.box[5])); return { ...u, b3, b3x: b3.clone().expandByScalar(3), objs: [], hidden: false }; });
+function buildUnits() {
+  UNITS.forEach(u => { if (u.hidden) u.objs.forEach(o => o.traverse(m => m.layers.set(0))); u.objs = []; u.hidden = false; });
+  const skip = new Set([...OCC, sky, ...winParts]), bx = new T.Box3(), c = new T.Vector3();
+  scene.children.forEach(ch => {
+    if (skip.has(ch) || ch.isLight || ch.isCamera) return;
+    bx.setFromObject(ch); if (bx.isEmpty()) return; bx.getCenter(c);
+    const u = UNITS.find(u => u.member(c)); if (u) u.objs.push(ch);
+  });
+}
+const _o = new T.Vector3(), _d = new T.Vector3(), _r = new T.Vector3(), _u = new T.Vector3();
+function occlusion() {
+  const blocked = new Set(), rays = [];
+  if (state.autohide) {
+    _r.setFromMatrixColumn(cam.matrixWorld, 0); _u.setFromMatrixColumn(cam.matrixWorld, 1);
+    [[0, 0], [1, 0], [-1, 0], [0, 1], [0, -1]].forEach(([a, b]) => {
+      const o = ctl.target.clone().addScaledVector(_r, a * 30).addScaledVector(_u, b * 20), d = new T.Vector3().subVectors(cam.position, o), dist = d.length();
+      if (dist >= 1) rays.push([o, d.divideScalar(dist), dist + 0.5]);
+    });
+    /* מה שנקודת המבט נוגעת בו (הקיר או הארון שמסתכלים עליו) לעולם לא נחשב חוסם */
+    rays.forEach(([o, d, max]) => OCC.forEach(m => { if (!blocked.has(m) && !m.userData.boxX.containsPoint(ctl.target) && rayEnter(o, d, m.userData.box, max) !== null) blocked.add(m); }));
+  }
+  OCC.forEach(m => { m.visible = m.userData.baseVis && !blocked.has(m); });
+  UNITS.forEach(u => {
+    const hit = !u.b3x.containsPoint(ctl.target) && rays.some(([o, d, max]) => rayEnter(o, d, u.b3, max) !== null);
+    if (hit !== u.hidden) { u.hidden = hit; u.objs.forEach(o => o.traverse(m => m.layers.set(hit ? 1 : 0))); }
+  });
+  const ceilShown = ceil.visible; discs.forEach(d => d.visible = ceilShown); pendants.forEach(p => p.visible = ceilShown && state.decor);
+}
 function applyVis() {
-  (groups.shell || []).forEach(m => m.visible = state.walls);
+  (groups.shell || []).forEach(m => m.userData.baseVis = state.walls);
   winParts.forEach(m => m.visible = state.walls); sky.visible = state.walls;
-  const ceilOn = state.walls && state.ceil; ceil.visible = ceilOn;
-  discs.forEach(d => d.visible = ceilOn); pendants.forEach(p => p.visible = ceilOn && state.decor);
+  const ceilOn = state.walls && state.ceil; ceil.userData.baseVis = ceilOn;
+  occlusion();
   (groups.upper || []).forEach(m => m.visible = state.upper); ledLight.visible = state.upper;
   (groups.furn || []).forEach(m => m.visible = state.furn);
   extras.forEach(m => m.visible = state.decor); decorObjs.forEach(m => m.visible = state.decor);
@@ -9648,7 +9701,7 @@ function applyVis() {
   ptDirty();
 }
 const inputs = {};
-const TOGGLES = [['ceil', 'תקרה'], ['upper', 'ארונות עליונים'], ['furn', 'כיסאות בר'], ['decor', 'אביזרי נוי ומנורות תלויות']];
+const TOGGLES = [['autohide', 'קיר שמסתיר נעלם לבד'], ['ceil', 'תקרה'], ['upper', 'ארונות עליונים'], ['furn', 'כיסאות בר'], ['decor', 'אביזרי נוי ומנורות תלויות']];
 TOGGLES.forEach(([id, label]) => { const l = document.createElement('label'); l.className = 'tg'; l.innerHTML = '<input type="checkbox"> ' + label; const inp = l.firstChild; inp.checked = state[id]; inputs[id] = inp;
   inp.addEventListener('change', e => { state[id] = e.target.checked; applyVis(); syncWallsUI(); }); $('toggles').appendChild(l); });
 document.querySelectorAll('#walls button').forEach(b => b.onclick = () => setWalls(b.dataset.w));
@@ -9658,14 +9711,14 @@ document.querySelectorAll('#walls button').forEach(b => b.onclick = () => setWal
 const VIEWS = [
   ['מבעד לחלון', [-205, 190, 255], [140, 150, 95], 42, true, 0],
   ['מהסלון אל המטבח', [55, 155, 490], [310, 112, 40], 54, true, 0],
-  ['קיר הכיורים', [245, 155, 250], [245, 140, 0], 56, true, 0],
+  ['קיר הכיורים', [228, 155, 255], [240, 140, 0], 56, true, 0],
   ['קיר החלון והכיריים', [400, 155, 165], [0, 140, 150], 54, true, 0],
   ['קיר התנורים והמקרר', [110, 155, 160], [530, 140, 150], 54, true, 0],
   ['מקרוב: כיריים וחלון', [165, 150, 215], [10, 112, 165], 56, true, 0],
   ['פינת החלון', [420, 155, 40], [0, 125, 240], 56, true, 0],
-  ['המזווה והבר', [445, 155, 165], [250, 115, 285], 56, true, 0],
+  ['המזווה והבר', [445, 155, 165], [298, 118, 262], 56, true, 0],
   ['מבט על', [265, 820, 176], [265, 0, 175], 45, false],
-  ['פרספקטיבה', [-180, 470, 780], [285, 80, 150], 42, false],
+  ['פרספקטיבה', [-180, 470, 780], [250, 80, 150], 42, false],
 ];
 let tween = null, tour = null;
 function goCam(i, instant, dur) {
@@ -9744,10 +9797,10 @@ function resize() {
 addEventListener('resize', resize);
 
 /* ---------- הפעלה ---------- */
-markRefl(); setWalls(true); applyLight('day'); setQuality(/q=fast/.test(location.search) ? 'fast' : 'high'); goCam(0, true);
+buildUnits(); markRefl(); setWalls(true); applyLight('day'); setQuality(/q=fast/.test(location.search) ? 'fast' : 'high'); goCam(0, true);
 const st = $('status');
 (function loop(now) {
-  ctl.update(); tweenStep(now); tourStep(now);
+  ctl.update(); tweenStep(now); tourStep(now); cam.updateMatrixWorld(); occlusion();
   if (quality === 'cinema' && pt) {
     if (pt.samples >= PT_MAX) pt.pausePathTracing = true;
     pt.renderSample(); const n = Math.floor(pt.samples); st.textContent = n >= PT_MAX ? 'הושלם' : 'מחשב אור… ' + Math.round(n / PT_MAX * 100) + '%';
@@ -9755,7 +9808,7 @@ const st = $('status');
   requestAnimationFrame(loop);
 })(performance.now());
 setTimeout(() => $('loading').classList.add('gone'), 600);
-window.__c = { cam, ctl, scene }; window.setWalls = setWalls; window.__ready = true; window.go = i => goCam(i, true); window.setQuality = setQuality; window.applyLight = applyLight;
+window.__c = { cam, ctl, scene, units: UNITS }; window.setWalls = setWalls; window.__ready = true; window.go = i => goCam(i, true); window.setQuality = setQuality; window.applyLight = applyLight;
 window.startTour = startTour; window.stopTour = stopTour;
 
 </script>
