@@ -239,6 +239,25 @@
     const THANKS_URL  = 'hadmayot-thanks.html';
     const BTN_LABEL   = 'שלחו לי את ההדרכה';
 
+    // ===== מאיפה הגיע הליד: UTM מהקישור + האתר המפנה. נקבע בטעינת הדף (לפני כל ניווט) =====
+    // לא חוסם הרשמה לעולם: כל כשל = ערכים ריקים. וואטסאפ/מייל לרוב לא מעבירים מפנה = "ישיר".
+    const LEAD_ORIGIN = (() => {
+        const out = { utm: {}, custom: {} };
+        try {
+            const q = new URLSearchParams(window.location.search);
+            const cut = s => (s || '').slice(0, 120);
+            const orNull = s => cut(s) || null; // ריק = null (ה-API שומר ?? null, לא מנקה מחרוזת ריקה)
+            out.utm = { utmSource: orNull(q.get('utm_source')), utmMedium: orNull(q.get('utm_medium')), utmCampaign: orNull(q.get('utm_campaign')) };
+            let ref = '';
+            try { ref = document.referrer ? new URL(document.referrer).hostname : ''; } catch { ref = ''; }
+            out.custom.referrer = cut(ref);                            // האתר שממנו לחצו (ריק = ישיר/וואטסאפ/מייל)
+            out.custom.referrerSelf = !!ref && ref === window.location.hostname; // הגיע מדף אחר באתר שלנו
+            out.custom.cameWithEmail = !!q.get('e');                   // קישור אישי מהמייל (?e=)
+            out.custom.landingPath = cut(window.location.pathname);
+        } catch { /* ממשיכים בלי */ }
+        return out;
+    })();
+
     const form = document.getElementById('lead-form');
     form.addEventListener('submit', async e => {
         e.preventDefault();
@@ -277,6 +296,8 @@
                     phone:        document.getElementById('f-phone').value.trim(),
                     recaptchaToken: token,
                     source:       LEAD_SOURCE,
+                    ...LEAD_ORIGIN.utm,
+                    customFields: LEAD_ORIGIN.custom,
                     consentGiven: true, // ההסכמה היא הלחיצה על הכפתור, והטקסט מוצג ממש מתחתיו
                     consentText:  'בלחיצה על הכפתור אני מאשר/ת לקבל מתכל׳ס מדי פעם עדכונים והצעות. אפשר להסיר את עצמכם בכל רגע, בלחיצה אחת.',
                 }),
